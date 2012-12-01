@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  UploadViewController.h
 //  SSPI
 //
 //  Created by Den on 01/12/2012.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface UploadViewController : UIViewController
 
 @end

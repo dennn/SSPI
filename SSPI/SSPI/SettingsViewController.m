@@ -1,25 +1,25 @@
 //
-//  FirstViewController.m
+//  SecondViewController.m
 //  SSPI
 //
 //  Created by Den on 01/12/2012.
 //  Copyright (c) 2012 COOMKO. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "SettingsViewController.h"
 
-@interface FirstViewController ()
+@interface SettingsViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation SettingsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"First", @"First");
-        self.tabBarItem.image = [UIImage imageNamed:@"first"];
+        self.title = NSLocalizedString(@"Settings", @"Settings");
+        self.tabBarItem.image = [UIImage imageNamed:@"second"];
     }
     return self;
 }

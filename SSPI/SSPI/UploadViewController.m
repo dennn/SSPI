@@ -1,33 +1,33 @@
 //
-//  SecondViewController.m
+//  UploadViewController.m
 //  SSPI
 //
 //  Created by Den on 01/12/2012.
 //  Copyright (c) 2012 COOMKO. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "UploadViewController.h"
 
-@interface SecondViewController ()
+@interface UploadViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation UploadViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Second", @"Second");
-        self.tabBarItem.image = [UIImage imageNamed:@"second"];
+        // Custom initialization
+        self.title = NSLocalizedString(@"Upload", @"Upload");
     }
     return self;
 }
-							
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning
