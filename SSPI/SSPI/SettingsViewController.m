@@ -8,6 +8,8 @@
 
 #import "SettingsViewController.h"
 
+#import "ServerViewController.h"
+
 @interface SettingsViewController ()
 
 @end
@@ -48,7 +50,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -66,6 +68,10 @@
             break;
             
         case 2:
+            return 1;
+            break;
+            
+        case 3:
             return 2;
             break;
             
@@ -83,11 +89,17 @@
     {
         case 0:
         {
-            return @"Server";
+            return @"Active Servers";
             break;
         }
             
-        case 2:
+        case 1:
+        {
+            return @"Inactive Servers";
+            break;
+        }
+            
+        case 3:
         {
             return @"Branding";
             break;
@@ -115,21 +127,32 @@
         case 0:
         {
             cell.textLabel.text = @"";
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             break;
         }
+            
         case 1:
         {
-            cell.textLabel.text = @"Add Server";
+            cell.textLabel.text = @"";
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            break;
+        }
+            
+        case 2:
+        {
+            cell.textLabel.text = @"Add new server";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }
            
             
-        case 2:
+        case 3:
         {
             switch (indexPath.row)
             {
                 case 0:
                     cell.textLabel.text = @"UoB";
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                     
                 case 1:
@@ -148,13 +171,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
+            [self.navigationController pushViewController:serverViewController animated:YES];
+            break;
+        }
+            
+        case 1:
+        {
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
+            [self.navigationController pushViewController:serverViewController animated:YES];
+            break;
+        }
+            
+        case 2:
+        {
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
+            [self.navigationController pushViewController:serverViewController animated:YES];
+            break;
+        }
+            
+        default:
+        {
+            return;
+        }
+    }
 }
 
 @end

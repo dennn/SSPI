@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B7660C91166B7CC3005BC8E6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7660C8F166B7CC3005BC8E6 /* SettingsViewController.m */; };
+		B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */; };
 		B7660C92166B7CC3005BC8E6 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */; };
 		B7660C95166B8BE8005BC8E6 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C93166B8BE8005BC8E6 /* map.png */; };
 		B7660C96166B8BE8005BC8E6 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C94166B8BE8005BC8E6 /* map@2x.png */; };
@@ -15,6 +15,9 @@
 		B7660C9A166B8C4E005BC8E6 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C98166B8C4E005BC8E6 /* settings@2x.png */; };
 		B7660C9D166B8D06005BC8E6 /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C9B166B8D06005BC8E6 /* upload.png */; };
 		B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C9C166B8D06005BC8E6 /* upload@2x.png */; };
+		B7660CF5166BADF8005BC8E6 /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7660CF3166BADF8005BC8E6 /* ServerViewController.m */; };
+		B7660CF6166BADF8005BC8E6 /* ServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */; };
+		B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */; };
 		B7860927166A75A3005117A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860926166A75A3005117A2 /* UIKit.framework */; };
 		B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860928166A75A3005117A2 /* Foundation.framework */; };
 		B786092B166A75A3005117A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786092A166A75A3005117A2 /* CoreGraphics.framework */; };
@@ -32,15 +35,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B7660C8E166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
-		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
-		B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = ../SettingsViewController.xib; sourceTree = "<group>"; };
+		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		B7660C93166B8BE8005BC8E6 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		B7660C94166B8BE8005BC8E6 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
 		B7660C97166B8C4E005BC8E6 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		B7660C98166B8C4E005BC8E6 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		B7660C9B166B8D06005BC8E6 /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.png; sourceTree = "<group>"; };
 		B7660C9C166B8D06005BC8E6 /* upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload@2x.png"; sourceTree = "<group>"; };
+		B7660CF2166BADF8005BC8E6 /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
+		B7660CF3166BADF8005BC8E6 /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
+		B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerViewController.xib; sourceTree = "<group>"; };
+		B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		B7860922166A75A3005117A2 /* SSPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7860926166A75A3005117A2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B7860928166A75A3005117A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -165,6 +171,7 @@
 		B786095A166A787F005117A2 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */,
 				B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */,
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
 				B7860960166A7B31005117A2 /* UploadViewController.xib */,
@@ -175,10 +182,12 @@
 		B786095B166A7894005117A2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
+				B7660CF3166BADF8005BC8E6 /* ServerViewController.m */,
 				B786093E166A75A3005117A2 /* MapViewController.h */,
 				B786093F166A75A3005117A2 /* MapViewController.m */,
-				B7660C8E166B7CC3005BC8E6 /* SettingsViewController.h */,
-				B7660C8F166B7CC3005BC8E6 /* SettingsViewController.m */,
+				B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */,
+				B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */,
 				B786095E166A7B31005117A2 /* UploadViewController.h */,
 				B786095F166A7B31005117A2 /* UploadViewController.m */,
 			);
@@ -249,6 +258,7 @@
 				B7660C9A166B8C4E005BC8E6 /* settings@2x.png in Resources */,
 				B7660C9D166B8D06005BC8E6 /* upload.png in Resources */,
 				B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */,
+				B7660CF6166BADF8005BC8E6 /* ServerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +273,9 @@
 				B7860937166A75A3005117A2 /* AppDelegate.m in Sources */,
 				B7860940166A75A3005117A2 /* MapViewController.m in Sources */,
 				B7860961166A7B31005117A2 /* UploadViewController.m in Sources */,
-				B7660C91166B7CC3005BC8E6 /* SettingsViewController.m in Sources */,
+				B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */,
+				B7660CF5166BADF8005BC8E6 /* ServerViewController.m in Sources */,
+				B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

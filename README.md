@@ -4,10 +4,12 @@ SSPI
 *External Dependencies*
 
 * Retina display icon set: http://blog.twg.ca/2010/11/retina-display-icon-set/
+* RestKit: http://paradigmx.net/blog/2012/01/31/introducing-restkit/ & http://restkit.org/
+* FormKit: https://github.com/brunow/FormKit.m
 
 **Milestones**
 
-*Alpha (10th December 2012)*
+# Alpha (10th December 2012)
 
 * Tab bar set-up
 * Map added
