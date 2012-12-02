@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7660C91166B7CC3005BC8E6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7660C8F166B7CC3005BC8E6 /* SettingsViewController.m */; };
+		B7660C92166B7CC3005BC8E6 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */; };
+		B7660C95166B8BE8005BC8E6 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C93166B8BE8005BC8E6 /* map.png */; };
+		B7660C96166B8BE8005BC8E6 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C94166B8BE8005BC8E6 /* map@2x.png */; };
+		B7660C99166B8C4E005BC8E6 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C97166B8C4E005BC8E6 /* settings.png */; };
+		B7660C9A166B8C4E005BC8E6 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C98166B8C4E005BC8E6 /* settings@2x.png */; };
+		B7660C9D166B8D06005BC8E6 /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C9B166B8D06005BC8E6 /* upload.png */; };
+		B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7660C9C166B8D06005BC8E6 /* upload@2x.png */; };
 		B7860927166A75A3005117A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860926166A75A3005117A2 /* UIKit.framework */; };
 		B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860928166A75A3005117A2 /* Foundation.framework */; };
 		B786092B166A75A3005117A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786092A166A75A3005117A2 /* CoreGraphics.framework */; };
@@ -17,19 +25,22 @@
 		B786093B166A75A3005117A2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B786093A166A75A3005117A2 /* Default@2x.png */; };
 		B786093D166A75A3005117A2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B786093C166A75A3005117A2 /* Default-568h@2x.png */; };
 		B7860940166A75A3005117A2 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B786093F166A75A3005117A2 /* MapViewController.m */; };
-		B7860942166A75A3005117A2 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = B7860941166A75A3005117A2 /* first.png */; };
-		B7860944166A75A3005117A2 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7860943166A75A3005117A2 /* first@2x.png */; };
-		B7860947166A75A3005117A2 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7860946166A75A3005117A2 /* SettingsViewController.m */; };
-		B7860949166A75A3005117A2 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = B7860948166A75A3005117A2 /* second.png */; };
-		B786094B166A75A3005117A2 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B786094A166A75A3005117A2 /* second@2x.png */; };
 		B786094E166A75A3005117A2 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B786094C166A75A3005117A2 /* MapViewController.xib */; };
-		B7860951166A75A3005117A2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B786094F166A75A3005117A2 /* SettingsViewController.xib */; };
 		B786095D166A78FA005117A2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786095C166A78FA005117A2 /* MapKit.framework */; };
 		B7860961166A7B31005117A2 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B786095F166A7B31005117A2 /* UploadViewController.m */; };
 		B7860962166A7B31005117A2 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7860960166A7B31005117A2 /* UploadViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B7660C8E166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
+		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
+		B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = ../SettingsViewController.xib; sourceTree = "<group>"; };
+		B7660C93166B8BE8005BC8E6 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		B7660C94166B8BE8005BC8E6 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
+		B7660C97166B8C4E005BC8E6 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		B7660C98166B8C4E005BC8E6 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		B7660C9B166B8D06005BC8E6 /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.png; sourceTree = "<group>"; };
+		B7660C9C166B8D06005BC8E6 /* upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload@2x.png"; sourceTree = "<group>"; };
 		B7860922166A75A3005117A2 /* SSPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7860926166A75A3005117A2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B7860928166A75A3005117A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -45,14 +56,7 @@
 		B786093C166A75A3005117A2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B786093E166A75A3005117A2 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		B786093F166A75A3005117A2 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		B7860941166A75A3005117A2 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		B7860943166A75A3005117A2 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		B7860945166A75A3005117A2 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		B7860946166A75A3005117A2 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		B7860948166A75A3005117A2 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		B786094A166A75A3005117A2 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		B786094D166A75A3005117A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MapViewController.xib; sourceTree = "<group>"; };
-		B7860950166A75A3005117A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
 		B786095C166A78FA005117A2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B786095E166A7B31005117A2 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		B786095F166A7B31005117A2 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
@@ -141,10 +145,12 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				B7860941166A75A3005117A2 /* first.png */,
-				B7860943166A75A3005117A2 /* first@2x.png */,
-				B7860948166A75A3005117A2 /* second.png */,
-				B786094A166A75A3005117A2 /* second@2x.png */,
+				B7660C9B166B8D06005BC8E6 /* upload.png */,
+				B7660C9C166B8D06005BC8E6 /* upload@2x.png */,
+				B7660C93166B8BE8005BC8E6 /* map.png */,
+				B7660C94166B8BE8005BC8E6 /* map@2x.png */,
+				B7660C97166B8C4E005BC8E6 /* settings.png */,
+				B7660C98166B8C4E005BC8E6 /* settings@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -159,8 +165,8 @@
 		B786095A166A787F005117A2 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */,
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
-				B786094F166A75A3005117A2 /* SettingsViewController.xib */,
 				B7860960166A7B31005117A2 /* UploadViewController.xib */,
 			);
 			name = XIBs;
@@ -171,8 +177,8 @@
 			children = (
 				B786093E166A75A3005117A2 /* MapViewController.h */,
 				B786093F166A75A3005117A2 /* MapViewController.m */,
-				B7860945166A75A3005117A2 /* SettingsViewController.h */,
-				B7860946166A75A3005117A2 /* SettingsViewController.m */,
+				B7660C8E166B7CC3005BC8E6 /* SettingsViewController.h */,
+				B7660C8F166B7CC3005BC8E6 /* SettingsViewController.m */,
 				B786095E166A7B31005117A2 /* UploadViewController.h */,
 				B786095F166A7B31005117A2 /* UploadViewController.m */,
 			);
@@ -234,13 +240,15 @@
 				B7860939166A75A3005117A2 /* Default.png in Resources */,
 				B786093B166A75A3005117A2 /* Default@2x.png in Resources */,
 				B786093D166A75A3005117A2 /* Default-568h@2x.png in Resources */,
-				B7860942166A75A3005117A2 /* first.png in Resources */,
-				B7860944166A75A3005117A2 /* first@2x.png in Resources */,
-				B7860949166A75A3005117A2 /* second.png in Resources */,
-				B786094B166A75A3005117A2 /* second@2x.png in Resources */,
 				B786094E166A75A3005117A2 /* MapViewController.xib in Resources */,
-				B7860951166A75A3005117A2 /* SettingsViewController.xib in Resources */,
 				B7860962166A7B31005117A2 /* UploadViewController.xib in Resources */,
+				B7660C92166B7CC3005BC8E6 /* SettingsViewController.xib in Resources */,
+				B7660C95166B8BE8005BC8E6 /* map.png in Resources */,
+				B7660C96166B8BE8005BC8E6 /* map@2x.png in Resources */,
+				B7660C99166B8C4E005BC8E6 /* settings.png in Resources */,
+				B7660C9A166B8C4E005BC8E6 /* settings@2x.png in Resources */,
+				B7660C9D166B8D06005BC8E6 /* upload.png in Resources */,
+				B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,8 +262,8 @@
 				B7860933166A75A3005117A2 /* main.m in Sources */,
 				B7860937166A75A3005117A2 /* AppDelegate.m in Sources */,
 				B7860940166A75A3005117A2 /* MapViewController.m in Sources */,
-				B7860947166A75A3005117A2 /* SettingsViewController.m in Sources */,
 				B7860961166A7B31005117A2 /* UploadViewController.m in Sources */,
+				B7660C91166B7CC3005BC8E6 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,14 +284,6 @@
 				B786094D166A75A3005117A2 /* en */,
 			);
 			name = MapViewController.xib;
-			sourceTree = "<group>";
-		};
-		B786094F166A75A3005117A2 /* SettingsViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B7860950166A75A3005117A2 /* en */,
-			);
-			name = SettingsViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -379,6 +379,7 @@
 				B7860956166A75A3005117A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

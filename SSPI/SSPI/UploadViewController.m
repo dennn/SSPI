@@ -20,6 +20,7 @@
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Upload", @"Upload");
+        self.tabBarItem.image = [UIImage imageNamed:@"upload"];
     }
     return self;
 }
