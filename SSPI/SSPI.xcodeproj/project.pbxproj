@@ -32,6 +32,11 @@
 		B786095D166A78FA005117A2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786095C166A78FA005117A2 /* MapKit.framework */; };
 		B7860961166A7B31005117A2 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B786095F166A7B31005117A2 /* UploadViewController.m */; };
 		B7860962166A7B31005117A2 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7860960166A7B31005117A2 /* UploadViewController.xib */; };
+		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
+		CC5D1516166C12DD00065884 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14FD166C12DC00065884 /* camera.png */; };
+		CC5D1518166C12DD00065884 /* camera2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14FF166C12DC00065884 /* camera2.png */; };
+		CC5D151E166C12DD00065884 /* mic.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D1505166C12DD00065884 /* mic.png */; };
+		CC5D151F166C12DD00065884 /* notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D1506166C12DD00065884 /* notepad.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +72,11 @@
 		B786095E166A7B31005117A2 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		B786095F166A7B31005117A2 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		B7860960166A7B31005117A2 /* UploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadViewController.xib; sourceTree = "<group>"; };
+		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		CC5D14FD166C12DC00065884 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = coomko/camera.png; sourceTree = "<group>"; };
+		CC5D14FF166C12DC00065884 /* camera2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera2.png; path = coomko/camera2.png; sourceTree = "<group>"; };
+		CC5D1505166C12DD00065884 /* mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mic.png; path = coomko/mic.png; sourceTree = "<group>"; };
+		CC5D1506166C12DD00065884 /* notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = notepad.png; path = coomko/notepad.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +161,11 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC5D1505166C12DD00065884 /* mic.png */,
+				CC5D1506166C12DD00065884 /* notepad.png */,
+				CC5D14FF166C12DC00065884 /* camera2.png */,
+				CC5D14FD166C12DC00065884 /* camera.png */,
+				CC5D14F6166C12CE00065884 /* bg.png */,
 				B7660C9B166B8D06005BC8E6 /* upload.png */,
 				B7660C9C166B8D06005BC8E6 /* upload@2x.png */,
 				B7660C93166B8BE8005BC8E6 /* map.png */,
@@ -259,6 +274,11 @@
 				B7660C9D166B8D06005BC8E6 /* upload.png in Resources */,
 				B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */,
 				B7660CF6166BADF8005BC8E6 /* ServerViewController.xib in Resources */,
+				CC5D14F7166C12CE00065884 /* bg.png in Resources */,
+				CC5D1516166C12DD00065884 /* camera.png in Resources */,
+				CC5D1518166C12DD00065884 /* camera2.png in Resources */,
+				CC5D151E166C12DD00065884 /* mic.png in Resources */,
+				CC5D151F166C12DD00065884 /* notepad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

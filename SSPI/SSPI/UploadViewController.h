@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface UploadViewController : UIViewController
+
+@interface UploadViewController : UIViewController <UIImagePickerControllerDelegate,
+UINavigationControllerDelegate>
+{
+    
+}
+
+- (IBAction)cameraButtonPressed:(id)sender;
+- (IBAction)videoButtonPressed:(id)sender;
+- (IBAction)micButtonPressed:(id)sender;
+- (IBAction)noteButtonPressed:(id)sender;
 
 @end
