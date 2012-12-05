@@ -32,6 +32,8 @@
 		B786095D166A78FA005117A2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786095C166A78FA005117A2 /* MapKit.framework */; };
 		B7860961166A7B31005117A2 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B786095F166A7B31005117A2 /* UploadViewController.m */; };
 		B7860962166A7B31005117A2 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7860960166A7B31005117A2 /* UploadViewController.xib */; };
+		CC3B12E6166FFDE40075627A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
+		CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E8167001F30075627A /* CoreLocation.framework */; };
 		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
 		CC5D1516166C12DD00065884 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14FD166C12DC00065884 /* camera.png */; };
 		CC5D1518166C12DD00065884 /* camera2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14FF166C12DC00065884 /* camera2.png */; };
@@ -72,6 +74,8 @@
 		B786095E166A7B31005117A2 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		B786095F166A7B31005117A2 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		B7860960166A7B31005117A2 /* UploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadViewController.xib; sourceTree = "<group>"; };
+		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		CC5D14FD166C12DC00065884 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = coomko/camera.png; sourceTree = "<group>"; };
 		CC5D14FF166C12DC00065884 /* camera2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera2.png; path = coomko/camera2.png; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */,
+				CC3B12E6166FFDE40075627A /* MobileCoreServices.framework in Frameworks */,
 				B786095D166A78FA005117A2 /* MapKit.framework in Frameworks */,
 				B7860927166A75A3005117A2 /* UIKit.framework in Frameworks */,
 				B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */,
@@ -97,6 +103,8 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+				CC3B12E8167001F30075627A /* CoreLocation.framework */,
+				CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */,
 				B786092C166A75A3005117A2 /* SSPI */,
 				B7860925166A75A3005117A2 /* Frameworks */,
 				B7860923166A75A3005117A2 /* Products */,

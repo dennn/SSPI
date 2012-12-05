@@ -8,11 +8,10 @@
 
 #import "UploadViewController.h"
 
-@interface UploadViewController ()
-
-@end
-
 @implementation UploadViewController
+
+@synthesize locationManager;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,17 +46,33 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    // locationManager update as location
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    [locationManager startUpdatingLocation];
+    
+    CLLocation *location = [locationManager location];
+    
+    // Configure the new event with information from the location
+    CLLocationCoordinate2D coordinate = [location coordinate];
+    
+    NSString *latitude = [NSString stringWithFormat:@"%f", coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f", coordinate.longitude];
+    
+    NSLog(@"dLatitude : %@", latitude);
+    NSLog(@"dLongitude : %@",longitude);
+    
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToSave;
     
     // Handle a still image capture
-    if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0)
-        == kCFCompareEqualTo) {
+    if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         
-        editedImage = (UIImage *) [info objectForKey:
-                                   UIImagePickerControllerEditedImage];
-        originalImage = (UIImage *) [info objectForKey:
-                                     UIImagePickerControllerOriginalImage];
+        editedImage = (UIImage *) [info objectForKey: UIImagePickerControllerEditedImage];
+        originalImage = (UIImage *) [info objectForKey: UIImagePickerControllerOriginalImage];
         
         if (editedImage) {
             imageToSave = editedImage;
@@ -73,15 +88,32 @@
     if (CFStringCompare ((CFStringRef) mediaType, kUTTypeMovie, 0)
         == kCFCompareEqualTo) {
         
-        NSString *moviePath = [[info objectForKey:
-                                UIImagePickerControllerMediaURL] path];
+        NSString *moviePath = [[info objectForKey: UIImagePickerControllerMediaURL] path];
         
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
             UISaveVideoAtPathToSavedPhotosAlbum (
                                                  moviePath, nil, nil, nil);
         }
     }
+    /////////////////////////////////////////////////////////////////
+    // Save image to local bundle for uploading later (may be needed)
+    /////////////////////////////////////////////////////////////////
+    /*NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *imageName = [NSString stringWithFormat:@"image.png"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fullPathToFile = [documentsDirectory stringByAppendingPathComponent:imageName];
+    [imageData writeToFile:fullPathToFile atomically:YES];*/
+    ////////
     
+    [picker dismissViewControllerAnimated:TRUE completion:nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sent" message:@"Image has been saved" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    
+    [alert show];
+}
+
+- (void)success{
     
 }
 
@@ -98,7 +130,7 @@
         [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
     
-    imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeVideo, nil];
+    imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeMovie, nil];
     
     [imagePicker setDelegate:self];
     

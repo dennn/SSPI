@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <CoreLocation/CoreLocation.h>
 
 
 @interface UploadViewController : UIViewController <UIImagePickerControllerDelegate,
-UINavigationControllerDelegate>
+UINavigationControllerDelegate, CLLocationManagerDelegate>
 {
-    
+    CLLocationManager *locationManager;
 }
+
+@property (nonatomic, retain) CLLocationManager *locationManager;
 
 - (IBAction)cameraButtonPressed:(id)sender;
 - (IBAction)videoButtonPressed:(id)sender;
