@@ -45,6 +45,26 @@
 
 }
 
+- (IBAction)videoButtonPressed:(id)sender{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+    else
+    {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeMovie, nil];
+    
+    [imagePicker setDelegate:self];
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
     // locationManager update as location
@@ -99,11 +119,11 @@
     // Save image to local bundle for uploading later (may be needed)
     /////////////////////////////////////////////////////////////////
     /*NSData *imageData = UIImagePNGRepresentation(image);
-    NSString *imageName = [NSString stringWithFormat:@"image.png"];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fullPathToFile = [documentsDirectory stringByAppendingPathComponent:imageName];
-    [imageData writeToFile:fullPathToFile atomically:YES];*/
+     NSString *imageName = [NSString stringWithFormat:@"image.png"];
+     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+     NSString *documentsDirectory = [paths objectAtIndex:0];
+     NSString *fullPathToFile = [documentsDirectory stringByAppendingPathComponent:imageName];
+     [imageData writeToFile:fullPathToFile atomically:YES];*/
     ////////
     
     [picker dismissViewControllerAnimated:TRUE completion:nil];
@@ -113,37 +133,24 @@
     [alert show];
 }
 
-- (void)success{
-    
-}
-
-- (IBAction)videoButtonPressed:(id)sender{
-    
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-    {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    }
-    else
-    {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }
-    
-    imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeMovie, nil];
-    
-    [imagePicker setDelegate:self];
-    
-    [self presentViewController:imagePicker animated:YES completion:nil];
-}
-
 - (IBAction)micButtonPressed:(id)sender{
     
 }
 
 - (IBAction)noteButtonPressed:(id)sender{
+    /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This is an example alert!" delegate:self cancelButtonTitle:@"Hide" otherButtonTitles:nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];*/
     
+    UIViewController *viewController=[[UIViewController alloc]init];
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    viewController.view = view;
+    viewController.view.opaque = TRUE;
+    viewController.view.backgroundColor = [UIColor blueColor];
+    [self.navigationController presentViewController:viewController animated:TRUE completion:nil];
 }
+
+
 
 - (void)viewDidLoad
 {

@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <CoreLocation/CoreLocation.h>
+#import <AVFoundation/AVFoundation.h>
+
 
 
 @interface UploadViewController : UIViewController <UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, CLLocationManagerDelegate>
 {
     CLLocationManager *locationManager;
+    AVAudioRecorder *recorder;
 }
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
