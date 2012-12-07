@@ -35,11 +35,11 @@
 		CC3B12E6166FFDE40075627A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
 		CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E8167001F30075627A /* CoreLocation.framework */; };
 		CC3B12EB16700CC00075627A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12EA16700CC00075627A /* AVFoundation.framework */; };
+		CC3B12F9167235670075627A /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F5167235670075627A /* camera.png */; };
+		CC3B12FA167235670075627A /* camera2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F6167235670075627A /* camera2.png */; };
+		CC3B12FB167235670075627A /* mic.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F7167235670075627A /* mic.png */; };
+		CC3B12FC167235670075627A /* notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F8167235670075627A /* notepad.png */; };
 		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
-		CC5D1516166C12DD00065884 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14FD166C12DC00065884 /* camera.png */; };
-		CC5D1518166C12DD00065884 /* camera2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14FF166C12DC00065884 /* camera2.png */; };
-		CC5D151E166C12DD00065884 /* mic.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D1505166C12DD00065884 /* mic.png */; };
-		CC5D151F166C12DD00065884 /* notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D1506166C12DD00065884 /* notepad.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,11 +78,11 @@
 		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CC3B12EA16700CC00075627A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CC3B12F5167235670075627A /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		CC3B12F6167235670075627A /* camera2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera2.png; sourceTree = "<group>"; };
+		CC3B12F7167235670075627A /* mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mic.png; sourceTree = "<group>"; };
+		CC3B12F8167235670075627A /* notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notepad.png; sourceTree = "<group>"; };
 		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		CC5D14FD166C12DC00065884 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = coomko/camera.png; sourceTree = "<group>"; };
-		CC5D14FF166C12DC00065884 /* camera2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera2.png; path = coomko/camera2.png; sourceTree = "<group>"; };
-		CC5D1505166C12DD00065884 /* mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mic.png; path = coomko/mic.png; sourceTree = "<group>"; };
-		CC5D1506166C12DD00065884 /* notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = notepad.png; path = coomko/notepad.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,10 +173,7 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				CC5D1505166C12DD00065884 /* mic.png */,
-				CC5D1506166C12DD00065884 /* notepad.png */,
-				CC5D14FF166C12DC00065884 /* camera2.png */,
-				CC5D14FD166C12DC00065884 /* camera.png */,
+				CC3B12F4167235670075627A /* icons */,
 				CC5D14F6166C12CE00065884 /* bg.png */,
 				B7660C9B166B8D06005BC8E6 /* upload.png */,
 				B7660C9C166B8D06005BC8E6 /* upload@2x.png */,
@@ -219,6 +216,18 @@
 				B786095F166A7B31005117A2 /* UploadViewController.m */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		CC3B12F4167235670075627A /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				CC3B12F5167235670075627A /* camera.png */,
+				CC3B12F6167235670075627A /* camera2.png */,
+				CC3B12F7167235670075627A /* mic.png */,
+				CC3B12F8167235670075627A /* notepad.png */,
+			);
+			name = icons;
+			path = coomko;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,10 +296,10 @@
 				B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */,
 				B7660CF6166BADF8005BC8E6 /* ServerViewController.xib in Resources */,
 				CC5D14F7166C12CE00065884 /* bg.png in Resources */,
-				CC5D1516166C12DD00065884 /* camera.png in Resources */,
-				CC5D1518166C12DD00065884 /* camera2.png in Resources */,
-				CC5D151E166C12DD00065884 /* mic.png in Resources */,
-				CC5D151F166C12DD00065884 /* notepad.png in Resources */,
+				CC3B12F9167235670075627A /* camera.png in Resources */,
+				CC3B12FA167235670075627A /* camera2.png in Resources */,
+				CC3B12FB167235670075627A /* mic.png in Resources */,
+				CC3B12FC167235670075627A /* notepad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
