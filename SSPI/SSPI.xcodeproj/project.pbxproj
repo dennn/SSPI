@@ -106,9 +106,6 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
-				CC3B12EA16700CC00075627A /* AVFoundation.framework */,
-				CC3B12E8167001F30075627A /* CoreLocation.framework */,
-				CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */,
 				B786092C166A75A3005117A2 /* SSPI */,
 				B7860925166A75A3005117A2 /* Frameworks */,
 				B7860923166A75A3005117A2 /* Products */,
@@ -126,6 +123,9 @@
 		B7860925166A75A3005117A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC3B12EA16700CC00075627A /* AVFoundation.framework */,
+				CC3B12E8167001F30075627A /* CoreLocation.framework */,
+				CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */,
 				B786095C166A78FA005117A2 /* MapKit.framework */,
 				B7860926166A75A3005117A2 /* UIKit.framework */,
 				B7860928166A75A3005117A2 /* Foundation.framework */,
