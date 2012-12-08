@@ -152,13 +152,23 @@
             {
                 case 0:
                     cell.textLabel.text = @"UoB";
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                     
                 case 1:
                     cell.textLabel.text = @"IBM";
                     break;
             }
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            int selectedBranding = [defaults integerForKey:@"branding"];
+            
+            if (indexPath.row == selectedBranding && ([defaults objectForKey:@"branding"] != nil))
+            {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
             break;
         }
     }
@@ -192,6 +202,17 @@
             ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
             [self.navigationController pushViewController:serverViewController animated:YES];
             break;
+        }
+            
+        case 3:
+        {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setInteger:indexPath.row forKey:@"branding"];
+            
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
+            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
         }
             
         default:
