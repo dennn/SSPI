@@ -10,6 +10,7 @@
 
 @interface MapViewController ()
 
+
 @end
 
 @implementation MapViewController
@@ -28,7 +29,29 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+  }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int selectedBranding = [defaults integerForKey:@"branding"];
+    
+    switch (selectedBranding)
+    {
+        case 0:
+            self.brandingImage.image = [UIImage imageNamed:@"UOB"];
+            break;
+            
+        case 1:
+            self.brandingImage.image = [UIImage imageNamed:@"IBM"];
+            break;
+            
+        default:
+            break;
+    }
 }
+
 
 - (void)didReceiveMemoryWarning
 {

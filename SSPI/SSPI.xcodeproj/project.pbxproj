@@ -37,6 +37,10 @@
 		B786095D166A78FA005117A2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786095C166A78FA005117A2 /* MapKit.framework */; };
 		B7860961166A7B31005117A2 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B786095F166A7B31005117A2 /* UploadViewController.m */; };
 		B7860962166A7B31005117A2 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7860960166A7B31005117A2 /* UploadViewController.xib */; };
+		B7A1C2CA1673A5420089210D /* UOB.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C61673A5410089210D /* UOB.png */; };
+		B7A1C2CB1673A5420089210D /* UOB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C71673A5410089210D /* UOB@2x.png */; };
+		B7A1C2CC1673A5420089210D /* IBM.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C81673A5420089210D /* IBM.png */; };
+		B7A1C2CD1673A5420089210D /* IBM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C91673A5420089210D /* IBM@2x.png */; };
 		CC3B12E6166FFDE40075627A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
 		CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E8167001F30075627A /* CoreLocation.framework */; };
 		CC3B12EB16700CC00075627A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12EA16700CC00075627A /* AVFoundation.framework */; };
@@ -123,6 +127,10 @@
 		B786095E166A7B31005117A2 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		B786095F166A7B31005117A2 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		B7860960166A7B31005117A2 /* UploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadViewController.xib; sourceTree = "<group>"; };
+		B7A1C2C61673A5410089210D /* UOB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UOB.png; sourceTree = "<group>"; };
+		B7A1C2C71673A5410089210D /* UOB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UOB@2x.png"; sourceTree = "<group>"; };
+		B7A1C2C81673A5420089210D /* IBM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IBM.png; sourceTree = "<group>"; };
+		B7A1C2C91673A5420089210D /* IBM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IBM@2x.png"; sourceTree = "<group>"; };
 		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CC3B12EA16700CC00075627A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -242,6 +250,10 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B7A1C2C61673A5410089210D /* UOB.png */,
+				B7A1C2C71673A5410089210D /* UOB@2x.png */,
+				B7A1C2C81673A5420089210D /* IBM.png */,
+				B7A1C2C91673A5420089210D /* IBM@2x.png */,
 				CC3B12F4167235670075627A /* icons */,
 				CC5D14F6166C12CE00065884 /* bg.png */,
 				B7660C9B166B8D06005BC8E6 /* upload.png */,
@@ -407,6 +419,10 @@
 				CC3B12FA167235670075627A /* camera2.png in Resources */,
 				CC3B12FB167235670075627A /* mic.png in Resources */,
 				CC3B12FC167235670075627A /* notepad.png in Resources */,
+				B7A1C2CA1673A5420089210D /* UOB.png in Resources */,
+				B7A1C2CB1673A5420089210D /* UOB@2x.png in Resources */,
+				B7A1C2CC1673A5420089210D /* IBM.png in Resources */,
+				B7A1C2CD1673A5420089210D /* IBM@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
