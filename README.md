@@ -33,6 +33,8 @@ SSPI
 
 # Gamma (18th March 2013)
 
+* Integrate with Google Street View to display pins in 3D
+* Integrate with foursquare/google places to allow for accessing real-time events and the automatic completion of places
 * Some sort of app redesign and cleanup
 
 # Final Release (3rd May 2013)
