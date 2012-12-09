@@ -41,6 +41,8 @@
 		B7A1C2CB1673A5420089210D /* UOB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C71673A5410089210D /* UOB@2x.png */; };
 		B7A1C2CC1673A5420089210D /* IBM.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C81673A5420089210D /* IBM.png */; };
 		B7A1C2CD1673A5420089210D /* IBM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C91673A5420089210D /* IBM@2x.png */; };
+		B7A1C2D01673BB150089210D /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2CE1673BB150089210D /* Data.xcdatamodeld */; };
+		B7A1C2D71673C1CF0089210D /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2D61673C1CF0089210D /* MapAnnotation.m */; };
 		CC3B12E6166FFDE40075627A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
 		CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E8167001F30075627A /* CoreLocation.framework */; };
 		CC3B12EB16700CC00075627A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12EA16700CC00075627A /* AVFoundation.framework */; };
@@ -131,6 +133,9 @@
 		B7A1C2C71673A5410089210D /* UOB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UOB@2x.png"; sourceTree = "<group>"; };
 		B7A1C2C81673A5420089210D /* IBM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IBM.png; sourceTree = "<group>"; };
 		B7A1C2C91673A5420089210D /* IBM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IBM@2x.png"; sourceTree = "<group>"; };
+		B7A1C2CF1673BB150089210D /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
+		B7A1C2D51673C1CF0089210D /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
+		B7A1C2D61673C1CF0089210D /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
 		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CC3B12EA16700CC00075627A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -164,6 +169,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B72BA0721674A55C00126406 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B7A1C2D51673C1CF0089210D /* MapAnnotation.h */,
+				B7A1C2D61673C1CF0089210D /* MapAnnotation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		B77E91D41673964500025577 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +228,7 @@
 		B786092C166A75A3005117A2 /* SSPI */ = {
 			isa = PBXGroup;
 			children = (
+				B72BA0721674A55C00126406 /* Model */,
 				B786095B166A7894005117A2 /* View Controllers */,
 				B7860957166A7866005117A2 /* Resources */,
 				B7860935166A75A3005117A2 /* AppDelegate.h */,
@@ -295,6 +310,7 @@
 				B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */,
 				B786095E166A7B31005117A2 /* UploadViewController.h */,
 				B786095F166A7B31005117A2 /* UploadViewController.m */,
+				B7A1C2CE1673BB150089210D /* Data.xcdatamodeld */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -440,6 +456,8 @@
 				B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */,
 				B7660CF5166BADF8005BC8E6 /* ServerViewController.m in Sources */,
 				B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */,
+				B7A1C2D01673BB150089210D /* Data.xcdatamodeld in Sources */,
+				B7A1C2D71673C1CF0089210D /* MapAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +594,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B7A1C2CE1673BB150089210D /* Data.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B7A1C2CF1673BB150089210D /* Data.xcdatamodel */,
+			);
+			currentVersion = B7A1C2CF1673BB150089210D /* Data.xcdatamodel */;
+			name = Data.xcdatamodeld;
+			path = ../Data.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B7860919166A75A3005117A2 /* Project object */;
 }
