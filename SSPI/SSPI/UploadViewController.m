@@ -183,7 +183,7 @@
 
 - (void) animateTextView: (BOOL) up
 {
-    const int movementDistance = 145; // tweak as needed
+    const int movementDistance = 150; // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
     
     int movement = (up ? -movementDistance : movementDistance);
