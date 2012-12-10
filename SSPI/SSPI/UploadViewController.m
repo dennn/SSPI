@@ -149,7 +149,7 @@
     [infoTags.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
     [infoTags.layer setBorderWidth:2.0];
     //infoTags.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
-
+    //
     
     modalView = [subviewArray objectAtIndex:0];
     [self.view addSubview:modalView];
