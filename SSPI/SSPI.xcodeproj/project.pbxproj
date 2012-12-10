@@ -41,6 +41,7 @@
 		CC3B12FC167235670075627A /* notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F8167235670075627A /* notepad.png */; };
 		CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3B13001675442E0075627A /* ModalTextInputView.xib */; };
 		CC3B130316756C330075627A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B130216756C320075627A /* QuartzCore.framework */; };
+		CC3B130516758BFA0075627A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CC3B130416758BF90075627A /* .gitignore */; };
 		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		CC3B12F8167235670075627A /* notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notepad.png; sourceTree = "<group>"; };
 		CC3B13001675442E0075627A /* ModalTextInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalTextInputView.xib; sourceTree = "<group>"; };
 		CC3B130216756C320075627A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CC3B130416758BF90075627A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+				CC3B130416758BF90075627A /* .gitignore */,
 				CC3B130216756C320075627A /* QuartzCore.framework */,
 				CC3B12EA16700CC00075627A /* AVFoundation.framework */,
 				CC3B12E8167001F30075627A /* CoreLocation.framework */,
@@ -308,6 +311,7 @@
 				CC3B12FB167235670075627A /* mic.png in Resources */,
 				CC3B12FC167235670075627A /* notepad.png in Resources */,
 				CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */,
+				CC3B130516758BFA0075627A /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
