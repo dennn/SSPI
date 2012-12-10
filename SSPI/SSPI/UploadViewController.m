@@ -138,13 +138,13 @@
     
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalTextInputView" owner:self options:nil];
     
-    comments.layer.cornerRadius = 20;
+    comments.layer.cornerRadius = 8;
     comments.clipsToBounds = YES;
     [comments.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
     [comments.layer setBorderWidth:2.0];
     //comments.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
-    infoTags.layer.cornerRadius = 20;
+    infoTags.layer.cornerRadius = 8;
     infoTags.clipsToBounds = YES;
     [infoTags.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
     [infoTags.layer setBorderWidth:2.0];
