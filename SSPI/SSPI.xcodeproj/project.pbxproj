@@ -18,11 +18,6 @@
 		B7660CF5166BADF8005BC8E6 /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7660CF3166BADF8005BC8E6 /* ServerViewController.m */; };
 		B7660CF6166BADF8005BC8E6 /* ServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */; };
 		B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */; };
-		B77E91E81673979400025577 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91DE1673964600025577 /* libRestKit.a */; };
-		B77E91EA167397B300025577 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91E9167397B300025577 /* CFNetwork.framework */; };
-		B77E91EC167397BF00025577 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EB167397BF00025577 /* CoreData.framework */; };
-		B77E91EE167397D600025577 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91ED167397D600025577 /* Security.framework */; };
-		B77E91F0167397DC00025577 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EF167397DC00025577 /* SystemConfiguration.framework */; };
 		B7860927166A75A3005117A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860926166A75A3005117A2 /* UIKit.framework */; };
 		B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860928166A75A3005117A2 /* Foundation.framework */; };
 		B786092B166A75A3005117A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786092A166A75A3005117A2 /* CoreGraphics.framework */; };
@@ -37,13 +32,9 @@
 		B786095D166A78FA005117A2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786095C166A78FA005117A2 /* MapKit.framework */; };
 		B7860961166A7B31005117A2 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B786095F166A7B31005117A2 /* UploadViewController.m */; };
 		B7860962166A7B31005117A2 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7860960166A7B31005117A2 /* UploadViewController.xib */; };
-		B7A1C2CA1673A5420089210D /* UOB.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C61673A5410089210D /* UOB.png */; };
-		B7A1C2CB1673A5420089210D /* UOB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C71673A5410089210D /* UOB@2x.png */; };
-		B7A1C2CC1673A5420089210D /* IBM.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C81673A5420089210D /* IBM.png */; };
-		B7A1C2CD1673A5420089210D /* IBM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A1C2C91673A5420089210D /* IBM@2x.png */; };
 		B7A1C2D01673BB150089210D /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2CE1673BB150089210D /* Data.xcdatamodeld */; };
 		B7A1C2D71673C1CF0089210D /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2D61673C1CF0089210D /* MapAnnotation.m */; };
-		CC3B12E6166FFDE40075627A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
+		CC28A1FC16763F1C002362DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
 		CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E8167001F30075627A /* CoreLocation.framework */; };
 		CC3B12EB16700CC00075627A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12EA16700CC00075627A /* AVFoundation.framework */; };
 		CC3B12F9167235670075627A /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F5167235670075627A /* camera.png */; };
@@ -157,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC28A1FC16763F1C002362DD /* MobileCoreServices.framework in Frameworks */,
 				CC3B130316756C330075627A /* QuartzCore.framework in Frameworks */,
 				CC3B12EB16700CC00075627A /* AVFoundation.framework in Frameworks */,
 				CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */,

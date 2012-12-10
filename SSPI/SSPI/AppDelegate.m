@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import <RestKit/RestKit.h>
+//#import <RestKit/RestKit.h>
 
 #import "MapViewController.h"
 #import "SettingsViewController.h"
