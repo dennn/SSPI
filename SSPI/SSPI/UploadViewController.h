@@ -10,21 +10,32 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
+
 
 
 
 @interface UploadViewController : UIViewController <UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, CLLocationManagerDelegate>
+UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
     CLLocationManager *locationManager;
     AVAudioRecorder *recorder;
+    UIView *modalView;
+    BOOL _isVisible;
+    IBOutlet UITextView *comments;
+    IBOutlet UITextView *infoTags;
+
 }
 
+@property (nonatomic, readonly, getter=isVisible) BOOL visible;
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) IBOutlet UITextView *comments;
+@property (nonatomic, retain) IBOutlet UITextView *infoTags;
 
 - (IBAction)cameraButtonPressed:(id)sender;
 - (IBAction)videoButtonPressed:(id)sender;
 - (IBAction)micButtonPressed:(id)sender;
 - (IBAction)noteButtonPressed:(id)sender;
+
 
 @end

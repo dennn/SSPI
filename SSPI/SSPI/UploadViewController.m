@@ -10,8 +10,7 @@
 
 @implementation UploadViewController
 
-@synthesize locationManager;
-
+@synthesize locationManager, comments, infoTags;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -127,10 +126,8 @@
     ////////
     
     [picker dismissViewControllerAnimated:TRUE completion:nil];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sent" message:@"Image has been saved" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-    
-    [alert show];
+    NSArray *tags = [self getTags];
+
 }
 
 - (IBAction)micButtonPressed:(id)sender{
@@ -138,22 +135,117 @@
 }
 
 - (IBAction)noteButtonPressed:(id)sender{
-    /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This is an example alert!" delegate:self cancelButtonTitle:@"Hide" otherButtonTitles:nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];*/
     
-    UIViewController *viewController=[[UIViewController alloc]init];
-    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    viewController.view = view;
-    viewController.view.opaque = TRUE;
-    viewController.view.backgroundColor = [UIColor blueColor];
-    [self.navigationController presentViewController:viewController animated:TRUE completion:nil];
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalTextInputView" owner:self options:nil];
+    
+    comments.layer.cornerRadius = 20;
+    comments.clipsToBounds = YES;
+    [comments.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
+    [comments.layer setBorderWidth:2.0];
+    //comments.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    
+    infoTags.layer.cornerRadius = 20;
+    infoTags.clipsToBounds = YES;
+    [infoTags.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
+    [infoTags.layer setBorderWidth:2.0];
+    //infoTags.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+
+    
+    modalView = [subviewArray objectAtIndex:0];
+    [self.view addSubview:modalView];
+    
+    /*[UIView animateWithDuration:0.5
+                          delay:1.0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         modalView.frame = CGRectOffset(self.view.frame, 0, 200);
+                     }
+                     completion:^(BOOL finished){
+                         NSLog(@"Done!");
+                     }];*/
+    
+    NSLog(@"Presenting view controller");
 }
 
+- (void) animateTextView: (BOOL) up
+{
+    const int movementDistance = 145; // tweak as needed
+    const float movementDuration = 0.3f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    comments.frame = CGRectOffset(comments.frame, 0, movement);
+    infoTags.frame = CGRectOffset(infoTags.frame, 0, movement);
+    [UIView commitAnimations];
+}
+
+- (IBAction)dismiss:(id)sender{
+    if([self isVisible]){
+        [modalView endEditing:YES];
+    }else{
+        NSLog([self isVisible] ? @"Yes" : @"No");
+        [modalView removeFromSuperview];
+    }
+    
+    NSLog(@"%@",comments.text);    
+}
+
+- (NSArray *)getTags{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sent" message:@"Please input space separated tags" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    [alert show];
+    
+    NSString *tagString = [alert textFieldAtIndex:0].text;
+    return [tagString componentsSeparatedByString:@" "];
+}
+
+- (BOOL)isVisible
+{
+    return _isVisible;
+}
+
+- (void)didShow
+{
+    _isVisible = YES;
+}
+
+- (void)didHide
+{
+    _isVisible = NO;
+}
+       
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    textView.text = @"";
+
+    if([textView.restorationIdentifier isEqualToString:@"1"]){
+        [self animateTextView:YES];
+    }
+    NSLog(@"Started editing target!");
+    NSLog(@"%@",textView.restorationIdentifier);
+
+
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView{
+    if([textView.restorationIdentifier isEqualToString:@"1"]){
+        [self animateTextView:NO];
+    }
+}
 
 
 - (void)viewDidLoad
 {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(didShow) name:UIKeyboardDidShowNotification object:nil];
+    [center addObserver:self selector:@selector(didHide) name:UIKeyboardWillHideNotification object:nil];
+    comments.contentSize = CGSizeMake(comments.frame.size.height,comments.contentSize.height);
+    infoTags.contentSize = CGSizeMake(infoTags.frame.size.height,infoTags.contentSize.height);
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
