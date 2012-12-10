@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <MapKit/MKAnnotation.h>
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet UIImageView *brandingImage;
 
 @end
