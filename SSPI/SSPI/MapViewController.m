@@ -12,7 +12,7 @@
 @interface MapViewController ()
 {
     IBOutlet MKMapView *currentMapView;
-    NSMutableArray *annotations;
+    NSArray *annotations;
     CLLocationDegrees zoomLevel;
 }
 
@@ -93,15 +93,17 @@
 {
     srand((unsigned)time(0));
     
-    annotations = [[NSMutableArray alloc] init];
-    for (int i=0; i<1000; i++) {
+    NSMutableArray *tempAnnotations = [[NSMutableArray alloc] init];
+    for (int i=0; i < 1000; i++)
+    {
         MapAnnotation *debugAnn = [[MapAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake([self RandomFloatStart:50.0 end: 51.0], [self RandomFloatStart:20.0 end:21.0])];
         debugAnn.title = [NSString stringWithFormat:@"Pin %d", i];
         debugAnn.subtitle = @"Test";
         [debugAnn addChild:debugAnn];
-
-        [annotations addObject:debugAnn];
+        [tempAnnotations addObject:debugAnn];
     }
+    
+    annotations = [[NSArray alloc] initWithArray:tempAnnotations];
 }
 
 - (float)RandomFloatStart:(float)a end:(float)b {
@@ -119,24 +121,24 @@
     NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < [pinLocations count]; i++) {
-        MapAnnotation *pinLocation = [pinLocations objectAtIndex:i];
-        CLLocationDegrees latitude = [pinLocation getCoordinate].latitude;
-        CLLocationDegrees longitude = [pinLocation getCoordinate].longitude;
+        MapAnnotation *pinToCheck = [pinLocations objectAtIndex:i];
+        CLLocationDegrees latitude = [pinToCheck getCoordinate].latitude;
+        CLLocationDegrees longitude = [pinToCheck getCoordinate].longitude;
         
         bool found = FALSE;
         for (MapAnnotation *tempAnnotation in pinsToShow) {
             if(fabs([tempAnnotation getCoordinate].latitude - latitude) < latDelta &&
                fabs([tempAnnotation getCoordinate].longitude - longitude) < longDelta)
             {
-                [currentMapView removeAnnotation:pinLocation];
+                [currentMapView removeAnnotation:pinToCheck];
                 found = TRUE;
-                [tempAnnotation addChild:pinLocation];
+                [tempAnnotation addChild:pinToCheck];
                 break;
             }
         }
         if (!found) {
-            [pinsToShow addObject:pinLocation];
-            [currentMapView addAnnotation:pinLocation];
+            [pinsToShow addObject:pinToCheck];
+            [currentMapView addAnnotation:pinToCheck];
         }
     }
 }
@@ -145,7 +147,6 @@
 {
     if (zoomLevel != mapView.region.span.longitudeDelta)
     {
-        NSLog(@"ZOOM");
         [self filterAnnotations:annotations];
         zoomLevel = mapView.region.span.longitudeDelta;
     }

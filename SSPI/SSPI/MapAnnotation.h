@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 COOMKO. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
 @interface MapAnnotation : NSObject <MKAnnotation>
@@ -17,8 +17,8 @@
 @property (nonatomic, strong) NSMutableArray *children;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coordinate;
-- (NSString *)getTitle;
-- (NSString *)getSubtitle;
+- (NSString *)title;
+- (NSString *)subtitle;
 - (CLLocationCoordinate2D)getCoordinate;
 
 - (void)addChild:(MapAnnotation *)place;

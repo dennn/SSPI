@@ -23,16 +23,25 @@
     return self;
 }
 
-- (NSString *)getTitle
+- (NSString *)title
 {
-    return title;
+    if ([self childrenCount] == 1)
+    {
+        return title;
+    } else {
+        return [NSString stringWithFormat:@"%i places", [self childrenCount]];
+    }
 }
 
-- (NSString *)getSubtitle
+- (NSString *)subtitle
 {
-    return subtitle;
+    if ([self childrenCount] == 1)
+    {
+        return subtitle;
+    } else {
+        return @"";
+    }
 }
-
 - (CLLocationCoordinate2D)getCoordinate
 {
     return coordinate;
