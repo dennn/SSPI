@@ -131,8 +131,25 @@
 }
 
 - (IBAction)micButtonPressed:(id)sender{
-    
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalMicView" owner:self options:nil];
+    modalView = [subviewArray objectAtIndex:0];
+    modalView.frame = CGRectMake(0, 480, 320, 480);
+    [self.view addSubview:modalView];
+    [UIView animateWithDuration:0.5
+     delay:0.0
+     options: UIViewAnimationCurveEaseOut
+     animations:^{
+     modalView.frame = CGRectMake(0, 0, 320, 480);
+     }
+     completion:^(BOOL finished){
+     }];
 }
+
+- (IBAction)record:(id)sender{
+    if(!recording)
+        [micButton setImage:[UIImage imageNamed:@"light_on.png"] forState:UIControlStateNormal];
+}
+
 
 - (IBAction)noteButtonPressed:(id)sender{
     
@@ -140,31 +157,28 @@
     
     comments.layer.cornerRadius = 8;
     comments.clipsToBounds = YES;
-    [comments.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
+    [comments.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.7] CGColor]];
     [comments.layer setBorderWidth:2.0];
     //comments.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
     infoTags.layer.cornerRadius = 8;
     infoTags.clipsToBounds = YES;
-    [infoTags.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
+    [infoTags.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.7] CGColor]];
     [infoTags.layer setBorderWidth:2.0];
     //infoTags.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
     //
     
     modalView = [subviewArray objectAtIndex:0];
+    modalView.frame = CGRectMake(0, 480, modalView.frame.size.width, modalView.frame.size.height);
     [self.view addSubview:modalView];
-    
-    /*[UIView animateWithDuration:0.5
-                          delay:1.0
+    [UIView animateWithDuration:0.5
+                          delay:0.0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
-                         modalView.frame = CGRectOffset(self.view.frame, 0, 200);
+                         modalView.frame = CGRectMake(0, 0, modalView.frame.size.width, modalView.frame.size.height);
                      }
                      completion:^(BOOL finished){
-                         NSLog(@"Done!");
-                     }];*/
-    
-    NSLog(@"Presenting view controller");
+                     }];
 }
 
 - (void) animateTextView: (BOOL) up
@@ -186,8 +200,17 @@
     if([self isVisible]){
         [modalView endEditing:YES];
     }else{
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseOut
+                         animations:^{
+                             modalView.frame = CGRectMake(0, 480, 320, 480);
+                         }
+                         completion:^(BOOL finished){
+                             NSLog(@"Done!");
+                             [modalView removeFromSuperview];
+                         }];
         NSLog([self isVisible] ? @"Yes" : @"No");
-        [modalView removeFromSuperview];
     }
     
     NSLog(@"%@",comments.text);    
@@ -246,6 +269,8 @@
     comments.contentSize = CGSizeMake(comments.frame.size.height,comments.contentSize.height);
     infoTags.contentSize = CGSizeMake(infoTags.frame.size.height,infoTags.contentSize.height);
 
+    recording = NO;
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }

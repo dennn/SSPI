@@ -24,7 +24,9 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
     BOOL _isVisible;
     IBOutlet UITextView *comments;
     IBOutlet UITextView *infoTags;
-
+    IBOutlet UIButton *micButton;
+    IBOutlet UILabel *timer;
+    BOOL recording;
 }
 
 @property (nonatomic, readonly, getter=isVisible) BOOL visible;
@@ -36,6 +38,5 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 - (IBAction)videoButtonPressed:(id)sender;
 - (IBAction)micButtonPressed:(id)sender;
 - (IBAction)noteButtonPressed:(id)sender;
-
 
 @end

@@ -35,6 +35,13 @@
 		B7A1C2D01673BB150089210D /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2CE1673BB150089210D /* Data.xcdatamodeld */; };
 		B7A1C2D71673C1CF0089210D /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2D61673C1CF0089210D /* MapAnnotation.m */; };
 		CC28A1FC16763F1C002362DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */; };
+		CC28A1FF1676450C002362DD /* micbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A1FE1676450C002362DD /* micbg@2x.png */; };
+		CC28A20116764583002362DD /* micbg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20016764583002362DD /* micbg.png */; };
+		CC28A20516764606002362DD /* ModalMicView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20416764606002362DD /* ModalMicView.xib */; };
+		CC28A20A16764C51002362DD /* light_off.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20616764C51002362DD /* light_off.png */; };
+		CC28A20B16764C51002362DD /* light_on.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20716764C51002362DD /* light_on.png */; };
+		CC28A20C16764C51002362DD /* light_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20816764C51002362DD /* light_on@2x.png */; };
+		CC28A20D16764C51002362DD /* light_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20916764C51002362DD /* light_off@2x.png */; };
 		CC3B12E9167001F30075627A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12E8167001F30075627A /* CoreLocation.framework */; };
 		CC3B12EB16700CC00075627A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B12EA16700CC00075627A /* AVFoundation.framework */; };
 		CC3B12F9167235670075627A /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F5167235670075627A /* camera.png */; };
@@ -130,6 +137,13 @@
 		B7A1C2CF1673BB150089210D /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
 		B7A1C2D51673C1CF0089210D /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		B7A1C2D61673C1CF0089210D /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
+		CC28A1FE1676450C002362DD /* micbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "micbg@2x.png"; sourceTree = "<group>"; };
+		CC28A20016764583002362DD /* micbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = micbg.png; sourceTree = "<group>"; };
+		CC28A20416764606002362DD /* ModalMicView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ModalMicView.xib; path = ../ModalMicView.xib; sourceTree = "<group>"; };
+		CC28A20616764C51002362DD /* light_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_off.png; sourceTree = "<group>"; };
+		CC28A20716764C51002362DD /* light_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_on.png; sourceTree = "<group>"; };
+		CC28A20816764C51002362DD /* light_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light_on@2x.png"; sourceTree = "<group>"; };
+		CC28A20916764C51002362DD /* light_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light_off@2x.png"; sourceTree = "<group>"; };
 		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CC3B12EA16700CC00075627A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -262,6 +276,12 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC28A20616764C51002362DD /* light_off.png */,
+				CC28A20716764C51002362DD /* light_on.png */,
+				CC28A20816764C51002362DD /* light_on@2x.png */,
+				CC28A20916764C51002362DD /* light_off@2x.png */,
+				CC28A1FE1676450C002362DD /* micbg@2x.png */,
+				CC28A20016764583002362DD /* micbg.png */,
 				B7A1C2C61673A5410089210D /* UOB.png */,
 				B7A1C2C71673A5410089210D /* UOB@2x.png */,
 				B7A1C2C81673A5420089210D /* IBM.png */,
@@ -288,6 +308,7 @@
 		B786095A166A787F005117A2 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				CC28A20416764606002362DD /* ModalMicView.xib */,
 				B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */,
 				B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */,
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
@@ -435,6 +456,13 @@
 				CC3B12FC167235670075627A /* notepad.png in Resources */,
 				CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */,
 				CC3B130516758BFA0075627A /* .gitignore in Resources */,
+				CC28A1FF1676450C002362DD /* micbg@2x.png in Resources */,
+				CC28A20116764583002362DD /* micbg.png in Resources */,
+				CC28A20516764606002362DD /* ModalMicView.xib in Resources */,
+				CC28A20A16764C51002362DD /* light_off.png in Resources */,
+				CC28A20B16764C51002362DD /* light_on.png in Resources */,
+				CC28A20C16764C51002362DD /* light_on@2x.png in Resources */,
+				CC28A20D16764C51002362DD /* light_off@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
