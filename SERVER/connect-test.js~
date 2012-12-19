@@ -55,7 +55,7 @@ app.post('/login', function(req, res){
 			{
 				//correct details entered, initate login stuff
 				console.log("Correct login details send");
-				res.send("NIceeee");
+				res.send(obj._id);
 			}
 
 

@@ -39,6 +39,11 @@ var userModel = db.model('User', userSchema);
 var uploadModel = db.model('Upload', userSchema);
 
 
+function checkLogin(uid, hash)
+{
+	
+}
+
 app.post('/login', function(req, res){
 	
 	console.log("Attempting login");
@@ -170,15 +175,8 @@ app.get('/get/:id', function (req, res)
   	});
 });
 
-app.get('/all', function (req, res) {
-imageModel.find({}, function (err, products) {
-  if(err) {console.log("errror");} else {console.log("products = " + products);}
-});
-	res.send("here");
-});
 
-
-app.post('/upload/:userhash', function (req, res){
+app.post('/upload/:userid', function (req, res){
   var user;
   console.log("POST: ");
   console.log(req.body);
