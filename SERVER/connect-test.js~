@@ -5,8 +5,6 @@ var mongoose = require('mongoose')
   , Schema = mongoose.Schema;
 var salt = "lsakjdlkjasf;ds"; // salted string
 var SHA2 = new (require('jshashes').SHA512)();
-
-
 db = mongoose.createConnection('localhost', 'testImages');
 db.on('error', console.error.bind(console, 'connection error:'));
 app.use(express.bodyParser({uploadDir:'./uploads'}));
