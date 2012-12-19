@@ -26,17 +26,30 @@ var uploadSchema = new Schema({
 	user: String,
 	kind: {
 		type:String,
-		enum: ['thumbnail', 'catalog', 'detail', 'zoom'],
+		enum: ['image', 'text', 'audio'],
 		required: true
 		},
 	date: Number,
-	url: String
+	dataLocation: String,
 });
 
 var imageModel = db.model('Image', imageSchema);
 var userModel = db.model('User', userSchema);
 var uploadModel = db.model('Upload', userSchema);
 
+
+app.post('/login', function(req, res){
+	
+	console.log("Attempting login");
+	//res.body.user and res.body.pass is what we're looking for
+	userModel.findOne({nick: req.body.user, pass: req.body.pass},
+		function(err,obj) { console.log(obj); res.send(obj); });
+	return;
+});
+
+app.post('/register', function(req, res){
+	
+});
 
 app.post('/file',  function(req, res){
 	// get the temporary location of the file
