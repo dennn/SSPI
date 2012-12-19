@@ -19,7 +19,8 @@ var imageSchema = new Schema({
 var userSchema = new Schema({
 	user: String,
 	pass: String,
-	hash: String
+	hash: String,
+	date: Number
 });
 
 var uploadSchema = new Schema({
@@ -42,13 +43,46 @@ app.post('/login', function(req, res){
 	
 	console.log("Attempting login");
 	//res.body.user and res.body.pass is what we're looking for
-	userModel.findOne({nick: req.body.user, pass: req.body.pass},
+	return userModel.findOne({user: req.body.user, pass: req.body.pass},
 		function(err,obj) { console.log(obj); res.send(obj); });
-	return;
+	
 });
 
 app.post('/register', function(req, res){
-	
+	return userModel.findOne({user: req.body.user},
+		function(err,obj) { console.log(obj);
+			if(obj == null) 
+			{
+				//user not found, safe to add new one
+				t = new Date();
+				nUser = new userModel(
+				{
+					user: req.body.user,
+					pass: req.body.pass,
+					date: t.getTime()
+				});
+				nUser.save(function (err)
+				{
+					if(err)
+					{
+						//problem creating the user
+						console.log("Error creating user");
+						res.send("Error added user to db");
+					}
+					else
+					{
+
+						console.log(req.body.user + " successfully added to db");
+						res.send(req.body.user + " successfully added to db");
+						
+					}
+				});
+			}
+			else
+			{
+				console.log(req.body.user + " already taken");
+				res.send(req.body.user + " already taken");
+			}});
 });
 
 app.post('/file',  function(req, res){
