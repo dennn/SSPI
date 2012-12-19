@@ -54,6 +54,7 @@ app.post('/register', function(req, res){
 			if(obj == null) 
 			{
 				//user not found, safe to add new one
+				t = new Date();
 				nUser = new userModel(
 				{
 					user: req.body.user,

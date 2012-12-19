@@ -44,7 +44,22 @@ app.post('/login', function(req, res){
 	console.log("Attempting login");
 	//res.body.user and res.body.pass is what we're looking for
 	return userModel.findOne({user: req.body.user, pass: req.body.pass},
-		function(err,obj) { console.log(obj); res.send(obj); });
+		function(err,obj) { console.log(obj);
+			if(obj == null)
+			{
+				//incorrect username or password
+				console.log("Incorrect username or pass");
+				res.send("Incorrect username or pass");
+			}
+			else
+			{
+				//correct details entered, initate login stuff
+				console.log("Correct login details send");
+				res.send("NIceeee");
+			}
+
+
+		});
 	
 });
 
