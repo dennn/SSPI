@@ -55,7 +55,7 @@ app.post('/login', function(req, res){
 			{
 				//correct details entered, initate login stuff
 				console.log("Correct login details send");
-				res.send("NIceeee");
+				res.send(obj._id);
 			}
 
 
@@ -178,25 +178,6 @@ imageModel.find({}, function (err, products) {
 });
 
 
-app.post('/user/reg', function (req, res){
-  var user;
-  console.log("POST: ");
-  console.log(req.body);
-  user = new ProductModel({
-    user: req.body.user,
-    pass: req.body.pass
-  });
-  user.save(function (err) {
-    if (!err) {
-      return console.log("created");
-    } else {
-      return console.log(err);
-    }
-  });
-  return res.send(user);
-});
-
-
 app.post('/upload/:userhash', function (req, res){
   var user;
   console.log("POST: ");
@@ -215,20 +196,6 @@ app.post('/upload/:userhash', function (req, res){
   return res.send(user);
 });
 
-app.get('/login/:user/:pass', function(req, res)
-{
-	return imageModel.find({user: req.params.user, pass: req.params.pass}, function (err, product)
-	{
-		if(err)
-		{
-			console.log("invalid user data");
-		}
-		else
-		{
-			console.log(product);
-		}
-	});
-});
 
 app.listen(8080);
 console.log('listening on port 8080');
