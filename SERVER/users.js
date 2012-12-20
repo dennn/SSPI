@@ -1,30 +1,5 @@
 require('./database');
-var salt = "lsakjdlkjasf;ds"; // salted string
-SHA2 = new (require('jshashes').SHA512)();
 
-var checkHashF = function checkHash(uid, hash){
-	userModel.findById(uid, function(err, docs)
-	{
-	  if(err)
-	  {
-	    console.log("uid doesn't exist");
-	    return false;
-	  }
-	  else
-	  {
-	    t = new Date();
-	    timeStamp = t.getTime().toString();
-	    timeStamp = parseInt(timeStamp.substring(0, timeStamp.length-2));
-	    //hash format is sha2(Salt+timeStamp+Password)
-	    if(SHA2.b64_hmac(salt + timeStamp + docs.password, "") == hash)
-	      return true;
-	    else
-	      return false;
-	  }
-	});
-};
-	
-exports.checkHash = checkHashF;
 
 exports.registerUser = function(req, res){
 	return userModel.findOne({user: req.body.user},
@@ -90,5 +65,5 @@ exports.runTest =
 function(req, res)
 {
     res.send(req.params.id);
-    return checkHashF(req.params.id, "ssad");
+    return checkHash(req.params.id, "ssad");
 };
