@@ -33,6 +33,7 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) IBOutlet UITextView *comments;
 @property (nonatomic, retain) IBOutlet UITextView *infoTags;
+@property (nonatomic, retain) IBOutlet UILabel *recordingLabel;
 
 - (IBAction)cameraButtonPressed:(id)sender;
 - (IBAction)videoButtonPressed:(id)sender;

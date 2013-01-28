@@ -10,9 +10,9 @@
 
 @implementation UploadViewController
 
-@synthesize locationManager, comments, infoTags;
+@synthesize locationManager, comments, infoTags, recordingLabel;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -146,8 +146,14 @@
 }
 
 - (IBAction)record:(id)sender{
-    if(!recording)
+    if(!recording){
         [micButton setImage:[UIImage imageNamed:@"light_on.png"] forState:UIControlStateNormal];
+        recordingLabel.textColor = [UIColor redColor];
+        recording = YES;
+    }else{
+        NSArray *tags = [self getTags];
+        [self dismiss:sender];
+    }
 }
 
 
@@ -217,7 +223,7 @@
 }
 
 - (NSArray *)getTags{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sent" message:@"Please input space separated tags" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag" message:@"Please input space separated tags" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
     
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
