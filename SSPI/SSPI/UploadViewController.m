@@ -10,7 +10,7 @@
 
 @implementation UploadViewController
 
-@synthesize locationManager, comments, infoTags, recordingLabel;
+@synthesize locationManager, comments, infoTags, recordingLabel, operation, uploadEngine;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil
 {
@@ -98,7 +98,7 @@
         } else {
             imageToSave = originalImage;
         }
-        
+        [self sendImage:imageToSave];
         // Save the new image (original or edited) to the Camera Roll
         UIImageWriteToSavedPhotosAlbum (imageToSave, nil, nil , nil);
     }
@@ -265,6 +265,33 @@
         [self animateTextView:NO];
     }
 }
+/* Sends image to server, should be extended (MKNetworkKit used) */
+- (void)sendImage:(UIImage *)image {
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+    
+    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"http://192.168.0.171/coomko/file.php?coomko=1" customHeaderFields:nil];
+    
+    NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"testApppppp", @"appID",
+                                       nil];
+    self.operation = [self.uploadEngine postDataToServer:postParams path:@"/post.php"];
+    [self.operation addData:imageData forKey:@"userfl" mimeType:@"image/jpeg" fileName:@"upload.jpg"];
+    
+    [self.operation addCompletionHandler:^(MKNetworkOperation* networkOperation) {
+        NSLog(@"%@", [networkOperation responseString]);
+    }
+                              errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
+                                  NSLog(@"%@", error);
+                                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                  message:[error localizedDescription]
+                                                                                 delegate:nil
+                                                                        cancelButtonTitle:@"Dismiss"
+                                                                        otherButtonTitles:nil];
+                                  [alert show];        
+                              }];
+    
+    [self.uploadEngine enqueueOperation:self.operation ];
+}
 
 
 - (void)viewDidLoad
@@ -286,5 +313,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
