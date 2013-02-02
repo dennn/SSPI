@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5B07EB16BC9CC100094964 /* Whatsnew.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5B07EA16BC9CC100094964 /* Whatsnew.m */; };
 		B703BD7116767E63000A46D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EF167397DC00025577 /* SystemConfiguration.framework */; };
 		B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91ED167397D600025577 /* Security.framework */; };
 		B703BD7316767E77000A46D8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EB167397BF00025577 /* CoreData.framework */; };
@@ -64,7 +65,6 @@
 		CC3B12FC167235670075627A /* notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F8167235670075627A /* notepad.png */; };
 		CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3B13001675442E0075627A /* ModalTextInputView.xib */; };
 		CC3B130316756C330075627A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B130216756C320075627A /* QuartzCore.framework */; };
-		CC3B130516758BFA0075627A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CC3B130416758BF90075627A /* .gitignore */; };
 		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +107,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C5B07E916BC9CC100094964 /* Whatsnew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Whatsnew.h; sourceTree = "<group>"; };
+		0C5B07EA16BC9CC100094964 /* Whatsnew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Whatsnew.m; sourceTree = "<group>"; };
 		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		B7660C93166B8BE8005BC8E6 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
@@ -188,7 +190,6 @@
 		CC3B12F8167235670075627A /* notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notepad.png; sourceTree = "<group>"; };
 		CC3B13001675442E0075627A /* ModalTextInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalTextInputView.xib; sourceTree = "<group>"; };
 		CC3B130216756C320075627A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		CC3B130416758BF90075627A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,8 +241,11 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				CC15691616B97FA6004843EE /* MKNetworkKit */,
 				CC3B130416758BF90075627A /* .gitignore */,
+=======
+>>>>>>> more changes on whatsnew
 				B786092C166A75A3005117A2 /* SSPI */,
 				B7860925166A75A3005117A2 /* Frameworks */,
 				B7860923166A75A3005117A2 /* Products */,
@@ -363,6 +367,8 @@
 				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
 				B7660CF3166BADF8005BC8E6 /* ServerViewController.m */,
 				B786093E166A75A3005117A2 /* MapViewController.h */,
+				0C5B07E916BC9CC100094964 /* Whatsnew.h */,
+				0C5B07EA16BC9CC100094964 /* Whatsnew.m */,
 				B786093F166A75A3005117A2 /* MapViewController.m */,
 				B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */,
 				B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */,
@@ -536,7 +542,6 @@
 				CC3B12FB167235670075627A /* mic.png in Resources */,
 				CC3B12FC167235670075627A /* notepad.png in Resources */,
 				CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */,
-				CC3B130516758BFA0075627A /* .gitignore in Resources */,
 				CC28A1FF1676450C002362DD /* micbg@2x.png in Resources */,
 				CC28A20116764583002362DD /* micbg.png in Resources */,
 				CC28A20516764606002362DD /* ModalMicView.xib in Resources */,
@@ -563,6 +568,7 @@
 				B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */,
 				B7A1C2D01673BB150089210D /* Data.xcdatamodeld in Sources */,
 				B7A1C2D71673C1CF0089210D /* MapAnnotation.m in Sources */,
+<<<<<<< HEAD
 				CC15692F16B97FA6004843EE /* NSData+MKBase64.m in Sources */,
 				CC15693016B97FA6004843EE /* NSDate+RFC1123.m in Sources */,
 				CC15693116B97FA6004843EE /* NSDictionary+RequestEncoding.m in Sources */,
@@ -573,6 +579,9 @@
 				CC15693616B97FA6004843EE /* MKNetworkOperation.m in Sources */,
 				CC15693716B97FA6004843EE /* Reachability.m in Sources */,
 				CC15693C16B984AA004843EE /* UploadEngine.m in Sources */,
+=======
+				0C5B07EB16BC9CC100094964 /* Whatsnew.m in Sources */,
+>>>>>>> more changes on whatsnew
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
