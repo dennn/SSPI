@@ -241,11 +241,8 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				CC15691616B97FA6004843EE /* MKNetworkKit */,
 				CC3B130416758BF90075627A /* .gitignore */,
-=======
->>>>>>> more changes on whatsnew
 				B786092C166A75A3005117A2 /* SSPI */,
 				B7860925166A75A3005117A2 /* Frameworks */,
 				B7860923166A75A3005117A2 /* Products */,
@@ -568,7 +565,6 @@
 				B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */,
 				B7A1C2D01673BB150089210D /* Data.xcdatamodeld in Sources */,
 				B7A1C2D71673C1CF0089210D /* MapAnnotation.m in Sources */,
-<<<<<<< HEAD
 				CC15692F16B97FA6004843EE /* NSData+MKBase64.m in Sources */,
 				CC15693016B97FA6004843EE /* NSDate+RFC1123.m in Sources */,
 				CC15693116B97FA6004843EE /* NSDictionary+RequestEncoding.m in Sources */,
@@ -579,9 +575,7 @@
 				CC15693616B97FA6004843EE /* MKNetworkOperation.m in Sources */,
 				CC15693716B97FA6004843EE /* Reachability.m in Sources */,
 				CC15693C16B984AA004843EE /* UploadEngine.m in Sources */,
-=======
 				0C5B07EB16BC9CC100094964 /* Whatsnew.m in Sources */,
->>>>>>> more changes on whatsnew
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
