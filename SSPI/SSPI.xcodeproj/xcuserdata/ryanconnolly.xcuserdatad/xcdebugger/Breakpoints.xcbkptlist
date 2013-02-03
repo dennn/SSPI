@@ -26,7 +26,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "283"
          endingLineNumber = "283"
-         landmarkName = "-sendImage:lat:lon:tags:"
+         landmarkName = "-textViewDidEndEditing:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "281"
          endingLineNumber = "281"
-         landmarkName = "-sendImage:lat:lon:tags:"
+         landmarkName = "-textViewDidEndEditing:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -65,7 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "242"
          endingLineNumber = "242"
-         landmarkName = "-alertView:clickedButtonAtIndex:"
+         landmarkName = "-getTags"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -78,7 +78,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "240"
          endingLineNumber = "240"
-         landmarkName = "-alertView:clickedButtonAtIndex:"
+         landmarkName = "-getTags"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -91,7 +91,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "231"
          endingLineNumber = "231"
-         landmarkName = "-getTags"
+         landmarkName = "-dismiss:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
