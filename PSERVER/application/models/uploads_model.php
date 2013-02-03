@@ -25,6 +25,14 @@ class uploads_model extends CI_Model
 
 	}
 
+	public function get_nearest($lng, $lat, $limit)
+	{
+		$this->load->database();
+		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` ORDER BY distance ASC LIMIT '.$limit;
+		$q = $this->db->query($sql);
+		return $q->result_array();
+	}
+
 }
 
 ?>

@@ -60,9 +60,24 @@ class uploads extends CI_Controller {
 			echo '1';
 		}
 		file_put_contents('file.txt', print_r($_FILES, true));
+		return;
+	}
+
+	public function get_pins()
+	{
+		$this->load->model("uploads_model", "uploads");
+		$long = $this->uri->segment(3);
+		$lat = $this->uri->segment(4);
+		if(!$long || !$lat)
+		{
+			echo 0;
+			return;
+		}
+		$results = $this->uploads->get_nearest($long, $lat, 10);
+		echo json_encode($results);
+		return;
 	}
 }
 
 /* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
 ?>
