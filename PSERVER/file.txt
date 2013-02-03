@@ -1,0 +1,12 @@
+Array
+(
+    [userfl] => Array
+        (
+            [name] => Bristol_Pic.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Program Files (x86)\EasyPHP-12.1\tmp\php426A.tmp
+            [error] => 0
+            [size] => 99910
+        )
+
+)
