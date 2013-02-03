@@ -3,4 +3,8 @@
 
 SSPI/SSPI.xcodeproj/project.xcworkspace/xcuserdata/den.xcuserdatad/UserInterfaceState.xcuserstate
 
+<<<<<<< HEAD
 SERVER/*~
+=======
+*.xcuserstate
+>>>>>>> Ignore .xcuserstate
