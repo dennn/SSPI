@@ -2,12 +2,12 @@ Array
 (
     [upload_data] => Array
         (
-            [file_name] => d6c9af22bc1d7ea6d18a0d14c3fc6024a42a2e24f1a2260f4f68676d19d9fe09.jpg
+            [file_name] => 38667c9892121c3ac0580a13f1e8859316c9154b17c9e1fc890e9c69c710b302.jpg
             [file_type] => image/jpeg
             [file_path] => C:/Program Files (x86)/EasyPHP-12.1/www/coomko/PSERVER/uploads/
-            [full_path] => C:/Program Files (x86)/EasyPHP-12.1/www/coomko/PSERVER/uploads/d6c9af22bc1d7ea6d18a0d14c3fc6024a42a2e24f1a2260f4f68676d19d9fe09.jpg
-            [raw_name] => d6c9af22bc1d7ea6d18a0d14c3fc6024a42a2e24f1a2260f4f68676d19d9fe09
-            [orig_name] => d6c9af22bc1d7ea6d18a0d14c3fc6024a42a2e24f1a2260f4f68676d19d9fe09.jpg
+            [full_path] => C:/Program Files (x86)/EasyPHP-12.1/www/coomko/PSERVER/uploads/38667c9892121c3ac0580a13f1e8859316c9154b17c9e1fc890e9c69c710b302.jpg
+            [raw_name] => 38667c9892121c3ac0580a13f1e8859316c9154b17c9e1fc890e9c69c710b302
+            [orig_name] => 38667c9892121c3ac0580a13f1e8859316c9154b17c9e1fc890e9c69c710b302.jpg
             [client_name] => Bristol_Pic.jpg
             [file_ext] => .jpg
             [file_size] => 97.57

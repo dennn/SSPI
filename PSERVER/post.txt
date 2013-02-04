@@ -1,3 +1,4 @@
 Array
 (
+    [tags] => hello ethan what
 )

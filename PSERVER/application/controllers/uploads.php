@@ -55,7 +55,7 @@ class uploads extends CI_Controller {
 			file_put_contents('data.txt', print_r($data, true));
 			file_put_contents('post.txt', print_r($_POST, true));
 			$this->load->model('uploads_model', 'uploads');
-			$this->uploads->dump_upload($info);
+			$this->uploads->dump_upload($info, explode(' ', $this->input->post("tags")));
 			//$this->load->view('upload_success', $data);
 			echo '1';
 		}
