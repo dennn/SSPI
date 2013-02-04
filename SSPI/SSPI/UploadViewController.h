@@ -18,7 +18,7 @@
 
 
 @interface UploadViewController : UIViewController <UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
+UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
     CLLocationManager *locationManager;
     AVAudioRecorder *recorder;
@@ -43,6 +43,7 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 - (IBAction)videoButtonPressed:(id)sender;
 - (IBAction)micButtonPressed:(id)sender;
 - (IBAction)noteButtonPressed:(id)sender;
+- (IBAction)syncPressed:(id)sender;
 - (void)sendImage:(UIImage *)image;
 
 
