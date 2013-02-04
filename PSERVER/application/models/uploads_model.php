@@ -47,8 +47,61 @@ class uploads_model extends CI_Model
 	{
 		$this->load->database();
 		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` ORDER BY distance ASC LIMIT '.$limit;
-		$q = $this->db->query($sql);
+		$q = $this->db->query($sql);/*
 		$results = $q->result_array();
+		$idArray = array();
+		foreach($results as $r)
+		{
+			$idArray[] = $r['id'];
+		}
+		$this->db->where_in($idArray);
+		$this->db->order_by('upload', 'asc');
+		$tags = $this->db->get('tagLink');
+		$tagsArray = array();
+		$tagLinkArray = array();
+		$tagLinkHold = array();
+		foreach($tags->result_array() as $t)
+		{
+			if(in_array($t['tag'],$tagsLinkHold))
+			{
+				$tagLinkArray[strval($t['upload'])][] = $t['tag'];
+			}
+			else
+			{
+				$tagLinkArray[strval($t['upload'])] = array($t['tag']);
+				$tagsLinkHold[] = $t['tag'];
+			}
+			echo "t upload = " . $t['upload'] . '<br />';
+		}
+		$this->db->where_in($tagsArray);
+		$tagGet = $this->db->get('tags');
+		$tagInfoArray = array();
+		foreach($tagGet->result_array() as $t)
+		{
+			$tagInfoArray[strval($t['id'])] = $t['name'];
+		}
+		$res = $q->result_array();
+		foreach($res as $k=>$r)
+		{
+			$res[$k]['tags'] = array();
+			print_r($r);
+			echo '<br />';
+			if(is_array($tagLinkArray[strval($r['id'])]))
+			{
+				foreach($tagLinkArray[strval($r['id'])] as $t)
+				{
+					$res[$k]['tags'][] = $t;
+				}	
+			}
+		}
+		print_r($res);
+		echo '<br />';
+		print_r($tagInfoArray);
+		echo '<br />';
+		print_r($tagGet->result_array());
+		echo '<br />';
+		print_r($q->result_array);
+		echo '<br /><br />';*/
 		return $q->result_array();
 	}
 

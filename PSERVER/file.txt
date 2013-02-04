@@ -2,11 +2,11 @@ Array
 (
     [userfl] => Array
         (
-            [name] => IMG_2875.MOV
-            [type] => video/quicktime
-            [tmp_name] => C:\Program Files (x86)\EasyPHP-12.1\tmp\php6424.tmp
+            [name] => upload.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Program Files (x86)\EasyPHP-12.1\tmp\phpEA3F.tmp
             [error] => 0
-            [size] => 114263
+            [size] => 258381
         )
 
 )

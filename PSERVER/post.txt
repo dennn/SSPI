@@ -1,4 +1,7 @@
 Array
 (
-    [tags] => hello ethan what
+    [userID] => 634
+    [lat] => 51.455748
+    [tags] => jekdks jshahbs ss ahaka
+    [long] => -2.602162
 )
