@@ -25,6 +25,8 @@
 
 - (IBAction)cameraButtonPressed:(id)sender{
     
+    type = @"image";
+    
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -46,6 +48,8 @@
 
 - (IBAction)videoButtonPressed:(id)sender{
     
+    type = @"video";
+    
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -64,7 +68,7 @@
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+- (void)setLatLon{
     
     // Get location
     locationManager = [[CLLocationManager alloc] init];
@@ -83,7 +87,13 @@
     
     NSLog(@"dLatitude : %@", latitude);
     NSLog(@"dLongitude : %@",longitude);
+    lat = latitude;
+    lon = longitude;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
+    [self setLatLon];
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToSave;
     
@@ -107,7 +117,11 @@
         NSLog(@"%@",docDir);
         
         NSLog(@"saving jpeg");
-        NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@%@.jpeg",docDir, latitude, longitude];
+        NSString *file = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
+        NSString *filenameWithoutDots = [file stringByReplacingOccurrencesOfString:@"." withString:@""];
+        NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpeg",docDir, filenameWithoutDots];
+        NSLog(@"FILE PATH:%@", jpegFilePath);
+        name = [NSString stringWithFormat:@"%@.jpeg", filenameWithoutDots];
         NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(imageToSave, 1.0f)];//1.0f = 100% quality
         [data2 writeToFile:jpegFilePath atomically:YES];
     }
@@ -136,11 +150,11 @@
     
     [picker dismissViewControllerAnimated:TRUE completion:nil];
     NSArray *tags = [self getTags];
-    [self sendImage:imageToSave lat:latitude lon:longitude tags:tags];
-
 }
 
 - (IBAction)micButtonPressed:(id)sender{
+    
+    type = @"audio";
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalMicView" owner:self options:nil];
     modalView = [subviewArray objectAtIndex:0];
     modalView.frame = CGRectMake(0, 480, 320, 480);
@@ -169,6 +183,7 @@
 
 - (IBAction)noteButtonPressed:(id)sender{
     
+    type = @"text";
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalTextInputView" owner:self options:nil];
     
     comments.layer.cornerRadius = 8;
@@ -233,37 +248,19 @@
 }
 
 - (NSArray *)getTags{
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag" message:@"Please input space separated tags" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
     
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alert show];
-    [self alertView:alert clickedButtonAtIndex:0];
-    
-    NSString *tagString = [alert textFieldAtIndex:0].text;
-    NSLog(@"tag string: %@", tagString);
-    return [tagString componentsSeparatedByString:@" "];
+    return nil;
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *tagString = [alertView textFieldAtIndex:0].text;
     NSLog(@"%@", tagString);
-    
-}
-
-- (BOOL)isVisible
-{
-    return _isVisible;
-}
-
-- (void)didShow
-{
-    _isVisible = YES;
-}
-
-- (void)didHide
-{
-    _isVisible = NO;
+    [self store:tagString];
 }
        
 -(void)textViewDidBeginEditing:(UITextView *)textView{
@@ -284,20 +281,19 @@
     }
 }
 /* Sends image to server, should be extended (MKNetworkKit used) */
-- (void)sendImage:(UIImage *)image lat:(NSString *)lat lon:(NSString *)lon tags:(NSArray *)tags{
+- (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags{
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString* dataPath = [documentsPath stringByAppendingPathComponent:filename];
+    UIImage *image = [UIImage imageWithContentsOfFile:dataPath];
     NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+    NSLog(@"Image path:  %@", dataPath);
     
-    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"192.168.0.171" customHeaderFields:nil];
-    NSString * result = [tags componentsJoinedByString:@"|"];
-    NSLog(@"HERERERE %@",result);
-    for(int i = 0; i < tags.count; i++){
-        
-    }
+    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     
     NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       lat, @"lat",lon, @"long",@"634", @"userID",result,@"tags",
+                                       latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",
                                        nil];
-    self.operation = [self.uploadEngine postDataToServer:postParams path:@"coomko/PSERVER/index.php/uploads/run"];
+    self.operation = [self.uploadEngine postDataToServer:postParams path:@"coomko/index.php/uploads/run"];
     [self.operation addData:imageData forKey:@"userfl" mimeType:@"image/jpeg" fileName:@"upload.jpg"];
     
     [self.operation addCompletionHandler:^(MKNetworkOperation* networkOperation) {
@@ -310,63 +306,79 @@
                                                                                  delegate:nil
                                                                         cancelButtonTitle:@"Dismiss"
                                                                         otherButtonTitles:nil];
-                                  [alert show];        
+                                  [alert show];
                               }];
     
     [self.uploadEngine enqueueOperation:self.operation ];
 }
 
--(void)store{
-    NSString *DocPath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+-(void)store:(NSString *)tags {
+    NSString *DocPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     NSString* filePath=[DocPath stringByAppendingPathComponent:@"sync.plist"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
     {
+        NSLog(@"sync.plist did not exist");
         NSString *path=[[NSBundle mainBundle] pathForResource:@"sync" ofType:@"plist"];
         NSLog(@"file path: %@",filePath);
         NSDictionary *info=[NSDictionary dictionaryWithContentsOfFile:path];
         [info writeToFile:filePath atomically:YES];
     }
+    NSLog(@"Name: %@", name);
+    // Create the new dictionary that will be inserted into the plist.
+    NSMutableDictionary *nameDictionary = [NSMutableDictionary dictionary];
+    [nameDictionary setValue:type forKey:@"Type"];
+    [nameDictionary setValue:name forKey:@"Name"];
+    NSLog(@"Name stored: %@", [nameDictionary objectForKey:@"Name"]);
+    [nameDictionary setValue:lat forKey:@"Latitude"];
+    [nameDictionary setValue:lon forKey:@"Longitude"];
+    [nameDictionary setValue:tags forKey:@"Tags"];
+    
+    // Open the plist from the filesystem.
+    NSMutableArray *plist = [NSMutableArray arrayWithContentsOfFile:filePath];
+    if (plist == nil) plist = [NSMutableArray array];
+    [plist addObject:nameDictionary];
+    [plist writeToFile:filePath atomically:YES];
 }
 
 - (IBAction)syncPressed:(id)sender {
-    NSLog(@"Sync pressed");
     NSString *DocPath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* plistPath=[DocPath stringByAppendingPathComponent:@"sync.plist"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
-    {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]){
         NSLog(@"Nothing yet synced");
         return;
     }
-
-    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-    NSString *errorDesc = nil;
-    NSPropertyListFormat format;
-    // convert static property liost into dictionary object
-    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
-    if (!temp)
-    {
-        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+    
+    NSArray* a = [NSArray arrayWithContentsOfFile:plistPath];
+    for (NSDictionary *d in a){
+        NSLog(@"Type: %@, filename: %@, lat: %@, lon: %@, tags: %@", [d objectForKey:@"Type"],[d objectForKey:@"Name"],[d objectForKey:@"Latitude"],[d objectForKey:@"Longitude"],[d objectForKey:@"Tags"]);
+        
+        [self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"]];
     }
-    // assign values
-    NSString *type = [temp objectForKey:@"Type"];
-    NSString *file = [temp objectForKey:@"Name"];
-    NSString *tags = [temp objectForKey:@"Tags"];
-    //NSString *file = [temp objectForKey:@"Name"];
-    /* GET OTHER VALUES
-     NSMutableArray *tags = [NSMutableArray arrayWithArray:[temp objectForKey:@"Phones"]];
-    // display values
-    nameEntered.text = personName;
-    homePhone.text = [phoneNumbers objectAtIndex:0];
-    workPhone.text = [phoneNumbers objectAtIndex:1];
-    cellPhone.text = [phoneNumbers objectAtIndex:2];
-     */
+    
+    // Open the plist from the filesystem.
+    NSMutableArray *plist = nil;
+    if (plist == nil) plist = [NSMutableArray array];
+    [plist writeToFile:plistPath atomically:YES];
 }
 
-
-- (void)viewDidLoad
+- (BOOL)isVisible
 {
+    return _isVisible;
+}
+
+- (void)didShow
+{
+    _isVisible = YES;
+}
+
+- (void)didHide
+{
+    _isVisible = NO;
+}
+
+- (void)viewDidLoad {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(didShow) name:UIKeyboardDidShowNotification object:nil];
     [center addObserver:self selector:@selector(didHide) name:UIKeyboardWillHideNotification object:nil];
