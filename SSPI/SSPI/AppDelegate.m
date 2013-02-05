@@ -23,10 +23,11 @@
     UIViewController *mapViewController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     UIViewController *viewController2 = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController *settingsViewController = [[UINavigationController alloc] initWithRootViewController:viewController2];
-
+    
     UIViewController *uploadViewController = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[mapViewController, uploadViewController, settingsViewController];
+    //UIViewController *LoginViewController = [LoginViewController alloc]
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
