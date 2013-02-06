@@ -13,6 +13,7 @@
 #import "MapViewController.h"
 #import "SettingsViewController.h"
 #import "UploadViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -27,8 +28,9 @@
     UIViewController *uploadViewController = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[mapViewController, uploadViewController, settingsViewController];
-    //UIViewController *LoginViewController = [LoginViewController alloc]
+    UIViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     self.window.rootViewController = self.tabBarController;
+    //[self.tabBarController.navigationController presentModalViewController:loginViewController animated:YES];
     [self.window makeKeyAndVisible];
     return YES;
 }

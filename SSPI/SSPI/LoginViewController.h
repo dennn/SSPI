@@ -10,13 +10,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface LoginViewController : UIViewController
+
+@interface LoginViewController : UIViewController<UITextFieldDelegate>
+
+@property (strong, nonatomic) UITabBarController *tabBarController;
 
 @property (weak, nonatomic) IBOutlet UITextField *txtUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
-@property (weak, nonatomic) IBOutlet UIButton *signUpClicker;
-@property (weak, nonatomic) IBOutlet UIButton *loginClicker;
+
+- (IBAction)signUpPressed:(id)sender;
+- (IBAction)loginPressed:(id)sender;
 
 
 @end

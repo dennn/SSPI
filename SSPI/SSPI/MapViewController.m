@@ -41,6 +41,8 @@
     
     [self loadDummyPlaces];
     [self filterAnnotations:annotations];
+    
+    [self.navigationController presentModalViewController:self.loginview animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
