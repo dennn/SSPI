@@ -10,6 +10,7 @@
 		0C5B07EB16BC9CC100094964 /* Whatsnew.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5B07EA16BC9CC100094964 /* Whatsnew.m */; };
 		0C6DE92D16C0579A00C6AA58 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */; };
 		18E4A98C16BFDFE6003C2852 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4A98B16BFDFE6003C2852 /* LoginViewController.m */; };
+		18EA02AE16C2A3BA00B29C0F /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */; };
 		B703BD7116767E63000A46D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EF167397DC00025577 /* SystemConfiguration.framework */; };
 		B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91ED167397D600025577 /* Security.framework */; };
 		B703BD7316767E77000A46D8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EB167397BF00025577 /* CoreData.framework */; };
@@ -116,6 +117,7 @@
 		0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		18E4A98A16BFDFE6003C2852 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18E4A98B16BFDFE6003C2852 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
 		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		B7660C93166B8BE8005BC8E6 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			children = (
 				CC28A20416764606002362DD /* ModalMicView.xib */,
 				0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */,
+				18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */,
 				B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */,
 				B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */,
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
@@ -569,6 +572,7 @@
 				CC28A20D16764C51002362DD /* light_off@2x.png in Resources */,
 				CC15694516BD7BA9004843EE /* sync.plist in Resources */,
 				0C6DE92D16C0579A00C6AA58 /* LoginViewController.xib in Resources */,
+				18EA02AE16C2A3BA00B29C0F /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
