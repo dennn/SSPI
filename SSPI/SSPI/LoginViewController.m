@@ -15,14 +15,16 @@
 #import "UploadViewController.h"
 #import "MapViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController (){
+
+}
 
 @end
 
 @implementation LoginViewController
 
 
-@synthesize txtPassword,txtUsername,tabViewController,parentNavController,username,password;
+@synthesize txtPassword,txtUsername,tabViewController,parentNavController,operation,uploadEngine;
 
 
 
@@ -58,15 +60,58 @@
 }
 
 
-- (IBAction)signUpPressed:(id)sender{
+- (IBAction)signUpPressed:(id)sender
+{
     NSLog(@"Sign Up Pressed");
 }
 
-- (IBAction)loginPressed:(id)sender{
-    self.username = self.txtUsername.text;
-    self.password = self.txtPassword.text;
+- (IBAction)loginPressed:(id)sender
+{
+    username = self.txtUsername.text;
+    password = self.txtPassword.text;
     
-    NSLog(@"username= %@, password= %@",self.username, self.password);
+    NSLog(@"username= %@, password= %@",username, password);
+    
+    NSString *hashPass = [self sha256:password];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:username forKey:@"user"];
+    [dic setValue:hashPass forKey:@"pass"];
+    
+    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+    self.operation = [self.uploadEngine authTest:dic];
+    [operation onCompletion:^(MKNetworkOperation *operation) {
+        if ([[operation responseString] isEqual: @"1"])
+        {
+            NSLog(@"Login Success!");
+            [self gotoMainView];
+        }
+        else
+        {
+            NSLog(@"Login Failed");
+        }
+    } onError:^(NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
+    [self.uploadEngine enqueueOperation:self.operation ];
+}
+
+-(NSString*) sha256:(NSString *)data{
+    const char *s=[data cStringUsingEncoding:NSASCIIStringEncoding];
+    NSData *keyData=[NSData dataWithBytes:s length:strlen(s)];
+    
+    uint8_t digest[CC_SHA256_DIGEST_LENGTH]={0};
+    CC_SHA256(keyData.bytes, keyData.length, digest);
+    NSData *out=[NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
+    NSString *hash=[out description];
+    hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
+    hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];
+    return hash;
+}
+
+-(void)gotoMainView
+{
     UIViewController *mapViewController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     UIViewController *viewController2 = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController *settingsViewController = [[UINavigationController alloc] initWithRootViewController:viewController2];
