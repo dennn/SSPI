@@ -16,7 +16,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 
-@interface LoginViewController : UIViewController<UITextFieldDelegate, UITabBarControllerDelegate>
+@interface LoginViewController : UIViewController<UITextFieldDelegate, UITabBarControllerDelegate,UIAlertViewDelegate>
 {
     NSString *username;
     NSString *password;
@@ -31,6 +31,7 @@
 
 @property (strong, nonatomic)MKNetworkOperation *operation;
 @property (strong, nonatomic)UploadEngine *uploadEngine;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 - (IBAction)signUpPressed:(id)sender;
 - (IBAction)loginPressed:(id)sender;

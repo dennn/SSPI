@@ -24,7 +24,7 @@
 @implementation LoginViewController
 
 
-@synthesize txtPassword,txtUsername,tabViewController,parentNavController,operation,uploadEngine;
+@synthesize txtPassword,txtUsername,tabViewController,parentNavController,operation,uploadEngine,loginButton;
 
 
 
@@ -40,9 +40,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	// Do any additional setup after loading the view.
-
+    loginButton.alpha = 0.4;
+    loginButton.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,10 +52,21 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField*)theTextField
 {
+    if (self.txtPassword.text.length > 0) {
+        loginButton.alpha = 1.0;
+        loginButton.enabled = YES;
+    }else{
+        loginButton.alpha = 0.4;
+        loginButton.enabled = NO;
+    }
     if (theTextField == self.txtUsername || theTextField == self.txtPassword) {
         [theTextField resignFirstResponder];
     }
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
 }
 
 
@@ -70,30 +80,53 @@
     username = self.txtUsername.text;
     password = self.txtPassword.text;
     
-    NSLog(@"username= %@, password= %@",username, password);
+    if (username.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"Please enter the user name"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else
+    {
+        NSLog(@"username= %@, password= %@",username, password);
     
-    NSString *hashPass = [self sha256:password];
+        NSString *hashPass = [self sha256:password];
     
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setValue:username forKey:@"user"];
-    [dic setValue:hashPass forKey:@"pass"];
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setValue:username forKey:@"user"];
+        [dic setValue:hashPass forKey:@"pass"];
     
-    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    self.operation = [self.uploadEngine authTest:dic];
-    [operation onCompletion:^(MKNetworkOperation *operation) {
-        if ([[operation responseString] isEqual: @"1"])
-        {
-            NSLog(@"Login Success!");
-            [self gotoMainView];
-        }
-        else
-        {
-            NSLog(@"Login Failed");
-        }
-    } onError:^(NSError *error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }];
-    [self.uploadEngine enqueueOperation:self.operation ];
+        self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+        self.operation = [self.uploadEngine authTest:dic];
+        [operation onCompletion:^(MKNetworkOperation *operation) {
+            if ([[operation responseString] isEqual: @"1"])
+            {
+                NSLog(@"Login Success!");
+                [self gotoMainView];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"Login Failed"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                NSLog(@"Login Failed");
+            }
+        } onError:^(NSError *error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Dismiss"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }];
+        [self.uploadEngine enqueueOperation:self.operation ];
+    }
 }
 
 -(NSString*) sha256:(NSString *)data{
