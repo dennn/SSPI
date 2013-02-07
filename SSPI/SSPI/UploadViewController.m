@@ -10,6 +10,7 @@
 
 @implementation UploadViewController
 
+
 @synthesize locationManager, comments, infoTags, recordingLabel, operation, uploadEngine;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil

@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
-#import "LoginViewController.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIImageView *brandingImage;
-@property (nonatomic, strong) IBOutlet LoginViewController *loginview;
 
 @end

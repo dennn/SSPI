@@ -381,16 +381,16 @@
 		B786095B166A7894005117A2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
-				B7660CF3166BADF8005BC8E6 /* ServerViewController.m */,
-				B786093E166A75A3005117A2 /* MapViewController.h */,
-				0C5B07E916BC9CC100094964 /* Whatsnew.h */,
-				0C5B07EA16BC9CC100094964 /* Whatsnew.m */,
-				B786093F166A75A3005117A2 /* MapViewController.m */,
 				18E4A98A16BFDFE6003C2852 /* LoginViewController.h */,
 				18E4A98B16BFDFE6003C2852 /* LoginViewController.m */,
+				B786093E166A75A3005117A2 /* MapViewController.h */,
+				B786093F166A75A3005117A2 /* MapViewController.m */,
+				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
+				B7660CF3166BADF8005BC8E6 /* ServerViewController.m */,
 				B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */,
 				B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */,
+				0C5B07E916BC9CC100094964 /* Whatsnew.h */,
+				0C5B07EA16BC9CC100094964 /* Whatsnew.m */,
 				B786095E166A7B31005117A2 /* UploadViewController.h */,
 				B786095F166A7B31005117A2 /* UploadViewController.m */,
 				B7A1C2CE1673BB150089210D /* Data.xcdatamodeld */,

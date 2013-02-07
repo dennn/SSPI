@@ -11,9 +11,9 @@
 //
 
 #import "LoginViewController.h"
-#import "MapViewController.h"
 #import "SettingsViewController.h"
 #import "UploadViewController.h"
+#import "MapViewController.h"
 
 @interface LoginViewController ()
 
@@ -22,7 +22,7 @@
 @implementation LoginViewController
 
 
-@synthesize txtPassword,txtUsername;
+@synthesize txtPassword,txtUsername,tabViewController,parentNavController,username,password;
 
 
 
@@ -40,8 +40,6 @@
     [super viewDidLoad];
 
 	// Do any additional setup after loading the view.
-
-
 
 }
 
@@ -65,15 +63,17 @@
 }
 
 - (IBAction)loginPressed:(id)sender{
-    NSLog(@"Login Pressed");
+    self.username = self.txtUsername.text;
+    self.password = self.txtPassword.text;
+    
+    NSLog(@"username= %@, password= %@",self.username, self.password);
     UIViewController *mapViewController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     UIViewController *viewController2 = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController *settingsViewController = [[UINavigationController alloc] initWithRootViewController:viewController2];
-    
     UIViewController *uploadViewController = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[mapViewController, uploadViewController, settingsViewController];
-    [self.navigationController pushViewController:mapViewController animated:YES];
+    self.tabViewController = [[UITabBarController alloc] init];
+    [self.tabViewController setViewControllers: @[mapViewController,settingsViewController,uploadViewController] animated:NO];
+    [self.parentNavController pushViewController:self.tabViewController animated:YES];
 }
 
 @end

@@ -21,16 +21,18 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    UIViewController *mapViewController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    UIViewController *viewController2 = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-    UINavigationController *settingsViewController = [[UINavigationController alloc] initWithRootViewController:viewController2];
     
-    UIViewController *uploadViewController = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[mapViewController, uploadViewController, settingsViewController];
-    UIViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    self.window.rootViewController = self.tabBarController;
-    //[self.tabBarController.navigationController presentModalViewController:loginViewController animated:YES];
+
+    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+  //  self.tabBarController = [[UITabBarController alloc] init];
+  //  self.tabBarController.viewControllers = @[mapViewController, uploadViewController, settingsViewController];
+    
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
+    self.navigationController.navigationItem.titleView.hidden=YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.loginViewController.parentNavController = self.navigationController;
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }
