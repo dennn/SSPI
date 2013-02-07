@@ -33,19 +33,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SSPI/LoginViewController.m"
-         timestampString = "381944067.858928"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "35"
-         endingLineNumber = "35"
-         landmarkName = "-initWithNibName:bundle:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SSPI/AppDelegate.m"
          timestampString = "381896350.553261"
          startingColumnNumber = "9223372036854775807"
@@ -67,19 +54,6 @@
          endingLineNumber = "37"
          landmarkName = "-loginPressed:"
          landmarkType = "4">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SSPI/LoginViewController.m"
-         timestampString = "381945099.104601"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "26"
-         endingLineNumber = "26"
-         landmarkName = "@implementation LoginViewController"
-         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

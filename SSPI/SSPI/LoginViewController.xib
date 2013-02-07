@@ -4531,11 +4531,13 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<bytes key="NSWhite">MAA</bytes>
 							<reference key="NSCustomColorSpace" ref="118285209"/>
 						</object>
+						<bool key="IBUIClearsOnBeginEditing">YES</bool>
 						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 						<float key="IBUIMinimumFontSize">17</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
+						<int key="IBUIClearButtonMode">1</int>
 						<reference key="IBUIFontDescription" ref="414544953"/>
 						<reference key="IBUIFont" ref="314380599"/>
 					</object>
@@ -5275,6 +5277,11 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<boolean value="NO" key="33.IBViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
+				<object class="NSMutableAttributedString" key="33.notes">
+					<object class="NSMutableString" key="NSString">
+						<characters key="NS.bytes"/>
+					</object>
+				</object>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<array class="NSMutableArray" key="4.IBViewMetadataConstraints">

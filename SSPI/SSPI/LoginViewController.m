@@ -27,18 +27,18 @@
 @synthesize txtPassword,txtUsername,tabViewController,parentNavController,operation,uploadEngine,loginButton;
 
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
+    [txtPassword setSecureTextEntry:YES];
     [super viewDidLoad];
     loginButton.alpha = 0.4;
     loginButton.enabled = NO;
@@ -73,6 +73,7 @@
 - (IBAction)signUpPressed:(id)sender
 {
     NSLog(@"Sign Up Pressed");
+    
 }
 
 - (IBAction)loginPressed:(id)sender
@@ -125,11 +126,12 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }];
-        [self.uploadEngine enqueueOperation:self.operation ];
+        [self.uploadEngine enqueueOperation:self.operation];
     }
 }
 
--(NSString*) sha256:(NSString *)data{
+-(NSString*) sha256:(NSString *)data
+{
     const char *s=[data cStringUsingEncoding:NSASCIIStringEncoding];
     NSData *keyData=[NSData dataWithBytes:s length:strlen(s)];
     
