@@ -40,6 +40,7 @@ class uploads extends CI_Controller {
 		else
 		{
 			//0 = image
+			//2 = text
 			$data = array('upload_data' => $this->upload->data());
 			$info = array("userid"=>1, "type"=>$this->input->post('type'), "long"=>$this->input->post("long"), "lat"=>$this->input->post('lat'), "date"=>time(),
 							"dataLocation"=>$data['upload_data']['file_name'], "data"=>"", "pitch"=>"", "heading"=>"");

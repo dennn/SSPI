@@ -11,7 +11,7 @@ class uploads_model extends CI_Model
 	public function dump_upload($data, $tags)
 	{
 		$this->load->database();
-		if($data['type'] == 2)
+		if($data['type'] == "text")
 		{
 			$this->db->insert('textUploads', $data['text']);
 			$data['data'] = $this->db->insert_id();
@@ -47,7 +47,7 @@ class uploads_model extends CI_Model
 	{
 		$this->load->database();
 		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` ORDER BY distance ASC LIMIT '.$limit;
-		$q = $this->db->query($sql);/*
+		$q = $this->db->query($sql);
 		$results = $q->result_array();
 		$idArray = array();
 		foreach($results as $r)
@@ -62,7 +62,7 @@ class uploads_model extends CI_Model
 		$tagLinkHold = array();
 		foreach($tags->result_array() as $t)
 		{
-			if(in_array($t['tag'],$tagsLinkHold))
+			if(in_array($t['tag'],$tagLinkHold))
 			{
 				$tagLinkArray[strval($t['upload'])][] = $t['tag'];
 			}
@@ -81,6 +81,9 @@ class uploads_model extends CI_Model
 			$tagInfoArray[strval($t['id'])] = $t['name'];
 		}
 		$res = $q->result_array();
+		echo '<br /><br />';
+		print_r($tagLinkArray);
+		echo '<br /><br />';
 		foreach($res as $k=>$r)
 		{
 			$res[$k]['tags'] = array();
@@ -101,7 +104,7 @@ class uploads_model extends CI_Model
 		print_r($tagGet->result_array());
 		echo '<br />';
 		print_r($q->result_array);
-		echo '<br /><br />';*/
+		echo '<br /><br />';	
 		return $q->result_array();
 	}
 
