@@ -28,6 +28,10 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
     IBOutlet UITextView *infoTags;
     IBOutlet UIButton *micButton;
     IBOutlet UILabel *timer;
+    NSString *type;
+    NSString *name;
+    NSString *lon;
+    NSString *lat;
     BOOL recording;
 }
 

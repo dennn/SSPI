@@ -41,6 +41,7 @@
     
     [self loadDummyPlaces];
     [self filterAnnotations:annotations];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
