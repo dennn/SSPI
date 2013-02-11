@@ -50,62 +50,49 @@ class uploads_model extends CI_Model
 		$q = $this->db->query($sql);
 		$results = $q->result_array();
 		$idArray = array();
+		$final = array();
 		foreach($results as $r)
 		{
 			$idArray[] = $r['id'];
+			$final[strval($r['id'])] = array();
 		}
 		$this->db->where_in($idArray);
 		$this->db->order_by('upload', 'asc');
-		$tags = $this->db->get('tagLink');
+		$tagLink = $this->db->get('tagLink');
 		$tagsArray = array();
 		$tagLinkArray = array();
 		$tagLinkHold = array();
-		foreach($tags->result_array() as $t)
+		foreach($tagLink->result_array() as $t)
 		{
-			if(in_array($t['tag'],$tagLinkHold))
-			{
-				$tagLinkArray[strval($t['upload'])][] = $t['tag'];
-			}
+			$tagLinkArray[] = $t['tag'];
+			if(isset($tagLinkHold[strval($t['upload'])]))
+				$tagLinkHold[strval($t['upload'])][] = $t['tag'];
 			else
-			{
-				$tagLinkArray[strval($t['upload'])] = array($t['tag']);
-				$tagsLinkHold[] = $t['tag'];
-			}
-			echo "t upload = " . $t['upload'] . '<br />';
+				$tagLinkHold[strval($t['upload'])] = array($t['tag']);
 		}
-		$this->db->where_in($tagsArray);
-		$tagGet = $this->db->get('tags');
-		$tagInfoArray = array();
-		foreach($tagGet->result_array() as $t)
+		$tagLinkArray = array_unique($tagLinkArray);
+		$this->db->where_in($tagLinkArray);
+		$tagsFetch = $this->db->get('tags');
+		$tagInfo = array();
+		foreach($tagsFetch->result_array() as $t)
+			$tagInfo[strval($t['id'])] = $t['name'];
+		$idHold;
+		foreach($results as $r)
 		{
-			$tagInfoArray[strval($t['id'])] = $t['name'];
+			$idHold = strval($r['id']);
+			array_shift($r);
+			$final[$idHold] = $r;
 		}
-		$res = $q->result_array();
-		echo '<br /><br />';
-		print_r($tagLinkArray);
-		echo '<br /><br />';
-		foreach($res as $k=>$r)
+		foreach($final as $l=>$t)
 		{
-			$res[$k]['tags'] = array();
-			print_r($r);
-			echo '<br />';
-			if(is_array($tagLinkArray[strval($r['id'])]))
-			{
-				foreach($tagLinkArray[strval($r['id'])] as $t)
+				$final[$l]['tags'] = array();
+				if(isset($tagLinkHold[$l]))
 				{
-					$res[$k]['tags'][] = $t;
-				}	
-			}
+					foreach($tagLinkHold[$l] as $k)
+						$final[$l]['tags'][] = $tagInfo[$k];
+				}
 		}
-		print_r($res);
-		echo '<br />';
-		print_r($tagInfoArray);
-		echo '<br />';
-		print_r($tagGet->result_array());
-		echo '<br />';
-		print_r($q->result_array);
-		echo '<br /><br />';	
-		return $q->result_array();
+		return $final;
 	}
 
 }
