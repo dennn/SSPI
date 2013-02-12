@@ -22,12 +22,12 @@ class uploads_model extends CI_Model
 		$q = $this->db->get('tags');
 		$found = array();
 		foreach($q->result_array() as $k)
-			$found[$k['name']] = $k['id'];
+			$found[strtolower($k['name'])] = $k['id'];
 		foreach($tags as $t)
 		{
-			if(array_key_exists($t, $found))
+			if(array_key_exists(strtolower($t), $found))
 			{
-				$this->db->insert('tagLink', array("upload"=>$insertid, "tag"=>$found[$t]));
+				$this->db->insert('tagLink', array("upload"=>$insertid, "tag"=>$found[strtolower($t)]));
 			}
 			else
 			{
@@ -43,6 +43,12 @@ class uploads_model extends CI_Model
 
 	}
 
+
+	public function get_uploads($idArray)
+	{
+		
+	}
+
 	public function get_nearest($lng, $lat, $limit)
 	{
 		$this->load->database();
@@ -56,7 +62,7 @@ class uploads_model extends CI_Model
 			$idArray[] = $r['id'];
 			$final[strval($r['id'])] = array();
 		}
-		$this->db->where_in($idArray);
+		$this->db->where_in('upload', $idArray);
 		$this->db->order_by('upload', 'asc');
 		$tagLink = $this->db->get('tagLink');
 		$tagsArray = array();
@@ -93,6 +99,25 @@ class uploads_model extends CI_Model
 				}
 		}
 		return $final;
+	}
+
+	function search($long, $lat, $limit, $term)
+	{
+		$this->load->database();
+		$this->db->where_in('name', explode("%7C", $term));
+		$this->db->select("id");
+		$tags = $this->db->get("tags");
+		$idArray = array();
+		foreach($tags->result_array() as $r)
+			$idArray[] = $r['id'];
+		$this->db->where_in('tag', $idArray);
+		$this->db->select('upload');
+		$this->db->distinct();
+		$tagLink = $this->db->get('tagLink');
+		$idArray = array();
+		foreach($tagLink->result_array() as $r)
+			$idArray[] = $r['upload'];
+		$this->db->where_in('')
 	}
 
 }

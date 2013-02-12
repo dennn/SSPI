@@ -2,11 +2,11 @@ Array
 (
     [userfl] => Array
         (
-            [name] => upload.jpg
+            [name] => Bristol_Pic.jpg
             [type] => image/jpeg
-            [tmp_name] => C:\Program Files (x86)\EasyPHP-12.1\tmp\phpEA3F.tmp
+            [tmp_name] => C:\Program Files (x86)\EasyPHP-12.1\tmp\phpD9A5.tmp
             [error] => 0
-            [size] => 258381
+            [size] => 99910
         )
 
 )

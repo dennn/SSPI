@@ -66,6 +66,7 @@ class uploads extends CI_Controller {
 
 	public function get_pins()
 	{
+		header('Content-Type:application/json');
 		$this->load->model("uploads_model", "uploads");
 		$long = $this->uri->segment(3);
 		$lat = $this->uri->segment(4);
@@ -77,6 +78,26 @@ class uploads extends CI_Controller {
 		$results = $this->uploads->get_nearest($long, $lat, 10);
 		echo json_encode($results);
 		return;
+	}
+
+	public function search()
+	{
+		header('Content-Type:application/json');
+		$long = $this->uri->segment(3);
+		$lat = $this->uri->segment(4);
+		$limit = $this->uri->segment(5);
+		$term = $this->uri->segment(6);
+		//echo "long = " . $long . ", lat = " . $lat . ", limit = " . $limit . ", term = " . $term ;
+		$this->load->model('uploads_model', 'uploads');
+		if(!$long || !$lat || !$term || !$limit)
+		{
+			echo 0;
+			return;
+		}
+		$results = $this->uploads->search($long, $lat, $limit, $term);
+		echo json_encode($results);
+		return;
+
 	}
 }
 
