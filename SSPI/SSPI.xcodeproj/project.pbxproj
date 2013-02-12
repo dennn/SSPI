@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C5B07EB16BC9CC100094964 /* Whatsnew.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5B07EA16BC9CC100094964 /* Whatsnew.m */; };
+		0C69927116C91C5F007E71DC /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C69927016C91C5F007E71DC /* KeychainItemWrapper.m */; };
 		0C6DE92D16C0579A00C6AA58 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */; };
 		18E4A98C16BFDFE6003C2852 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4A98B16BFDFE6003C2852 /* LoginViewController.m */; };
 		18EA02AE16C2A3BA00B29C0F /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */; };
@@ -114,6 +115,8 @@
 /* Begin PBXFileReference section */
 		0C5B07E916BC9CC100094964 /* Whatsnew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Whatsnew.h; sourceTree = "<group>"; };
 		0C5B07EA16BC9CC100094964 /* Whatsnew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Whatsnew.m; sourceTree = "<group>"; };
+		0C69926F16C91C5F007E71DC /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		0C69927016C91C5F007E71DC /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		18E4A98A16BFDFE6003C2852 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18E4A98B16BFDFE6003C2852 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -213,10 +216,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */,
 				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
 				B7A01DAE16BDB67C0065FFC8 /* CoreLocation.framework in Frameworks */,
 				B7A01DAC16BDB6750065FFC8 /* MobileCoreServices.framework in Frameworks */,
-				B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */,
 				B703BD7116767E63000A46D8 /* SystemConfiguration.framework in Frameworks */,
 				B703BD7416767E7C000A46D8 /* CFNetwork.framework in Frameworks */,
 				B703BD7316767E77000A46D8 /* CoreData.framework in Frameworks */,
@@ -238,6 +241,8 @@
 				CC15693B16B984AA004843EE /* UploadEngine.m */,
 				B7A1C2D51673C1CF0089210D /* MapAnnotation.h */,
 				B7A1C2D61673C1CF0089210D /* MapAnnotation.m */,
+				0C69926F16C91C5F007E71DC /* KeychainItemWrapper.h */,
+				0C69927016C91C5F007E71DC /* KeychainItemWrapper.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				B7A01DA916BDB6670065FFC8 /* MKNetworkOperation.m in Sources */,
 				B7A01DAA16BDB6670065FFC8 /* Reachability.m in Sources */,
 				18E4A98C16BFDFE6003C2852 /* LoginViewController.m in Sources */,
+				0C69927116C91C5F007E71DC /* KeychainItemWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

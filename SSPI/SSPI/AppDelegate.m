@@ -25,13 +25,9 @@
 
     self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     
-  //  self.tabBarController = [[UITabBarController alloc] init];
-  //  self.tabBarController.viewControllers = @[mapViewController, uploadViewController, settingsViewController];
-    
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
-    self.navigationController.navigationItem.titleView.hidden=YES;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.loginViewController.parentNavController = self.navigationController;
+    
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;

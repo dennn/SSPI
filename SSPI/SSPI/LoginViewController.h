@@ -11,9 +11,11 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
+#import "KeychainItemWrapper.h"
 #import "MKNetworkKit.h"
 #import "UploadEngine.h"
-#import <CommonCrypto/CommonDigest.h>
+
 
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate, UITabBarControllerDelegate,UIAlertViewDelegate>
@@ -24,15 +26,13 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *txtUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
-@property (strong, nonatomic) UITabBarController *tabViewController;
-@property (nonatomic, assign) UINavigationController *parentNavController;
-
-
-
-@property (strong, nonatomic)MKNetworkOperation *operation;
-@property (strong, nonatomic)UploadEngine *uploadEngine;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
+@property (strong, nonatomic) UITabBarController *tabViewController;
+@property (strong, nonatomic) MKNetworkOperation *operation;
+@property (strong, nonatomic) UploadEngine *uploadEngine;
+
+- (IBAction)registerPressed:(id)sender;
 - (IBAction)signUpPressed:(id)sender;
 - (IBAction)loginPressed:(id)sender;
 
