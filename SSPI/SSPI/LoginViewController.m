@@ -24,7 +24,7 @@
 @implementation LoginViewController
 
 
-@synthesize txtPassword,txtUsername,tabViewController,parentNavController,operation,uploadEngine,loginButton;
+@synthesize txtPassword,txtUsername,tabViewController,operation,uploadEngine,loginButton;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,6 +43,15 @@
     loginButton.alpha = 0.4;
     loginButton.enabled = NO;
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.txtUsername.text = @"";
+    self.txtPassword.text = @"";
+    username = @"";
+    password = @"";
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -70,10 +79,15 @@
 }
 
 
+- (IBAction)registerPressed:(id)sender {
+    NSLog(@"Register");
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (IBAction)signUpPressed:(id)sender
 {
-    NSLog(@"Sign Up Pressed");
-    
+    LoginViewController *registerViewController = [[LoginViewController alloc] initWithNibName:@"RegisterViewController" bundle:nil];
+    [self.navigationController pushViewController:registerViewController animated:YES];
 }
 
 - (IBAction)loginPressed:(id)sender
@@ -103,9 +117,20 @@
         self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
         self.operation = [self.uploadEngine authTest:dic];
         [operation onCompletion:^(MKNetworkOperation *operation) {
-            if ([[operation responseString] isEqual: @"1"])
+            if ([[self.operation responseString] isEqual: @"1"])
             {
                 NSLog(@"Login Success!");
+                
+                //for keychain part
+                /*KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"TestAppLoginData" accessGroup:nil];
+                NSMutableDictionary *keychain = [[NSMutableDictionary alloc] init];
+                [keychain setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+                [keychain setObject:username forKey:(__bridge id)kSecAttrAccount];
+                [keychain setObject:hashPass forKey:(__bridge id)kSecValueData];
+                OSStatus s = SecItemAdd((__bridge CFDictionaryRef)keychain, NULL);
+                [wrapper setObject:username forKey:(__bridge id)(kSecAttrAccount)];
+                NSLog(@"add: %ld",s);*/
+                
                 [self gotoMainView];
             }
             else
@@ -152,8 +177,8 @@
     UINavigationController *settingsViewController = [[UINavigationController alloc] initWithRootViewController:viewController2];
     UIViewController *uploadViewController = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
     self.tabViewController = [[UITabBarController alloc] init];
-    [self.tabViewController setViewControllers: @[mapViewController,settingsViewController,uploadViewController] animated:NO];
-    [self.parentNavController pushViewController:self.tabViewController animated:YES];
+    [self.tabViewController setViewControllers: @[mapViewController,uploadViewController,settingsViewController] animated:YES];
+    [self.navigationController pushViewController:self.tabViewController animated:YES];
 }
 
 @end
