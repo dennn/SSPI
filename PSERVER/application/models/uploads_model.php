@@ -38,25 +38,12 @@ class uploads_model extends CI_Model
 		return;
 	}
 
-	public function get_upload($id)
-	{
 
-	}
-
-
-	public function get_uploads($idArray)
-	{
-		
-	}
-
-	public function get_nearest($lng, $lat, $limit)
+	public function get_uploads($results)
 	{
 		$this->load->database();
-		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` ORDER BY distance ASC LIMIT '.$limit;
-		$q = $this->db->query($sql);
-		$results = $q->result_array();
-		$idArray = array();
 		$final = array();
+		$idArray = array();
 		foreach($results as $r)
 		{
 			$idArray[] = $r['id'];
@@ -86,7 +73,6 @@ class uploads_model extends CI_Model
 		foreach($results as $r)
 		{
 			$idHold = strval($r['id']);
-			array_shift($r);
 			$final[$idHold] = $r;
 		}
 		foreach($final as $l=>$t)
@@ -101,9 +87,18 @@ class uploads_model extends CI_Model
 		return $final;
 	}
 
-	function search($long, $lat, $limit, $term)
+	public function get_nearest($lng, $lat, $limit)
 	{
 		$this->load->database();
+		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` ORDER BY distance ASC LIMIT '.$limit;
+		$q = $this->db->query($sql);
+		return $this->get_uploads($q->result_array());
+	}
+
+	function search($lng, $lat, $limit, $term)
+	{
+		$this->load->database();
+		$limit*=6371;
 		$this->db->where_in('name', explode("%7C", $term));
 		$this->db->select("id");
 		$tags = $this->db->get("tags");
@@ -117,7 +112,9 @@ class uploads_model extends CI_Model
 		$idArray = array();
 		foreach($tagLink->result_array() as $r)
 			$idArray[] = $r['upload'];
-		$this->db->where_in('')
+		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` WHERE id IN ('. implode(',', $idArray) . ') HAVING distance<=\''.$limit.'\'  ORDER BY distance ASC LIMIT '.$limit;
+		$q = $this->db->query($sql);
+		return $this->get_uploads($q->result_array());
 	}
 
 }
