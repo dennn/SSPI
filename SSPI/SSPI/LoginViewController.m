@@ -38,14 +38,15 @@
 
 - (void)viewDidLoad
 {
-    [txtPassword setSecureTextEntry:YES];
     [super viewDidLoad];
     loginButton.alpha = 0.4;
     loginButton.enabled = NO;
+    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [txtPassword setSecureTextEntry:YES];
     self.txtUsername.text = @"";
     self.txtPassword.text = @"";
     username = @"";
@@ -80,7 +81,28 @@
 
 
 - (IBAction)registerPressed:(id)sender {
-    NSLog(@"Register");
+    username = self.txtUsername.text;
+    password = self.txtPassword.text;
+    NSMutableDictionary *regprams = [[NSMutableDictionary alloc] init];
+    
+    NSString *hashpass = [self sha256:password];
+    [regprams setObject:username forKey:@"user"];
+    [regprams setObject:hashpass forKey:@"pass"];
+    
+    self.operation = [self.uploadEngine postDataToServer:regprams path:@"coomko/index.php/users/register"];
+    [operation onCompletion:^(MKNetworkOperation* operation) {
+        NSLog(@"user:%@, pass:%@", username,hashpass);
+        NSLog(@"return:%@", [self.operation responseString]);
+            }  onError:^(NSError* error) {
+                                NSLog(@"%@", error);
+                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                message:[error localizedDescription]
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"Dismiss"
+                                                                      otherButtonTitles:nil];
+                                [alert show];
+                            }];
+    [self.uploadEngine enqueueOperation:self.operation];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -106,35 +128,33 @@
     }
     else
     {
-        NSLog(@"username= %@, password= %@",username, password);
-    
         NSString *hashPass = [self sha256:password];
     
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setValue:username forKey:@"user"];
         [dic setValue:hashPass forKey:@"pass"];
     
-        self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-        self.operation = [self.uploadEngine authTest:dic];
-        [operation onCompletion:^(MKNetworkOperation *operation) {
-            if ([[self.operation responseString] isEqual: @"1"])
+        self.operation = [self.uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
+        [operation onCompletion:^(MKNetworkOperation *operation){
+            if (![[self.operation responseString] isEqual: @"0"])
             {
                 NSLog(@"Login Success!");
                 
                 //for keychain part
-                /*KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"TestAppLoginData" accessGroup:nil];
+               // CFDataRef mydataRef = (CFDataRef)[mydataRef dataUsingEncoding]accessGroup:nil];
                 NSMutableDictionary *keychain = [[NSMutableDictionary alloc] init];
                 [keychain setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
                 [keychain setObject:username forKey:(__bridge id)kSecAttrAccount];
-                [keychain setObject:hashPass forKey:(__bridge id)kSecValueData];
+                [keychain setObject:password forKey:(__bridge id)kSecValueData];
                 OSStatus s = SecItemAdd((__bridge CFDictionaryRef)keychain, NULL);
-                [wrapper setObject:username forKey:(__bridge id)(kSecAttrAccount)];
-                NSLog(@"add: %ld",s);*/
+                //[wrapper setObject:username forKey:(__bridge id)(kSecAttrAccount)];
+                NSLog(@"add: %ld",s);
                 
                 [self gotoMainView];
             }
             else
             {
+                NSLog(@"%@",[self.operation responseString]);
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                                 message:@"Login Failed"
                                                                delegate:nil
@@ -143,12 +163,12 @@
                 [alert show];
                 NSLog(@"Login Failed");
             }
-        } onError:^(NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Dismiss"
-                                                  otherButtonTitles:nil];
+                } onError:^(NSError *error) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:[error localizedDescription]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"Dismiss"
+                                                          otherButtonTitles:nil];
             [alert show];
         }];
         [self.uploadEngine enqueueOperation:self.operation];
