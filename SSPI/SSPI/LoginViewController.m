@@ -90,10 +90,28 @@
     [regprams setObject:hashpass forKey:@"pass"];
     
     self.operation = [self.uploadEngine postDataToServer:regprams path:@"coomko/index.php/users/register"];
-    [operation onCompletion:^(MKNetworkOperation* operation) {
-        NSLog(@"user:%@, pass:%@", username,hashpass);
-        NSLog(@"return:%@", [self.operation responseString]);
-            }  onError:^(NSError* error) {
+    [operation addCompletionHandler:^(MKNetworkOperation* operation) {
+        if (![[self.operation responseString] isEqual:@"0"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Register Success"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Register Failed"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            self.txtPassword.text = @"";
+            self.txtUsername.text = @"";
+            [alert show];
+        }
+            }  errorHandler:^(MKNetworkOperation *errorOp,NSError* error) {
                                 NSLog(@"%@", error);
                                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                                                 message:[error localizedDescription]
@@ -103,7 +121,6 @@
                                 [alert show];
                             }];
     [self.uploadEngine enqueueOperation:self.operation];
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)signUpPressed:(id)sender
@@ -135,7 +152,7 @@
         [dic setValue:hashPass forKey:@"pass"];
     
         self.operation = [self.uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
-        [operation onCompletion:^(MKNetworkOperation *operation){
+        [operation addCompletionHandler:^(MKNetworkOperation *operation){
             if (![[self.operation responseString] isEqual: @"0"])
             {
                 NSLog(@"Login Success!");
@@ -163,7 +180,7 @@
                 [alert show];
                 NSLog(@"Login Failed");
             }
-                } onError:^(NSError *error) {
+                } errorHandler:^(MKNetworkOperation *errorOp, NSError *error) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                                     message:[error localizedDescription]
                                                                    delegate:nil
