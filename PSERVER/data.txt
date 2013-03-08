@@ -2,22 +2,7 @@ Array
 (
     [upload_data] => Array
         (
-            [file_name] => c4c4f1dc9d378815bbcebcd0f2ff72c0e4ad087ca569215c5bc1522e31581904.jpg
-            [file_type] => image/jpeg
-            [file_path] => C:/Program Files (x86)/EasyPHP-12.1/www/coomko/PSERVER/uploads/
-            [full_path] => C:/Program Files (x86)/EasyPHP-12.1/www/coomko/PSERVER/uploads/c4c4f1dc9d378815bbcebcd0f2ff72c0e4ad087ca569215c5bc1522e31581904.jpg
-            [raw_name] => c4c4f1dc9d378815bbcebcd0f2ff72c0e4ad087ca569215c5bc1522e31581904
-            [orig_name] => c4c4f1dc9d378815bbcebcd0f2ff72c0e4ad087ca569215c5bc1522e31581904.jpg
-            [client_name] => Bristol_Pic.jpg
-            [file_ext] => .jpg
-            [file_size] => 97.57
-            [is_image] => 1
-            [image_width] => 465
-            [image_height] => 550
-            [image_type] => jpeg
-            [image_size_str] => width="465" height="550"
+            [file_name] => 
         )
 
-    [pitch] => 
-    [heading] => 
 )

@@ -1,6 +1,8 @@
 Array
 (
-    [tags] => hello eThAN what
+    [text] => pood
+    [tags] => hello ethan what
     [long] => 2
     [lat] => 2
+    [type] => text
 )

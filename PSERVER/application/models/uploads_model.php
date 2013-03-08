@@ -13,7 +13,7 @@ class uploads_model extends CI_Model
 		$this->load->database();
 		if($data['type'] == "text")
 		{
-			$this->db->insert('textUploads', $data['text']);
+			$this->db->insert('textUploads', array('textData'=>$data['data']));
 			$data['data'] = $this->db->insert_id();
 		}
 		$this->db->insert('uploads', $data);
@@ -38,10 +38,11 @@ class uploads_model extends CI_Model
 		return;
 	}
 
-
 	public function get_uploads($results)
 	{
 		$this->load->database();
+		if(!count($results))
+			return;
 		$final = array();
 		$idArray = array();
 		foreach($results as $r)
@@ -84,7 +85,10 @@ class uploads_model extends CI_Model
 						$final[$l]['tags'][] = $tagInfo[$k];
 				}
 		}
-		return $final;
+		$finalN = array();
+		foreach($final as $f)
+			$finalN[] = $f;
+		return array("pins"=>$finalN);
 	}
 
 	public function get_nearest($lng, $lat, $limit)
@@ -105,6 +109,8 @@ class uploads_model extends CI_Model
 		$idArray = array();
 		foreach($tags->result_array() as $r)
 			$idArray[] = $r['id'];
+		if(!count($idArray))
+			return;
 		$this->db->where_in('tag', $idArray);
 		$this->db->select('upload');
 		$this->db->distinct();
@@ -116,6 +122,7 @@ class uploads_model extends CI_Model
 		$q = $this->db->query($sql);
 		return $this->get_uploads($q->result_array());
 	}
+
 
 }
 
