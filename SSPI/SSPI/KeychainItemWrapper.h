@@ -1,4 +1,4 @@
-/* this is a exported Apple official class for storing generic passwords in keyhchain
+/* this is a imported Apple official class for storing generic passwords in keyhchain
  the class haven't been implemented in our APP yet
  */
 

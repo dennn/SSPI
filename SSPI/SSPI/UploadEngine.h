@@ -11,6 +11,5 @@
 @interface UploadEngine : MKNetworkEngine
 
 -(MKNetworkOperation *) postDataToServer:(NSMutableDictionary *)params path:(NSString *)path;
--(MKNetworkOperation*) authTest:(NSMutableDictionary*)params ;
 
 @end

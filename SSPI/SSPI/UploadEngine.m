@@ -19,14 +19,5 @@
     return op;
 }
 
--(MKNetworkOperation*) authTest:(NSMutableDictionary *)params
-{
-    MKNetworkOperation *op = [self operationWithPath:@"coomko/index.php/users/login"
-                                              params:params
-                                          httpMethod:@"POST"
-                                                 ssl:NO];
-    
-    return op;
-}
 
 @end
