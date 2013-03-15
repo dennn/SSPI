@@ -54,9 +54,11 @@ class uploads extends CI_Controller {
 				$data = array('upload_data' => $this->upload->data());
 			}
 		}
-		if(!$error)
+		if($error)
 		{
-			echo 0;
+			print_r($error);
+			echo '<br />UPLOAD DATA = ';
+			print_r($this->upload->data());
 		}
 		else
 		{
@@ -125,6 +127,18 @@ class uploads extends CI_Controller {
         }
 		header('Content-Type:application/json');
         echo json_encode(($final));
+	}
+
+	public function getPin($id)
+	{
+		$this->load->model('uploads_model', 'uploads');
+		$data = $this->uploads->getPinById($id);
+		header('Content-Type:application/json');
+		if(!$data)
+			echo '0';
+		else
+			echo str_replace("\\/", '/', json_encode($data));
+		return;
 	}
 }
 

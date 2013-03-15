@@ -118,9 +118,30 @@ class uploads_model extends CI_Model
 		$idArray = array();
 		foreach($tagLink->result_array() as $r)
 			$idArray[] = $r['upload'];
-		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` WHERE id IN ('. implode(',', $idArray) . ') HAVING distance<=\''.$limit.'\'  ORDER BY distance ASC LIMIT '.$limit;
+		$sql = 'SELECT `id`, `long`, `lat`, `type`, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` WHERE id IN ('. implode(',', $idArray) . ') HAVING distance<=\''.$limit.'\'  ORDER BY distance ASC LIMIT '.$limit;
 		$q = $this->db->query($sql);
 		return $this->get_uploads($q->result_array());
+	}
+
+	function getPinById($id)
+	{
+		$this->load->database();
+		$this->db->where(array('id'=>$id));
+		$q = $this->db->get('uploads');
+		if($q->num_rows() != 1)
+			return 0;
+		else
+		{
+			$d = $q->result_array();
+			$data = array(
+               'lastAccessed' => time()
+            );
+
+			$this->db->where('id', $id);
+			$this->db->update('uploads', $data); 
+			$d[0]['dataLocation'] = 'http://thenicestthing.co.uk/coomko/uploads/'.$d[0]['dataLocation'];
+			return $d[0];
+		}
 	}
 
 
