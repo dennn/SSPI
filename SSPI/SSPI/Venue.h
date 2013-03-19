@@ -9,19 +9,23 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-@interface MapAnnotation : NSObject <MKAnnotation>
+@interface Venue : NSObject <MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *subtitle;
+@property (nonatomic, strong) NSString *venueName;
+@property (nonatomic, strong) NSString *venueID;
+@property (nonatomic, strong) NSString *foursquareVenueID;
 @property (nonatomic, strong) NSMutableArray *children;
+@property (nonatomic, strong) NSDictionary *dataDictionary;
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coordinate;
-- (NSString *)title;
-- (NSString *)subtitle;
+
+- (id)initWithDictionary:(NSDictionary *)dictionary;
 - (CLLocationCoordinate2D)getCoordinate;
 
-- (void)addChild:(MapAnnotation *)place;
+- (NSString *)title;
+- (NSString *)subtitle;
+
+- (void)addChild:(Venue *)place;
 - (int)childrenCount;
 
 

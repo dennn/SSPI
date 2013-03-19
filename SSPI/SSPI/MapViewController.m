@@ -7,7 +7,10 @@
 //
 
 #import "MapViewController.h"
-#import "MapAnnotation.h"
+#import "Venue.h"
+#import "AFNetworking.h"
+#import "PinViewController.h"
+#import "NewUploadViewController.h"
 
 @interface MapViewController ()
 {
@@ -22,7 +25,7 @@
 
 @implementation MapViewController
 
-@synthesize brandingImage;
+@synthesize brandingImage, search;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,16 +42,102 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    [self loadDummyPlaces];
-    [self filterAnnotations:annotations];
+    search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    search.delegate = self;
+    [self.view addSubview:search];
+    search.showsCancelButton = TRUE;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapGesture:)];
+    [currentMapView addGestureRecognizer:tapGesture];
+    
+    /*
+     * Add the new Pin menu in the bottom right. We then wait for a delegate callback whenever
+     * one of the menu items are pressed and load the NewUploadViewController.
+     */
+    
+    UIImage *storyMenuItemImage = [UIImage imageNamed:@"bg-menuitem.png"];
+    UIImage *storyMenuItemImagePressed = [UIImage imageNamed:@"bg-menuitem-highlighted.png"];
+    
+    AwesomeMenuItem *photoButton = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                         highlightedImage:storyMenuItemImagePressed
+                                                             ContentImage:[UIImage imageNamed:@"icon-photo"]
+                                                  highlightedContentImage:nil];
+    
+    AwesomeMenuItem *videoButton = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                         highlightedImage:storyMenuItemImagePressed
+                                                             ContentImage:[UIImage imageNamed:@"icon-video"]
+                                                  highlightedContentImage:nil];
+    
+    AwesomeMenuItem *audioButton = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                         highlightedImage:storyMenuItemImagePressed
+                                                             ContentImage:[UIImage imageNamed:@"icon-mic"]
+                                                  highlightedContentImage:nil];
+    
+    AwesomeMenuItem *textButton = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                        highlightedImage:storyMenuItemImagePressed
+                                                            ContentImage:[UIImage imageNamed:@"icon-write"]
+                                                 highlightedContentImage:nil];
+    
+    NSArray *menuArray = @[photoButton, videoButton, audioButton, textButton];
+    
+    AwesomeMenu *menu = [[AwesomeMenu alloc] initWithFrame:self.view.frame menus:menuArray];
+    menu.menuWholeAngle = M_PI/180 * 90;
+    menu.rotateAngle = M_PI/180 * -90;
+    menu.startPoint = CGPointMake(290, 350);
+    menu.delegate = self;
+    
+    [self.view addSubview:menu];
     
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    //Grab the text from the search bar and send off a query
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)currentMapView.region.center.longitude, (double)currentMapView.region.center.latitude, searchBar.text]];
+    NSLog(@"Final URL: %@", url);
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSMutableArray *pins = [NSMutableArray new];
+        
+        for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
+        {
+            Venue *newVenue = [[Venue alloc] initWithDictionary:dict];
+            [newVenue addChild:newVenue];
+            [pins addObject:newVenue];
+        }
+        
+        annotations = [[NSArray alloc] initWithArray:pins];
+        [self filterAnnotations:annotations];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+    }];
+    
+    [operation start];
+                                    
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.text = @"";
+}
+
+- (void)mapTapGesture:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
+        return;
+    
+    if (search.isFirstResponder)
+        [search resignFirstResponder];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     int selectedBranding = [defaults integerForKey:@"branding"];
-    
+        
     switch (selectedBranding)
     {
         case 0:
@@ -62,6 +151,11 @@
         default:
             break;
     }
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [search setShowsCancelButton:YES animated:YES];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
@@ -90,28 +184,12 @@
     }
 }
 
-- (void)loadDummyPlaces
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    srand((unsigned)time(0));
-    
-    NSMutableArray *tempAnnotations = [[NSMutableArray alloc] init];
-    for (int i=0; i < 1000; i++)
-    {
-        MapAnnotation *debugAnn = [[MapAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake([self RandomFloatStart:50.0 end: 51.0], [self RandomFloatStart:20.0 end:21.0])];
-        debugAnn.title = [NSString stringWithFormat:@"Pin %d", i];
-        debugAnn.subtitle = @"Test";
-        [debugAnn addChild:debugAnn];
-        [tempAnnotations addObject:debugAnn];
+    if ([(Venue *)view.annotation childrenCount] == 1) {
+        PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andVenue:view.annotation];
+        [self.navigationController pushViewController:pinController animated:YES];
     }
-    
-    annotations = [[NSArray alloc] initWithArray:tempAnnotations];
-}
-
-- (float)RandomFloatStart:(float)a end:(float)b {
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
 }
 
 - (void)filterAnnotations:(NSArray *)pinLocations
@@ -122,12 +200,12 @@
     NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < [pinLocations count]; i++) {
-        MapAnnotation *pinToCheck = [pinLocations objectAtIndex:i];
+        Venue *pinToCheck = [pinLocations objectAtIndex:i];
         CLLocationDegrees latitude = [pinToCheck getCoordinate].latitude;
         CLLocationDegrees longitude = [pinToCheck getCoordinate].longitude;
         
         bool found = FALSE;
-        for (MapAnnotation *tempAnnotation in pinsToShow) {
+        for (Venue *tempAnnotation in pinsToShow) {
             if(fabs([tempAnnotation getCoordinate].latitude - latitude) < latDelta &&
                fabs([tempAnnotation getCoordinate].longitude - longitude) < longDelta)
             {
@@ -151,6 +229,24 @@
         [self filterAnnotations:annotations];
         zoomLevel = mapView.region.span.longitudeDelta;
     }
+}
+
+- (void)AwesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx
+{
+    
+    /* Upload order:
+        1. Photo
+        2. Video
+        3. Audio
+        4. Text
+     */
+    
+    NewUploadViewController *uploadController = [NewUploadViewController new];
+    uploadController.uploadType = idx;
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uploadController];
+
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

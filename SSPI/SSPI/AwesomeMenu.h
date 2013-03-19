@@ -19,9 +19,9 @@
     NSTimer *_timer;
     AwesomeMenuItem *_addButton;
     
-    id<AwesomeMenuDelegate> _delegate;
     BOOL _isAnimating;
 }
+
 @property (nonatomic, copy) NSArray *menusArray;
 @property (nonatomic, getter = isExpanding) BOOL expanding;
 @property (nonatomic, assign) id<AwesomeMenuDelegate> delegate;

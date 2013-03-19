@@ -6,20 +6,26 @@
 //  Copyright (c) 2012 COOMKO. All rights reserved.
 //
 
-#import "MapAnnotation.h"
+#import "Venue.h"
 
-@implementation MapAnnotation
+@implementation Venue
 
-@synthesize coordinate, title, subtitle, children;
+@synthesize coordinate, title, subtitle, children, dataDictionary;
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coord
+- (id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-    if(self)
-    {
-        coordinate = coord;
-        children = [[NSMutableArray alloc] init];
+    if (!self) {
+        return nil;
     }
+    
+    coordinate = CLLocationCoordinate2DMake([[dictionary valueForKey:@"lat"] doubleValue], [[dictionary valueForKey:@"long"] doubleValue]);
+    title = [NSString stringWithFormat:@"Pin %i", [[dictionary valueForKey:@"id"] intValue]];
+    dataDictionary = dictionary;
+    children = [NSMutableArray new];
+    
+    NSLog(@"Adding a pin at long: %f, lat: %f", coordinate.longitude, coordinate.latitude);
+    
     return self;
 }
 
@@ -58,7 +64,7 @@
     [children addObject:self];
 }
 
-- (void)addChild:(MapAnnotation *)place
+- (void)addChild:(Venue *)place
 {
     [children addObject:place];
 }

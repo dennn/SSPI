@@ -35,6 +35,8 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
     BOOL recording;
 }
 
+@property (nonatomic, assign) int uploadType;
+@property (nonatomic, strong) NSString *foursquareVenueID;
 @property (nonatomic, readonly, getter=isVisible) BOOL visible;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) IBOutlet UITextView *comments;
@@ -43,10 +45,6 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
 @property (strong, nonatomic) UploadEngine *uploadEngine;
 @property (strong, nonatomic) MKNetworkOperation *operation;
 
-- (IBAction)cameraButtonPressed:(id)sender;
-- (IBAction)videoButtonPressed:(id)sender;
-- (IBAction)micButtonPressed:(id)sender;
-- (IBAction)noteButtonPressed:(id)sender;
 - (IBAction)syncPressed:(id)sender;
 - (void)sendImage:(UIImage *)image;
 

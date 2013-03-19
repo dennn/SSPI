@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Venue.h"
 
 @interface PinViewController : UIViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andVenue:(Venue *)venue;
 
 @end

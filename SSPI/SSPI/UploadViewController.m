@@ -24,8 +24,45 @@
     return self;
 }
 
-- (IBAction)cameraButtonPressed:(id)sender{
+- (void)viewDidLoad {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(didShow) name:UIKeyboardDidShowNotification object:nil];
+    [center addObserver:self selector:@selector(didHide) name:UIKeyboardWillHideNotification object:nil];
+    comments.contentSize = CGSizeMake(comments.frame.size.height,comments.contentSize.height);
+    infoTags.contentSize = CGSizeMake(infoTags.frame.size.height,infoTags.contentSize.height);
     
+    recording = NO;
+    
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    switch (self.uploadType)
+    {
+        case 0:
+            
+            [self loadCamera];
+            break;
+            
+        case 1:
+            
+            [self loadVideo];
+            break;
+            
+        case 2:
+            
+            [self loadAudio];
+            break;
+            
+        case 3:
+            
+            [self loadText];
+            break;
+    }
+
+}
+
+- (void)loadCamera
+{
     type = @"image";
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -47,8 +84,8 @@
 
 }
 
-- (IBAction)videoButtonPressed:(id)sender{
-    
+- (void)loadVideo
+{
     type = @"video";
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -150,11 +187,11 @@
     ////////
     
     [picker dismissViewControllerAnimated:TRUE completion:nil];
-    NSArray *tags = [self getTags];
+    [self getTags];
 }
 
-- (IBAction)micButtonPressed:(id)sender{
-    
+- (void)loadAudio
+{
     type = @"audio";
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalMicView" owner:self options:nil];
     modalView = [subviewArray objectAtIndex:0];
@@ -176,14 +213,14 @@
         recordingLabel.textColor = [UIColor redColor];
         recording = YES;
     }else{
-        NSArray *tags = [self getTags];
+        [self getTags];
         [self dismiss:sender];
     }
 }
 
 
-- (IBAction)noteButtonPressed:(id)sender{
-    
+- (void)loadText
+{
     type = @"text";
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalTextInputView" owner:self options:nil];
     
@@ -248,14 +285,13 @@
     NSLog(@"%@",comments.text);    
 }
 
-- (NSArray *)getTags{
+- (void)getTags{
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag" message:@"Please input space separated tags" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
     
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alert show];
-    return nil;
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -377,19 +413,6 @@
 - (void)didHide
 {
     _isVisible = NO;
-}
-
-- (void)viewDidLoad {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(didShow) name:UIKeyboardDidShowNotification object:nil];
-    [center addObserver:self selector:@selector(didHide) name:UIKeyboardWillHideNotification object:nil];
-    comments.contentSize = CGSizeMake(comments.frame.size.height,comments.contentSize.height);
-    infoTags.contentSize = CGSizeMake(infoTags.frame.size.height,infoTags.contentSize.height);
-
-    recording = NO;
-    
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning

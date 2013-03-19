@@ -18,7 +18,6 @@
     CGPoint _nearPoint; // near
     CGPoint _farPoint; // far
     
-    id<AwesomeMenuItemDelegate> _delegate;
 }
 
 @property (nonatomic, retain, readonly) UIImageView *contentImageView;

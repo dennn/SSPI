@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
+#import "AwesomeMenu.h"
 
-@interface MapViewController : UIViewController <MKMapViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, UISearchBarDelegate, AwesomeMenuDelegate>
+{
+    IBOutlet UISearchBar *search;
+}
 
 @property (nonatomic, strong) IBOutlet UIImageView *brandingImage;
+@property (nonatomic, strong) IBOutlet UISearchBar *search;
 
 @end

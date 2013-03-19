@@ -179,6 +179,7 @@
                                                       otherButtonTitles:nil];
                 [alert show];
                 NSLog(@"Login Failed");
+                [self gotoMainView];
             }
                 } errorHandler:^(MKNetworkOperation *errorOp, NSError *error) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
