@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AVFoundation/AVFoundation.h>
 #import "MKNetworkKit.h"
 #import "UploadEngine.h"
 
@@ -18,10 +19,11 @@
 
 
 @interface UploadViewController : UIViewController <UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
+UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate, AVAudioRecorderDelegate>
 {
     CLLocationManager *locationManager;
     AVAudioRecorder *recorder;
+    AVAudioPlayer *player;
     UIView *modalView;
     BOOL _isVisible;
     IBOutlet UITextView *comments;
@@ -32,11 +34,13 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
     NSString *name;
     NSString *lon;
     NSString *lat;
+    NSString *tags;
     BOOL recording;
+    NSMutableDictionary *recordSetting;
+    NSString *recorderFilePath;
 }
 
 @property (nonatomic, assign) int uploadType;
-@property (nonatomic, strong) NSString *foursquareVenueID;
 @property (nonatomic, readonly, getter=isVisible) BOOL visible;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) IBOutlet UITextView *comments;
@@ -44,6 +48,18 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
 @property (nonatomic, retain) IBOutlet UILabel *recordingLabel;
 @property (strong, nonatomic) UploadEngine *uploadEngine;
 @property (strong, nonatomic) MKNetworkOperation *operation;
+
+- (IBAction)cameraButtonPressed:(id)sender;
+- (IBAction)videoButtonPressed:(id)sender;
+- (IBAction)micButtonPressed:(id)sender;
+- (IBAction)noteButtonPressed:(id)sender;
+- (IBAction)syncPressed:(id)sender;
+- (IBAction)playAudio:(id)sender;
+- (IBAction)dismissAudio:(id)sender;
+- (void)sendImage:(UIImage *)image;
+
+
+@end
 
 - (IBAction)syncPressed:(id)sender;
 - (void)sendImage:(UIImage *)image;
