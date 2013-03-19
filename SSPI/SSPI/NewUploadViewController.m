@@ -162,7 +162,7 @@
     FSVenue *venue = self.venues[indexPath.row];
     
     UploadViewController *upload = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
-    upload.uploadType = self.uploadType;
+    upload.uploadType = _uploadType;
     upload.foursquareVenueID = venue.venueId;
     
     [self.navigationController pushViewController:upload animated:YES];

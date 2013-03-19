@@ -317,6 +317,7 @@
         [self animateTextView:NO];
     }
 }
+
 /* Sends image to server, should be extended (MKNetworkKit used) */
 - (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags{
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];

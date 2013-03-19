@@ -10,7 +10,7 @@
 
 @implementation Venue
 
-@synthesize coordinate, title, subtitle, children, dataDictionary;
+@synthesize coordinate, title, subtitle, children, dataDictionary, venueID;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -21,6 +21,7 @@
     
     coordinate = CLLocationCoordinate2DMake([[dictionary valueForKey:@"lat"] doubleValue], [[dictionary valueForKey:@"long"] doubleValue]);
     title = [NSString stringWithFormat:@"Pin %i", [[dictionary valueForKey:@"id"] intValue]];
+    venueID = [[dictionary valueForKey:@"id"] intValue];
     dataDictionary = dictionary;
     children = [NSMutableArray new];
     

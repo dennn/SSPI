@@ -65,6 +65,7 @@
 		B7762FF816EA1CC300725D23 /* poweredByFoursquare_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7762FEF16EA1CC300725D23 /* poweredByFoursquare_gray@2x.png */; };
 		B776300116EA219C00725D23 /* FSVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = B7762FFE16EA219C00725D23 /* FSVenue.m */; };
 		B776300216EA219C00725D23 /* FSConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B776300016EA219C00725D23 /* FSConverter.m */; };
+		B778096B16F879CD009F4DA5 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = B778096A16F879CD009F4DA5 /* Venue.m */; };
 		B7860927166A75A3005117A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860926166A75A3005117A2 /* UIKit.framework */; };
 		B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7860928166A75A3005117A2 /* Foundation.framework */; };
 		B786092B166A75A3005117A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B786092A166A75A3005117A2 /* CoreGraphics.framework */; };
@@ -92,7 +93,6 @@
 		B7A01DAC16BDB6750065FFC8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A01DAB16BDB6750065FFC8 /* MobileCoreServices.framework */; };
 		B7A01DAE16BDB67C0065FFC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A01DAD16BDB67C0065FFC8 /* CoreLocation.framework */; };
 		B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A01DAF16BDB67F0065FFC8 /* AVFoundation.framework */; };
-		B7A1C2D71673C1CF0089210D /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A1C2D61673C1CF0089210D /* Venue.m */; };
 		B7A319CD16D91EF000F1DD4F /* NewUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */; };
 		B7D5AFDE16C8215D0095ED5A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */; };
 		B7D5AFDF16C8215D0095ED5A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCE16C8215D0095ED5A /* AFHTTPRequestOperation.m */; };
@@ -228,6 +228,8 @@
 		B7762FFE16EA219C00725D23 /* FSVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSVenue.m; sourceTree = "<group>"; };
 		B7762FFF16EA219C00725D23 /* FSConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSConverter.h; sourceTree = "<group>"; };
 		B776300016EA219C00725D23 /* FSConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSConverter.m; sourceTree = "<group>"; };
+		B778096916F879CD009F4DA5 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		B778096A16F879CD009F4DA5 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		B77E91D31673964500025577 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = ../RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		B77E91E9167397B300025577 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B77E91EB167397BF00025577 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -281,8 +283,6 @@
 		B7A1C2C71673A5410089210D /* UOB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UOB@2x.png"; sourceTree = "<group>"; };
 		B7A1C2C81673A5420089210D /* IBM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IBM.png; sourceTree = "<group>"; };
 		B7A1C2C91673A5420089210D /* IBM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IBM@2x.png"; sourceTree = "<group>"; };
-		B7A1C2D51673C1CF0089210D /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		B7A1C2D61673C1CF0089210D /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		B7A319CB16D91EF000F1DD4F /* NewUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUploadViewController.h; sourceTree = "<group>"; };
 		B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUploadViewController.m; sourceTree = "<group>"; };
 		B7D5AFCB16C8215D0095ED5A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -388,12 +388,10 @@
 				CC15693B16B984AA004843EE /* UploadEngine.m */,
 				0C874A3816CE7B2600DB6F7E /* ServerManager.h */,
 				0C874A3916CE7B2600DB6F7E /* ServerManager.m */,
-				B7A1C2D51673C1CF0089210D /* MapAnnotation.h */,
-				B7A1C2D61673C1CF0089210D /* MapAnnotation.m */,
 				0C69926F16C91C5F007E71DC /* KeychainItemWrapper.h */,
 				0C69927016C91C5F007E71DC /* KeychainItemWrapper.m */,
-				B7A1C2D51673C1CF0089210D /* Venue.h */,
-				B7A1C2D61673C1CF0089210D /* Venue.m */,
+				B778096916F879CD009F4DA5 /* Venue.h */,
+				B778096A16F879CD009F4DA5 /* Venue.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -840,7 +838,6 @@
 				B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */,
 				B7660CF5166BADF8005BC8E6 /* ServerViewController.m in Sources */,
 				B7660CF8166BAECE005BC8E6 /* SettingsViewController.m in Sources */,
-				B7A1C2D71673C1CF0089210D /* Venue.m in Sources */,
 				CC15693C16B984AA004843EE /* UploadEngine.m in Sources */,
 				0C5B07EB16BC9CC100094964 /* Whatsnew.m in Sources */,
 				B7A01DA116BDB6670065FFC8 /* NSAlert+MKNetworkKitAdditions.m in Sources */,
@@ -875,6 +872,7 @@
 				B7762FF316EA1CC300725D23 /* FSWebLogin.m in Sources */,
 				B776300116EA219C00725D23 /* FSVenue.m in Sources */,
 				B776300216EA219C00725D23 /* FSConverter.m in Sources */,
+				B778096B16F879CD009F4DA5 /* Venue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

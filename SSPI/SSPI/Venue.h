@@ -13,10 +13,12 @@
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *venueName;
-@property (nonatomic, strong) NSString *venueID;
+@property (nonatomic, assign) int venueID;
 @property (nonatomic, strong) NSString *foursquareVenueID;
 @property (nonatomic, strong) NSMutableArray *children;
 @property (nonatomic, strong) NSDictionary *dataDictionary;
+@property (nonatomic, strong) NSURL *imageSource;
+@property (nonatomic, assign) int userID;
 
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;

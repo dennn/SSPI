@@ -188,7 +188,10 @@
 {
     if ([(Venue *)view.annotation childrenCount] == 1) {
         PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andVenue:view.annotation];
-        [self.navigationController pushViewController:pinController animated:YES];
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:pinController];
+        
+        [self presentViewController:navController animated:YES completion:nil];
     }
 }
 
@@ -243,7 +246,7 @@
     
     NewUploadViewController *uploadController = [NewUploadViewController new];
     uploadController.uploadType = idx;
-    
+        
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uploadController];
 
     [self presentViewController:navController animated:YES completion:nil];
