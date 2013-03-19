@@ -41,6 +41,7 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
 }
 
 @property (nonatomic, assign) int uploadType;
+@property (nonatomic, strong) NSString *foursquareVenueID;
 @property (nonatomic, readonly, getter=isVisible) BOOL visible;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) IBOutlet UITextView *comments;
@@ -61,8 +62,3 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
 
 @end
 
-- (IBAction)syncPressed:(id)sender;
-- (void)sendImage:(UIImage *)image;
-
-
-@end

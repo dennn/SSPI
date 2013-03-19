@@ -350,7 +350,6 @@
     
 }
 
-
 - (void)loadText{
     
     type = @"text";
