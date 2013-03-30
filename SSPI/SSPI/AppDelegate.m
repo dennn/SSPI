@@ -7,13 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
-//#import <RestKit/RestKit.h>
-
 #import "MapViewController.h"
-#import "SettingsViewController.h"
-#import "UploadViewController.h"
-#import "LoginViewController.h"
+#import "JASidePanelController.h"
+#import "SideViewController.h"
 
 @implementation AppDelegate
 
@@ -22,14 +18,20 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    self.viewController = [[JASidePanelController alloc] init];
+    self.viewController.shouldDelegateAutorotateToVisiblePanel = NO;
+    self.viewController.leftFixedWidth = 90.0;
 
-    self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    MapViewController *mapController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapController];
+    SideViewController *sideController = [[SideViewController alloc] initWithNibName:nil bundle:nil];
     
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.viewController.centerPanel = navController;
+    self.viewController.leftPanel = sideController;
     
-    self.window.rootViewController = self.navigationController;
+    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -59,19 +61,5 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-*/
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
-}
-*/
 
 @end

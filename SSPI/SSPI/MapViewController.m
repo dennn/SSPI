@@ -10,13 +10,14 @@
 #import "Venue.h"
 #import "AFNetworking.h"
 #import "PinViewController.h"
-#import "NewUploadViewController.h"
+#import "PhotoUploadViewController.h"
 
 @interface MapViewController ()
 {
     IBOutlet MKMapView *currentMapView;
     NSArray *annotations;
     CLLocationDegrees zoomLevel;
+    BOOL searchBarShown;
 }
 
 - (void)filterAnnotations:(NSArray *)pinLocations;
@@ -25,7 +26,7 @@
 
 @implementation MapViewController
 
-@synthesize brandingImage, search;
+@synthesize search;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,11 +42,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    //Add the search button to toggle the search bar
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleSearch)];
+    searchBarShown = FALSE;
     
-    search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 50)];
     search.delegate = self;
-    [self.view addSubview:search];
     search.showsCancelButton = TRUE;
+
+    [self.view addSubview:search];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapGesture:)];
     [currentMapView addGestureRecognizer:tapGesture];
@@ -83,11 +88,30 @@
     AwesomeMenu *menu = [[AwesomeMenu alloc] initWithFrame:self.view.frame menus:menuArray];
     menu.menuWholeAngle = M_PI/180 * 90;
     menu.rotateAngle = M_PI/180 * -90;
-    menu.startPoint = CGPointMake(290, 350);
+    menu.startPoint = CGPointMake(290, 380);
     menu.delegate = self;
     
     [self.view addSubview:menu];
-    
+}
+
+- (void)toggleSearch
+{
+    if (searchBarShown)
+    {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.4];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        search.frame = CGRectMake(0, -60, search.frame.size.width, search.frame.size.height);
+        [UIView commitAnimations];
+        searchBarShown = FALSE;
+    } else {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.4];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        search.frame = CGRectMake(0, 0, search.frame.size.width, search.frame.size.height);
+        [UIView commitAnimations];
+        searchBarShown = TRUE;
+    }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -130,27 +154,6 @@
     
     if (search.isFirstResponder)
         [search resignFirstResponder];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    int selectedBranding = [defaults integerForKey:@"branding"];
-        
-    switch (selectedBranding)
-    {
-        case 0:
-            brandingImage.image = [UIImage imageNamed:@"UOB"];
-            break;
-            
-        case 1:
-            brandingImage.image = [UIImage imageNamed:@"IBM"];
-            break;
-            
-        default:
-            break;
-    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -244,12 +247,15 @@
         4. Text
      */
     
-    NewUploadViewController *uploadController = [NewUploadViewController new];
-    uploadController.uploadType = idx;
-        
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uploadController];
-
-    [self presentViewController:navController animated:YES completion:nil];
+   switch (idx)
+    {
+        case 0:
+        {
+            PhotoUploadViewController *uploadController = [[PhotoUploadViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:uploadController animated:YES];
+            break;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

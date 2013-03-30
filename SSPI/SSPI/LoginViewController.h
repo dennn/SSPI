@@ -16,8 +16,6 @@
 #import "MKNetworkKit.h"
 #import "UploadEngine.h"
 
-
-
 @interface LoginViewController : UIViewController<UITextFieldDelegate, UITabBarControllerDelegate,UIAlertViewDelegate>
 {
     NSString *username;

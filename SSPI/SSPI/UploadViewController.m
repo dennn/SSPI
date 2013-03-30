@@ -49,29 +49,6 @@
     lon = longitude;
 }
 
-- (void)loadCamera{
-    
-    type = @"image";
-    
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-        }
-        else
-        {
-            [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        }
-    
-        imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
-    
-        [imagePicker setDelegate:self];
-    
-        [self presentViewController:imagePicker animated:YES completion:nil];
-
-}
-
 - (void)loadVideo{
     
     type = @"video";
@@ -628,7 +605,6 @@
     {
         case 0:
             
-            [self loadCamera];
             break;
             
         case 1:

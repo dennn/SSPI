@@ -10,8 +10,6 @@
 
 @interface ServerManager : NSObject
 
-
-
 - (void)addServer;
 - (NSMutableArray *)getAllServers;
 - (NSString *)getServer: (NSString *) servername;

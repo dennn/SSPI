@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
+@class JASidePanelController;
 
-@property (strong, nonatomic) UIWindow *window;
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, retain) LoginViewController *loginViewController;
-@property (strong, retain) UINavigationController *navigationController;
-
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) JASidePanelController *viewController;
 @end

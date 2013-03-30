@@ -2,11 +2,6 @@
 //  LoginViewController.m
 //  SSPI
 //
-
-//  Created by Hannah Oliver on 04/02/2013.
-
-//  Created by Cheng Ma on 04/02/2013.
-
 //  Copyright (c) 2013 COOMKO. All rights reserved.
 //
 
@@ -211,12 +206,7 @@
 -(void)gotoMainView
 {
     UIViewController *mapViewController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    UIViewController *viewController2 = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-    UINavigationController *settingsViewController = [[UINavigationController alloc] initWithRootViewController:viewController2];
-    UIViewController *uploadViewController = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
-    self.tabViewController = [[UITabBarController alloc] init];
-    [self.tabViewController setViewControllers: @[mapViewController,uploadViewController,settingsViewController] animated:YES];
-    [self.navigationController pushViewController:self.tabViewController animated:YES];
+    [self.navigationController pushViewController:mapViewController animated:YES];
 }
 
 @end
