@@ -11,6 +11,8 @@
 #import "AFNetworking.h"
 #import "PinViewController.h"
 #import "PhotoUploadViewController.h"
+#import "AudioUploadViewController.h"
+#import "UploadViewController.h"
 
 @interface MapViewController ()
 {
@@ -251,10 +253,51 @@
     {
         case 0:
         {
-            PhotoUploadViewController *uploadController = [[PhotoUploadViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:uploadController animated:YES];
+            //UploadViewController *uvc = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil parent:self];
+            //uvc.view.frame = CGRectMake(0, 480, 320, 480);
+            /*[self.view addSubview:uvc.view];
+            [UIView animateWithDuration:0.5
+                                  delay:0.0
+                                options: UIViewAnimationCurveEaseOut
+                             animations:^{
+                                 uvc.view.frame = CGRectMake(0, 0, 320, 480);
+                             }
+                             completion:^(BOOL finished){
+             [uvc loadCamera];
+
+                             }];*/
+            PhotoUploadViewController *uploadController = [[PhotoUploadViewController alloc] initWithMedia:@"photo" parent:self];
+            //[uploadController loadPhoto];
+            
+            //uvc.uploadType = 0;
+            //[uvc loadCamera];
+            [self presentViewController:uploadController animated:YES completion:nil];
             break;
         }
+        case 1:
+        {
+            PhotoUploadViewController *uploadController = [[PhotoUploadViewController alloc] initWithMedia:@"video" parent:self];
+            [self presentViewController:uploadController animated:YES completion:nil];
+            break;
+        }
+        case 2:
+        {
+            AudioUploadViewController *uvc = [[AudioUploadViewController alloc] initWithParent:self];
+            [self presentViewController:uvc animated:YES completion:nil];
+            NSLog(@"Calling video");
+            break;
+            
+        }
+        case 3:
+        {
+            /*AudioUploadViewController *uploadController = [[AudioUploadViewController alloc] init];
+             [self.navigationController presentViewController:uploadController animated:YES completion:nil];*/
+            UploadViewController *uvc = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
+            uvc.uploadType = 3;
+            [self.navigationController pushViewController:uvc animated:YES];
+            
+        }
+            
     }
 }
 

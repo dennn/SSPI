@@ -64,7 +64,7 @@
 		B776300216EA219C00725D23 /* FSConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B776300016EA219C00725D23 /* FSConverter.m */; };
 		B778096B16F879CD009F4DA5 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = B778096A16F879CD009F4DA5 /* Venue.m */; };
 		B785E4FF16FF2EE20022235F /* FoursquareLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B785E4FE16FF2EE20022235F /* FoursquareLocationPickerViewController.m */; };
-		B785E50D16FF5C070022235F /* PhotoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B785E50C16FF5C070022235F /* PhotoUploadViewController.m */; };
+		B785E50D16FF5C070022235F /* PhotoUploadViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = B785E50C16FF5C070022235F /* PhotoUploadViewController2.m */; };
 		B785E51317009F6C0022235F /* DescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B785E51217009F6C0022235F /* DescriptionCell.m */; };
 		B785E5181700B4BD0022235F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = B785E5161700B4BD0022235F /* UIImage+Resize.m */; };
 		B785E51E1700C6330022235F /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B785E51B1700C6330022235F /* JASidePanelController.m */; };
@@ -138,6 +138,9 @@
 		CC28A20B16764C51002362DD /* light_on.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20716764C51002362DD /* light_on.png */; };
 		CC28A20C16764C51002362DD /* light_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20816764C51002362DD /* light_on@2x.png */; };
 		CC28A20D16764C51002362DD /* light_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC28A20916764C51002362DD /* light_off@2x.png */; };
+		CC2F21DD170A26F3007400DA /* PhotoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2F21DC170A26F3007400DA /* PhotoUploadViewController.m */; };
+		CC2F21E0170B76A1007400DA /* AudioUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */; };
+		CC2F21E5170F2FB4007400DA /* TextUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */; };
 		CC3B12F9167235670075627A /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F5167235670075627A /* camera.png */; };
 		CC3B12FA167235670075627A /* camera2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F6167235670075627A /* camera2.png */; };
 		CC3B12FB167235670075627A /* mic.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3B12F7167235670075627A /* mic.png */; };
@@ -259,8 +262,8 @@
 		B77E91EF167397DC00025577 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B785E4FD16FF2EE20022235F /* FoursquareLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoursquareLocationPickerViewController.h; sourceTree = "<group>"; };
 		B785E4FE16FF2EE20022235F /* FoursquareLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoursquareLocationPickerViewController.m; sourceTree = "<group>"; };
-		B785E50B16FF5C070022235F /* PhotoUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUploadViewController.h; sourceTree = "<group>"; };
-		B785E50C16FF5C070022235F /* PhotoUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUploadViewController.m; sourceTree = "<group>"; };
+		B785E50B16FF5C070022235F /* PhotoUploadViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUploadViewController2.h; sourceTree = "<group>"; };
+		B785E50C16FF5C070022235F /* PhotoUploadViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUploadViewController2.m; sourceTree = "<group>"; };
 		B785E51117009F6C0022235F /* DescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionCell.h; sourceTree = "<group>"; };
 		B785E51217009F6C0022235F /* DescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionCell.m; sourceTree = "<group>"; };
 		B785E5161700B4BD0022235F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -378,6 +381,12 @@
 		CC28A20716764C51002362DD /* light_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_on.png; sourceTree = "<group>"; };
 		CC28A20816764C51002362DD /* light_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light_on@2x.png"; sourceTree = "<group>"; };
 		CC28A20916764C51002362DD /* light_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light_off@2x.png"; sourceTree = "<group>"; };
+		CC2F21DB170A26F2007400DA /* PhotoUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUploadViewController.h; sourceTree = "<group>"; };
+		CC2F21DC170A26F3007400DA /* PhotoUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUploadViewController.m; sourceTree = "<group>"; };
+		CC2F21DE170B769F007400DA /* AudioUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioUploadViewController.h; sourceTree = "<group>"; };
+		CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUploadViewController.m; sourceTree = "<group>"; };
+		CC2F21E3170F2FA8007400DA /* TextUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextUploadViewController.h; sourceTree = "<group>"; };
+		CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextUploadViewController.m; sourceTree = "<group>"; };
 		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = "<absolute>"; };
 		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = "<absolute>"; };
 		CC3B12EA16700CC00075627A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
@@ -724,8 +733,14 @@
 				B785E5211700C87B0022235F /* SideViewController.m */,
 				B785E4FD16FF2EE20022235F /* FoursquareLocationPickerViewController.h */,
 				B785E4FE16FF2EE20022235F /* FoursquareLocationPickerViewController.m */,
-				B785E50B16FF5C070022235F /* PhotoUploadViewController.h */,
-				B785E50C16FF5C070022235F /* PhotoUploadViewController.m */,
+				B785E50B16FF5C070022235F /* PhotoUploadViewController2.h */,
+				B785E50C16FF5C070022235F /* PhotoUploadViewController2.m */,
+				CC2F21DB170A26F2007400DA /* PhotoUploadViewController.h */,
+				CC2F21DC170A26F3007400DA /* PhotoUploadViewController.m */,
+				CC2F21E3170F2FA8007400DA /* TextUploadViewController.h */,
+				CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */,
+				CC2F21DE170B769F007400DA /* AudioUploadViewController.h */,
+				CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */,
 				B785E5701701BABA0022235F /* UIView+printSubviews.h */,
 				B785E5711701BABB0022235F /* UIView+printSubviews.m */,
 				B7A319CB16D91EF000F1DD4F /* NewUploadViewController.h */,
@@ -1030,7 +1045,7 @@
 				B776300216EA219C00725D23 /* FSConverter.m in Sources */,
 				B778096B16F879CD009F4DA5 /* Venue.m in Sources */,
 				B785E4FF16FF2EE20022235F /* FoursquareLocationPickerViewController.m in Sources */,
-				B785E50D16FF5C070022235F /* PhotoUploadViewController.m in Sources */,
+				B785E50D16FF5C070022235F /* PhotoUploadViewController2.m in Sources */,
 				B785E51317009F6C0022235F /* DescriptionCell.m in Sources */,
 				B785E5181700B4BD0022235F /* UIImage+Resize.m in Sources */,
 				B785E51E1700C6330022235F /* JASidePanelController.m in Sources */,
@@ -1041,6 +1056,9 @@
 				B785E55717010D0D0022235F /* UIViewController+TDSemiModalExtension.m in Sources */,
 				B785E55F170116190022235F /* SSTextView.m in Sources */,
 				B785E5721701BABC0022235F /* UIView+printSubviews.m in Sources */,
+				CC2F21DD170A26F3007400DA /* PhotoUploadViewController.m in Sources */,
+				CC2F21E0170B76A1007400DA /* AudioUploadViewController.m in Sources */,
+				CC2F21E5170F2FB4007400DA /* TextUploadViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -75,13 +75,9 @@
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<bytes key="NSWhite">MCAwAA</bytes>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
@@ -235,21 +231,41 @@
 					<string key="className">UploadViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="dismiss:">id</string>
-						<string key="record:">id</string>
+						<string key="cameraButtonPressed:">id</string>
+						<string key="dismissAudio:">id</string>
+						<string key="micButtonPressed:">id</string>
+						<string key="noteButtonPressed:">id</string>
+						<string key="playAudio:">id</string>
 						<string key="syncPressed:">id</string>
+						<string key="videoButtonPressed:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="dismiss:">
-							<string key="name">dismiss:</string>
+						<object class="IBActionInfo" key="cameraButtonPressed:">
+							<string key="name">cameraButtonPressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="record:">
-							<string key="name">record:</string>
+						<object class="IBActionInfo" key="dismissAudio:">
+							<string key="name">dismissAudio:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="micButtonPressed:">
+							<string key="name">micButtonPressed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="noteButtonPressed:">
+							<string key="name">noteButtonPressed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="playAudio:">
+							<string key="name">playAudio:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="syncPressed:">
 							<string key="name">syncPressed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="videoButtonPressed:">
+							<string key="name">videoButtonPressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

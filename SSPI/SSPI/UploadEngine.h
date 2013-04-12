@@ -8,8 +8,13 @@
 
 #import "MKNetworkEngine.h"
 
-@interface UploadEngine : MKNetworkEngine
+@interface UploadEngine : MKNetworkEngine{
+    UIActivityIndicatorView* activityIndicator;
+}
+
+@property (strong, nonatomic) MKNetworkOperation *operation;
 
 -(MKNetworkOperation *) postDataToServer:(NSMutableDictionary *)params path:(NSString *)path;
+-(void)syncPressed:(UIViewController*)controller;
 
 @end

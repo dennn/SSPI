@@ -1,53 +1,66 @@
 //
-//  NewUploadViewController.m
+//  PhotoUploadViewController.m
 //  SSPI
 //
-//  Created by Den on 23/02/2013.
+//  Created by Den on 24/03/2013.
 //  Copyright (c) 2013 COOMKO. All rights reserved.
 //
 
-#import "NewUploadViewController.h"
-#import "Foursquare2.h"
-#import "FSVenue.h"
-#import "FSConverter.h"
-#import "UploadViewController.h"
+#import "PhotoUploadViewController2.h"
 #import "DescriptionCell.h"
 #import "FoursquareLocationPickerViewController.h"
+#import "TDDatePickerController.h"
 #import "UIView+printSubviews.h"
 
-@implementation NewUploadViewController
+@interface PhotoUploadViewController2 ()
 
-@synthesize pickedImage, datePicker, tableView;
+@property (nonatomic, strong) UIImage *pickedImage;
+@property (nonatomic, strong) TDDatePickerController *datePicker;
+@property (nonatomic, strong) NSString *expiryDate;
 
+@end
 
-- (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname{
+@implementation PhotoUploadViewController2
 
+@synthesize pickedImage, datePicker, expiryDate;
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
     self = [super initWithStyle:style];
-    type = localtype;
-    name = localname;
-    NSLog(@"Localname: %@", localname);
     if (self) {
-        description = @"";
-        tags = @"";
-        expires = @"";
-        lat = @"";
-        lon = @"";
-        cancel = YES;
+        // Custom initialization
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    self.title = @"Choose location";
+
+    self.title = @"New photo";
     
-    UIBarButtonItem *finishButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(finish)];
-    self.navigationItem.rightBarButtonItem = finishButton;
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+    else
+    {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    imagePicker.allowsEditing = NO;
+    imagePicker.delegate = self;
+    
+    [self presentViewController:imagePicker animated:NO completion:nil];
 }
 
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    pickedImage = (UIImage *)[info objectForKey: UIImagePickerControllerOriginalImage];
+        
+    [picker dismissViewControllerAnimated:TRUE completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,9 +121,9 @@
                 
             case 3:
             {
-                if (expires)
+                if (expiryDate)
                 {
-                    cell.detailTextLabel.text = expires;
+                    cell.detailTextLabel.text = expiryDate;
                 }
                 cell.textLabel.text = @"Expires";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -154,75 +167,25 @@
     }
 }
 
-
 - (void)datePickerSetDateNever:(TDDatePickerController *)viewController
 {
     [self dismissSemiModalViewController:datePicker];
-    expires = @"Never";
+    expiryDate = @"Never";
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)datePickerSetDate:(TDDatePickerController *)viewController
 {
     [self dismissSemiModalViewController:datePicker];
-    expires = [NSDateFormatter localizedStringFromDate:viewController.datePicker.date
-                                                dateStyle:kCFDateFormatterMediumStyle
-                                                timeStyle:NSDateFormatterNoStyle];
+    expiryDate = [NSDateFormatter localizedStringFromDate:viewController.datePicker.date
+                                                                       dateStyle:kCFDateFormatterMediumStyle
+                                                                       timeStyle:NSDateFormatterNoStyle];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
 {
     [self dismissSemiModalViewController:datePicker];
-}
-
-
--(void)finish{
-    [self store:tags];
-    cancel = NO;
-    NSLog(@"Delegate: %@", _delegate);
-    NSLog(@"description:%@ tags:%@ expires:%@ lat:%@ lon:%@", description, tags, expires, lat, lon);
-    [_delegate save:description tags:tags expires:expires];
-    NSLog(@"Save data");
-    [self.navigationController popViewControllerAnimated: YES];
-}
-
--(void)store:(NSString *)tags {
-    NSString *DocPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSString* filePath=[DocPath stringByAppendingPathComponent:@"sync.plist"];
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
-    {
-        NSLog(@"sync.plist did not exist");
-        NSString *path=[[NSBundle mainBundle] pathForResource:@"sync" ofType:@"plist"];
-        NSLog(@"file path: %@",filePath);
-        NSDictionary *info=[NSDictionary dictionaryWithContentsOfFile:path];
-        [info writeToFile:filePath atomically:YES];
-    }
-    NSLog(@"Name: %@", name);
-    // Create the new dictionary that will be inserted into the plist.
-    NSMutableDictionary *nameDictionary = [NSMutableDictionary dictionary];
-    [nameDictionary setValue:type forKey:@"Type"];
-    [nameDictionary setValue:name forKey:@"Name"];
-    NSLog(@"Name stored: %@", [nameDictionary objectForKey:@"Name"]);
-    [nameDictionary setValue:lat forKey:@"Latitude"];
-    [nameDictionary setValue:lon forKey:@"Longitude"];
-    [nameDictionary setValue:tags forKey:@"Tags"];
-    
-    // Open the plist from the filesystem.
-    NSMutableArray *plist = [NSMutableArray arrayWithContentsOfFile:filePath];
-    if (plist == nil) plist = [NSMutableArray array];
-    [plist addObject:nameDictionary];
-    [plist writeToFile:filePath atomically:YES];
-}
-
--(void) viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        if(cancel)
-            [_delegate cancel];
-    }
-    [super viewWillDisappear:animated];
 }
 
 @end

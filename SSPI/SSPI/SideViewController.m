@@ -44,6 +44,7 @@
     
     UIButton *heartButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 230, 37, 34)];
     [heartButton setBackgroundImage:[UIImage imageNamed:@"Heart-icon.png"] forState:UIControlStateNormal];
+    [heartButton addTarget:self action:@selector(sync:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 380, 37, 34)];
     [settingsButton setBackgroundImage:[UIImage imageNamed:@"Settings-icon.png"] forState:UIControlStateNormal];
@@ -63,6 +64,12 @@
 - (void)loadSettingsPage:(id)sender
 {
     self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil]];
+}
+
+- (void)sync:(id)sender
+{
+    UploadEngine * ue = [[UploadEngine alloc] init];
+    [ue syncPressed:self];
 }
 
 - (void)didReceiveMemoryWarning

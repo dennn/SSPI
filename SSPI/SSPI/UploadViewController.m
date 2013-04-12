@@ -7,6 +7,7 @@
 //
 
 #import "UploadViewController.h"
+#import "NewUploadViewController.h"
 
 @implementation UploadViewController
 
@@ -14,9 +15,13 @@
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil parent:(UIViewController *)parent
 {
+    parentController = parent;
+    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    //[self.navigationController pushViewController:getInfo animated:YES];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    //[self addChildViewController:getInfo];
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Upload", @"Upload");
@@ -47,6 +52,29 @@
     NSLog(@"dLongitude : %@",longitude);
     lat = latitude;
     lon = longitude;
+}
+
+- (void)loadCamera{
+    
+    type = @"image";
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+    else
+    {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    imagePicker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+    
+    [imagePicker setDelegate:self];
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
 }
 
 - (void)loadVideo{
@@ -134,7 +162,7 @@
 }
 
 /* Sends image to server, should be extended (MKNetworkKit used) */
-- (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags type:(NSString *)type{
+/*- (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags type:(NSString *)type{
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* dataPath = [documentsPath stringByAppendingPathComponent:filename];
     NSData *data = nil;
@@ -175,7 +203,7 @@
                             }];
     
     [self.uploadEngine enqueueOperation:self.operation ];
-}
+}*/
 
 - (void)loadAudio{
     
@@ -328,7 +356,7 @@
 }
 
 - (void)loadText{
-    
+    NSLog(@"Loading text");
     type = @"text";
     [self setLatLon];
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"ModalTextInputView" owner:self options:nil];
@@ -416,6 +444,7 @@
                          }
                          completion:^(BOOL finished){
                              NSArray *tags = [self getTags];
+                             NSLog(@"Finished");
                              [modalView removeFromSuperview];
                          }];
         NSLog([self isVisible] ? @"Visible: Yes" : @"Visible: No");
@@ -424,11 +453,15 @@
 
 - (NSArray *)getTags{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag" message:@"Please input space separated tags" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:getInfo animated:YES];
+    
+    /*UIAlertView *aler
+     t = [[UIAlertView alloc] initWithTitle:@"Tag" message:@"Please input space separated tags" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
     
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
-    [alert show];
+    [alert show];*/
     return nil;
 }
 
@@ -456,7 +489,7 @@
     }
 }
 
-- (void)sendText:(NSString *)filename type:(NSString *)type lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags {
+/*- (void)sendText:(NSString *)filename type:(NSString *)type lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags {
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* dataPath = [documentsPath stringByAppendingPathComponent:filename];
     NSString* string = [[NSString alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:dataPath] encoding:NSUTF8StringEncoding];
@@ -514,7 +547,7 @@
                             }];
     
     [self.uploadEngine enqueueOperation:self.operation ];
-}
+}*/
 
 -(void)store:(NSString *)tags {
     NSString *DocPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -547,31 +580,7 @@
 }
 
 - (IBAction)syncPressed:(id)sender {
-    NSString *DocPath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString* plistPath=[DocPath stringByAppendingPathComponent:@"sync.plist"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]){
-        NSLog(@"Nothing yet synced");
-        return;
-    }
     
-    NSArray* a = [NSArray arrayWithContentsOfFile:plistPath];
-    for (NSDictionary *d in a){
-        NSLog(@"Type: %@, filename: %@, lat: %@, lon: %@, tags: %@", [d objectForKey:@"Type"],[d objectForKey:@"Name"],[d objectForKey:@"Latitude"],[d objectForKey:@"Longitude"],[d objectForKey:@"Tags"]);
-        NSLog(@"%@", [d objectForKey:@"Type"]);
-        if([[d objectForKey:@"Type"] isEqualToString:@"image"])
-            [self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] type:[d objectForKey:@"Type"]];
-        else if([[d objectForKey:@"Type"] isEqualToString:@"text"])
-            [self sendText:[d objectForKey:@"Name"] type:[d objectForKey:@"Type"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"]];
-        else if([[d objectForKey:@"Type"] isEqualToString:@"video"])
-            [self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] type:[d objectForKey:@"Type"]];
-        else if([[d objectForKey:@"Type"] isEqualToString:@"audio"])
-            [self sendAudio:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"]];
-    }
-    
-    // Open the plist from the filesystem.
-    NSMutableArray *plist = nil;
-    if (plist == nil) plist = [NSMutableArray array];
-    [plist writeToFile:plistPath atomically:YES];
 }
 
 - (BOOL)isVisible
@@ -604,7 +613,7 @@
     switch (self.uploadType)
     {
         case 0:
-            
+            [self loadCamera];
             break;
             
         case 1:
@@ -618,7 +627,7 @@
             break;
             
         case 3:
-            
+            NSLog(@"CALLED text");
             [self loadText];
             break;
     }

@@ -38,6 +38,7 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
     BOOL recording;
     NSMutableDictionary *recordSetting;
     NSString *recorderFilePath;
+    UIViewController *parentController;
 }
 
 @property (nonatomic, assign) int uploadType;
@@ -50,10 +51,11 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
 @property (strong, nonatomic) UploadEngine *uploadEngine;
 @property (strong, nonatomic) MKNetworkOperation *operation;
 
-- (IBAction)cameraButtonPressed:(id)sender;
-- (IBAction)videoButtonPressed:(id)sender;
-- (IBAction)micButtonPressed:(id)sender;
-- (IBAction)noteButtonPressed:(id)sender;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil parent:(UIViewController *)parent;
+- (void)loadCamera;
+- (void)loadVideo;
+- (void)loadAudio;
+- (void)loadText;
 - (IBAction)syncPressed:(id)sender;
 - (IBAction)playAudio:(id)sender;
 - (IBAction)dismissAudio:(id)sender;
