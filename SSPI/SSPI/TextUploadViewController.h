@@ -21,6 +21,7 @@
 
 @property(nonatomic, retain) IBOutlet UITextView *comments;
 
+-(id)initWithParent:(UIViewController*)controllerParent;
 -(IBAction)dismiss:(id)sender;
 -(IBAction)save:(id)sender;
 

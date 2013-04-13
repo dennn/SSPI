@@ -12,7 +12,7 @@
 #import "PinViewController.h"
 #import "PhotoUploadViewController.h"
 #import "AudioUploadViewController.h"
-#import "UploadViewController.h"
+#import "TextUploadViewController.h"
 
 @interface MapViewController ()
 {
@@ -284,17 +284,16 @@
         {
             AudioUploadViewController *uvc = [[AudioUploadViewController alloc] initWithParent:self];
             [self presentViewController:uvc animated:YES completion:nil];
-            NSLog(@"Calling video");
+            //NSLog(@"Calling video");
             break;
             
         }
         case 3:
         {
-            /*AudioUploadViewController *uploadController = [[AudioUploadViewController alloc] init];
-             [self.navigationController presentViewController:uploadController animated:YES completion:nil];*/
-            UploadViewController *uvc = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
-            uvc.uploadType = 3;
-            [self.navigationController pushViewController:uvc animated:YES];
+            TextUploadViewController *uvc = [[TextUploadViewController alloc] initWithParent:self];
+            [self presentViewController:uvc animated:YES completion:nil];
+            //NSLog(@"Calling video");
+            break;
             
         }
             

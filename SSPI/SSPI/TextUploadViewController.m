@@ -12,7 +12,7 @@
 @synthesize comments;
 
 - (id)initWithParent:(UIViewController*)controllerParent{
-    self = [super initWithNibName:@"ModalMicView" bundle:nil];
+    self = [super initWithNibName:@"ModalTextInputView" bundle:nil];
     if (self) {
         parent = controllerParent;
         comments.layer.cornerRadius = 8;
@@ -38,6 +38,7 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     locationManager.distanceFilter = kCLDistanceFilterNone;
     [locationManager startUpdatingLocation];
+    
     
     CLLocation *location = [locationManager location];
     
@@ -73,6 +74,7 @@
 }
 
 - (IBAction)save:(id)sender{
+    [self setLatLon];
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *filename = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
     filename = [filename stringByReplacingOccurrencesOfString:@"." withString:@""];
