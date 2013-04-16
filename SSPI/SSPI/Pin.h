@@ -7,15 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Venue.h"
 #import "User.h"
+
+@class Venue;
 
 typedef enum {
     image,
     video,
     audio,
     text
-} Uploadtype;
+} UploadType;
 
 @interface Pin : NSObject
 
@@ -24,7 +25,7 @@ typedef enum {
 @property (nonatomic, strong) User *uploadUser;
 @property (nonatomic, strong) NSURL *dataLocation;
 @property (nonatomic, strong) Venue *venueLocation;
-@property (nonatomic, assign) Uploadtype uploadType;
+@property (nonatomic, assign) UploadType uploadType;
 
 - (id)initWithPinID:(int)pin;
 

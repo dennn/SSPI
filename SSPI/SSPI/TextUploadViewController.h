@@ -22,10 +22,7 @@
 
 @property(nonatomic, retain) IBOutlet UITextView *comments;
 
-<<<<<<< HEAD
 -(id)initWithParent:(UIViewController*)controllerParent;
-=======
->>>>>>> Started work on pin view
 -(IBAction)dismiss:(id)sender;
 -(IBAction)save:(id)sender;
 

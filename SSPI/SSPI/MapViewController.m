@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 #import "Venue.h"
+#import "Pin.h"
 #import "AFNetworking.h"
 #import "PinViewController.h"
 #import "PhotoUploadViewController.h"
@@ -129,7 +130,8 @@
         for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
         {
             Pin *newPin = [[Pin alloc] initWithPinID:[dict valueForKey:@"id"]];
-            Venue *newVenue = [[Venue alloc] initWitVenueID:[dict valueForKey:@"foursquareid"]];
+#warning change this to foursquare ID
+            Venue *newVenue = [[Venue alloc] initWitVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"id"]]];
             [newVenue addPin:newPin];
             [pins addObject:newVenue];
         }

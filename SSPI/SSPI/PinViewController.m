@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+Resize.h"
+#import "Venue.h"
 
 @interface PinViewController () {
     Pin *currentPin;

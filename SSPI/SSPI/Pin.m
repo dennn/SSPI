@@ -20,6 +20,8 @@
     }
     
     pinID = pin;
+    
+    return self;
 }
 
 @end
