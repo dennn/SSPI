@@ -14,8 +14,4 @@
 
 @interface FoursquareLocationPickerViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) NSMutableArray *venuesArray;
-
 @end

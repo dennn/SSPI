@@ -10,64 +10,62 @@
 
 @implementation Venue
 
-@synthesize coordinate, title, subtitle, children, dataDictionary, venueID;
+@synthesize coordinate, title, subtitle, venues, venueName, venueID, pins;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary
+- (id)initWitVenueID:(NSString *)venue
 {
     self = [super init];
     if (!self) {
         return nil;
     }
     
-    coordinate = CLLocationCoordinate2DMake([[dictionary valueForKey:@"lat"] doubleValue], [[dictionary valueForKey:@"long"] doubleValue]);
-    title = [NSString stringWithFormat:@"Pin %i", [[dictionary valueForKey:@"id"] intValue]];
-    venueID = [[dictionary valueForKey:@"id"] intValue];
-    dataDictionary = dictionary;
-    children = [NSMutableArray new];
+    venueID = venue;
     
-    NSLog(@"Adding a pin at long: %f, lat: %f", coordinate.longitude, coordinate.latitude);
-    
+    pins = [NSMutableArray new];
+    venues = [NSMutableArray new];
+        
     return self;
 }
 
 - (NSString *)title
 {
-    if ([self childrenCount] == 1)
+    if ([self venuesCount] == 1)
     {
-        return title;
+        return venueName;
     } else {
-        return [NSString stringWithFormat:@"%i places", [self childrenCount]];
+        return [NSString stringWithFormat:@"%i places", [self venuesCount]];
     }
 }
 
-- (NSString *)subtitle
-{
-    if ([self childrenCount] == 1)
-    {
-        return subtitle;
-    } else {
-        return @"";
-    }
-}
 - (CLLocationCoordinate2D)getCoordinate
 {
     return coordinate;
 }
 
-- (int)childrenCount
+- (int)venuesCount
 {
-    return [children count];
+    return [venues count];
+}
+
+- (int)pinsCount
+{
+    return [pins count];
 }
 
 - (void)cleanChildren
 {
-    [children removeAllObjects];
-    [children addObject:self];
+    [venues removeAllObjects];
+    [venues addObject:self];
 }
 
-- (void)addChild:(Venue *)place
+- (void)addChildVenue:(Venue *)venue
 {
-    [children addObject:place];
+    [venues addObject:venue];
+}
+
+- (void)addPin:(Pin *)pin
+{
+    [pins addObject:pin];
 }
 
 @end

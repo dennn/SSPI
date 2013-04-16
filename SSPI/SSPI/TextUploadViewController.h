@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "NewUploadViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
-
-@interface TextUploadViewController : UIViewController <NewUploadViewControllerDelegate>{
+@interface TextUploadViewController : UIViewController <NewUploadViewControllerDelegate, CLLocationManagerDelegate>
+{
     UIViewController *parent;
     IBOutlet UITextView *comments;
     NSString *name;
@@ -21,7 +22,10 @@
 
 @property(nonatomic, retain) IBOutlet UITextView *comments;
 
+<<<<<<< HEAD
 -(id)initWithParent:(UIViewController*)controllerParent;
+=======
+>>>>>>> Started work on pin view
 -(IBAction)dismiss:(id)sender;
 -(IBAction)save:(id)sender;
 

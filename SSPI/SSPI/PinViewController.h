@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Venue.h"
+#import "Pin.h"
 
-@interface PinViewController : UIViewController
+@interface PinViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andVenue:(Venue *)venue;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPin:(Pin *)pin;
 
 @end

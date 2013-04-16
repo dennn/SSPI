@@ -13,6 +13,7 @@
 
 - (id)initWithParent:(UIViewController*)controllerParent{
     self = [super initWithNibName:@"ModalTextInputView" bundle:nil];
+
     if (self) {
         parent = controllerParent;
         comments.layer.cornerRadius = 8;
@@ -38,7 +39,6 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     locationManager.distanceFilter = kCLDistanceFilterNone;
     [locationManager startUpdatingLocation];
-    
     
     CLLocation *location = [locationManager location];
     
