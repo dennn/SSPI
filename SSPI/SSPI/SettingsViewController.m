@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 
 #import "ServerViewController.h"
+#import "AddServerViewController.h"
 
 @interface SettingsViewController ()
 
@@ -185,22 +186,23 @@
     {
         case 0:
         {
-            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil section:0];
             [self.navigationController pushViewController:serverViewController animated:YES];
             break;
         }
             
         case 1:
         {
-            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil section:1];
             [self.navigationController pushViewController:serverViewController animated:YES];
             break;
         }
             
         case 2:
-        {
-            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
-            [self.navigationController pushViewController:serverViewController animated:YES];
+        {           
+            AddServerViewController *addServerViewController = [[AddServerViewController alloc]
+                                                                initWithNibName: @"AddServerViewController" bundle:nil];
+             [self.navigationController pushViewController:addServerViewController animated:YES];
             break;
         }
             

@@ -8,24 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SSPI/LoginViewController.m"
-         timestampString = "382632707.027883"
+         timestampString = "382633367.755956"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "148"
-         endingLineNumber = "148"
-         landmarkName = "-loginPressed:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SSPI/LoginViewController.m"
-         timestampString = "382632381.891726"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "103"
-         endingLineNumber = "103"
+         startingLineNumber = "116"
+         endingLineNumber = "116"
          landmarkName = "-registerPressed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -38,22 +25,72 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "11"
-         endingLineNumber = "11"
-         landmarkName = "@implementation UploadEngine"
+         endingLineNumber = "11">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SSPI/LoginViewController.m"
+         timestampString = "382633367.755956"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "44"
+         endingLineNumber = "44"
+         landmarkName = "-viewDidAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SSPI/ServerViewController.m"
+         timestampString = "387896458.244218"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "107"
+         endingLineNumber = "107"
+         landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SSPI/ServerManager.m"
+         timestampString = "387819499.821494"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "15"
+         endingLineNumber = "15"
+         landmarkName = "-init"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SSPI/ServerManager.m"
+         timestampString = "387896557.461011"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "147"
+         endingLineNumber = "147"
+         landmarkName = "@implementation ServerManager"
          landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SSPI/ServerManager.h"
-         timestampString = "382631734.970711"
+         filePath = "SSPI/ServerManager.m"
+         timestampString = "387896520.457891"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "13"
-         endingLineNumber = "13"
-         landmarkName = "@interface ServerManager"
-         landmarkType = "2">
+         startingLineNumber = "87"
+         endingLineNumber = "87"
+         landmarkName = "-searchServerByServername:name:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ServerManager.h"
 
-@interface ServerViewController : UITableViewController
+@interface ServerViewController : UITableViewController<UIActionSheetDelegate>
+{
+    int sectionNumber;
+    ServerManager* servermanager;
+}
+
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil section:(int)flag;
 
 @end
