@@ -9,26 +9,21 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+@class Pin;
+
 @interface Venue : NSObject <MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *venueName;
-@property (nonatomic, assign) int venueID;
-@property (nonatomic, strong) NSString *foursquareVenueID;
-@property (nonatomic, strong) NSMutableArray *children;
-@property (nonatomic, strong) NSDictionary *dataDictionary;
-@property (nonatomic, strong) NSURL *imageSource;
-@property (nonatomic, assign) int userID;
+@property (nonatomic, strong) NSString *venueID;
+@property (nonatomic, strong) NSMutableArray *pins;
+@property (nonatomic, strong) NSMutableArray *venues;
 
+- (id)initWitVenueID:(NSString *)venue;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-- (CLLocationCoordinate2D)getCoordinate;
-
-- (NSString *)title;
-- (NSString *)subtitle;
-
-- (void)addChild:(Venue *)place;
-- (int)childrenCount;
-
+- (void)addPin:(Pin *)pin;
+- (void)addChildVenue:(Venue *)venue;
+- (int)venuesCount;
+- (int)pinsCount;
 
 @end

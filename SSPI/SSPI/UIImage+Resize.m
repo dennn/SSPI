@@ -16,27 +16,14 @@
 
 @implementation UIImage (Resize)
 
-// Returns a rescaled copy of the image, taking into account its orientation
-// The image will be scaled disproportionately if necessary to fit the bounds specified by the parameter
-- (UIImage *)resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality {
-    BOOL drawTransposed;
-    
-    switch (self.imageOrientation) {
-        case UIImageOrientationLeft:
-        case UIImageOrientationLeftMirrored:
-        case UIImageOrientationRight:
-        case UIImageOrientationRightMirrored:
-            drawTransposed = YES;
-            break;
-            
-        default:
-            drawTransposed = NO;
-    }
-    
-    return [self resizedImage:newSize
-                    transform:[self transformForOrientation:newSize]
-               drawTransposed:drawTransposed
-         interpolationQuality:quality];
+// Returns a copy of this image that is cropped to the given bounds.
+// The bounds will be adjusted using CGRectIntegral.
+// This method ignores the image's imageOrientation setting.
+- (UIImage *)croppedImage:(CGRect)bounds {
+    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], bounds);
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return croppedImage;
 }
 
 // Resizes the image according to the given content mode, taking into account the image's orientation

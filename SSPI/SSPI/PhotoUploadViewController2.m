@@ -10,7 +10,6 @@
 #import "DescriptionCell.h"
 #import "FoursquareLocationPickerViewController.h"
 #import "TDDatePickerController.h"
-#import "UIView+printSubviews.h"
 
 @interface PhotoUploadViewController2 ()
 

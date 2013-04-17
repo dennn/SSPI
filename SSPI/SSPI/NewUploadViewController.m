@@ -13,7 +13,6 @@
 #import "UploadViewController.h"
 #import "DescriptionCell.h"
 #import "FoursquareLocationPickerViewController.h"
-#import "UIView+printSubviews.h"
 
 @implementation NewUploadViewController
 

@@ -8,16 +8,18 @@
 
 #import "MapViewController.h"
 #import "Venue.h"
+#import "Pin.h"
 #import "AFNetworking.h"
 #import "PinViewController.h"
 #import "PhotoUploadViewController.h"
 #import "AudioUploadViewController.h"
 #import "TextUploadViewController.h"
+#import "UploadViewController.h"
 
 @interface MapViewController ()
 {
     IBOutlet MKMapView *currentMapView;
-    NSArray *annotations;
+    NSMutableArray *venues;
     CLLocationDegrees zoomLevel;
     BOOL searchBarShown;
 }
@@ -127,13 +129,15 @@
         
         for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
         {
-            Venue *newVenue = [[Venue alloc] initWithDictionary:dict];
-            [newVenue addChild:newVenue];
+            Pin *newPin = [[Pin alloc] initWithPinID:[dict valueForKey:@"id"]];
+#warning change this to foursquare ID
+            Venue *newVenue = [[Venue alloc] initWitVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"id"]]];
+            [newVenue addPin:newPin];
             [pins addObject:newVenue];
         }
         
-        annotations = [[NSArray alloc] initWithArray:pins];
-        [self filterAnnotations:annotations];
+        venues = [[NSMutableArray alloc] initWithArray:pins];
+        [self filterAnnotations:venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
     }];
@@ -191,12 +195,21 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    if ([(Venue *)view.annotation childrenCount] == 1) {
-        PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andVenue:view.annotation];
+    Venue *tempVenue = (Venue *)view.annotation;
+    if ([tempVenue venuesCount] == 1) {
         
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:pinController];
-        
-        [self presentViewController:navController animated:YES completion:nil];
+        /* We're looking at one venue, now check how many pins there are at this venues
+           If there is one pin then load the pin viewer straight away. If there are multiple pins
+           load the venue viewer first */
+        if ([tempVenue pinsCount] == 1) {
+            PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andPin:[tempVenue.pins objectAtIndex:0]];
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:pinController];
+            [self presentViewController:navController animated:YES completion:nil];
+
+        } else {
+            #warning Add a link to the venue viewer
+        }
     }
 }
 
@@ -208,24 +221,24 @@
     NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < [pinLocations count]; i++) {
-        Venue *pinToCheck = [pinLocations objectAtIndex:i];
-        CLLocationDegrees latitude = [pinToCheck getCoordinate].latitude;
-        CLLocationDegrees longitude = [pinToCheck getCoordinate].longitude;
+        Venue *venueToCheck = [pinLocations objectAtIndex:i];
+        CLLocationDegrees latitude = venueToCheck.coordinate.latitude;
+        CLLocationDegrees longitude = venueToCheck.coordinate.longitude;
         
         bool found = FALSE;
         for (Venue *tempAnnotation in pinsToShow) {
-            if(fabs([tempAnnotation getCoordinate].latitude - latitude) < latDelta &&
-               fabs([tempAnnotation getCoordinate].longitude - longitude) < longDelta)
+            if(fabs(tempAnnotation.coordinate.latitude - latitude) < latDelta &&
+               fabs(tempAnnotation.coordinate.longitude - longitude) < longDelta)
             {
-                [currentMapView removeAnnotation:pinToCheck];
+                [currentMapView removeAnnotation:venueToCheck];
                 found = TRUE;
-                [tempAnnotation addChild:pinToCheck];
+                [tempAnnotation addChildVenue:venueToCheck];
                 break;
             }
         }
         if (!found) {
-            [pinsToShow addObject:pinToCheck];
-            [currentMapView addAnnotation:pinToCheck];
+            [pinsToShow addObject:venueToCheck];
+            [currentMapView addAnnotation:venueToCheck];
         }
     }
 }
@@ -234,7 +247,7 @@
 {
     if (zoomLevel != mapView.region.span.longitudeDelta)
     {
-        [self filterAnnotations:annotations];
+        [self filterAnnotations:venues];
         zoomLevel = mapView.region.span.longitudeDelta;
     }
 }
@@ -253,24 +266,7 @@
     {
         case 0:
         {
-            //UploadViewController *uvc = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil parent:self];
-            //uvc.view.frame = CGRectMake(0, 480, 320, 480);
-            /*[self.view addSubview:uvc.view];
-            [UIView animateWithDuration:0.5
-                                  delay:0.0
-                                options: UIViewAnimationCurveEaseOut
-                             animations:^{
-                                 uvc.view.frame = CGRectMake(0, 0, 320, 480);
-                             }
-                             completion:^(BOOL finished){
-             [uvc loadCamera];
-
-                             }];*/
             PhotoUploadViewController *uploadController = [[PhotoUploadViewController alloc] initWithMedia:@"photo" parent:self];
-            //[uploadController loadPhoto];
-            
-            //uvc.uploadType = 0;
-            //[uvc loadCamera];
             [self presentViewController:uploadController animated:YES completion:nil];
             break;
         }
@@ -296,7 +292,6 @@
             break;
             
         }
-            
     }
 }
 

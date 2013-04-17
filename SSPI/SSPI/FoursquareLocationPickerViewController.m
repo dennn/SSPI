@@ -13,6 +13,10 @@
 
 @interface FoursquareLocationPickerViewController ()
 
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) NSMutableArray *venuesArray;
+
 @end
 
 @implementation FoursquareLocationPickerViewController
@@ -67,7 +71,6 @@
         }
     }
     
-    
     [self.mapView removeAnnotations:annForRemove];
 }
 
@@ -99,7 +102,7 @@
                                    }];
 }
 
-- (void)setupMapForLocatoion:(CLLocation*)newLocation{
+- (void)setupMapForLocation:(CLLocation*)newLocation{
     MKCoordinateRegion region;
     MKCoordinateSpan span;
     span.latitudeDelta = 0.003;
@@ -117,7 +120,7 @@
            fromLocation:(CLLocation *)oldLocation {
     [_locationManager stopUpdatingLocation];
     [self getVenuesAtLocation:newLocation];
-    [self setupMapForLocatoion:newLocation];
+    [self setupMapForLocation:newLocation];
 }
 
 @end
