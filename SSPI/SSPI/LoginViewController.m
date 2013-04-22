@@ -85,8 +85,8 @@
     [regprams setObject:hashpass forKey:@"pass"];
     
     self.operation = [self.uploadEngine postDataToServer:regprams path:@"coomko/index.php/users/register"];
-    [operation addCompletionHandler:^(MKNetworkOperation* operation) {
-        if (![[self.operation responseString] isEqual:@"0"]) {
+    [operation addCompletionHandler:^(MKNetworkOperation* blockOperation) {
+        if (![[blockOperation responseString] isEqual:@"0"]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"Register Success"
                                                            delegate:nil
@@ -147,8 +147,8 @@
         [dic setValue:hashPass forKey:@"pass"];
     
         self.operation = [self.uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
-        [operation addCompletionHandler:^(MKNetworkOperation *operation){
-            if (![[self.operation responseString] isEqual: @"0"])
+        [operation addCompletionHandler:^(MKNetworkOperation *blockOperation){
+            if (![[blockOperation responseString] isEqual: @"0"])
             {
                 NSLog(@"Login Success!");
                 

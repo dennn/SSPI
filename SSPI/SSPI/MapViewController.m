@@ -19,12 +19,12 @@
 @interface MapViewController ()
 {
     IBOutlet MKMapView *currentMapView;
-    NSMutableArray *venues;
+    NSMutableDictionary *venues;
     CLLocationDegrees zoomLevel;
     BOOL searchBarShown;
 }
 
-- (void)filterAnnotations:(NSArray *)pinLocations;
+- (void)filterAnnotations:(NSMutableDictionary *)pinLocations;
 
 @end
 
@@ -55,6 +55,8 @@
     search.showsCancelButton = TRUE;
 
     [self.view addSubview:search];
+    
+    venues = [NSMutableDictionary new];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapGesture:)];
     [currentMapView addGestureRecognizer:tapGesture];
@@ -125,25 +127,27 @@
     NSLog(@"Final URL: %@", url);
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSMutableArray *pins = [NSMutableArray new];
-        
+        Venue *venue;
         for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
         {
+            NSString *key = [NSString stringWithFormat:@"%@", [dict valueForKey:@"location"]];
             Pin *newPin = [[Pin alloc] initWithPinID:[dict valueForKey:@"id"]];
-#warning change this to foursquare ID
-            Venue *newVenue = [[Venue alloc] initWitVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"id"]]];
-            [newVenue addPin:newPin];
-            [pins addObject:newVenue];
+            if ([venues objectForKey:key] == nil) {
+                venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
+            } else {
+                venue = [venues objectForKey:key];
+            }
+           
+            [venue addPin:newPin];
+            [venues setObject:venue forKey:key];
         }
         
-        venues = [[NSMutableArray alloc] initWithArray:pins];
         [self filterAnnotations:venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
     }];
     
     [operation start];
-                                    
     [searchBar resignFirstResponder];
 }
 
@@ -174,7 +178,7 @@
         return nil;
     } else {
         MKAnnotationView *annotationView = nil;
-        static NSString *AnnotationIdentifier = @"AnnotationIdentifier";
+        static NSString *AnnotationIdentifier = @"VenueAnnotation";
         MKPinAnnotationView *pinView = (MKPinAnnotationView *)[map dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
         
         if (pinView == nil)
@@ -185,6 +189,7 @@
             pinView.enabled = YES;
             pinView.canShowCallout = YES;
             pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            pinView.userInteractionEnabled = YES;
         }
         
         annotationView = pinView;
@@ -213,18 +218,25 @@
     }
 }
 
-- (void)filterAnnotations:(NSArray *)pinLocations
+- (void)filterAnnotations:(NSMutableDictionary *)pinLocations
 {
     float latDelta = currentMapView.region.span.latitudeDelta/9.0;
     float longDelta = currentMapView.region.span.longitudeDelta/11.0;
-    [pinLocations makeObjectsPerformSelector:@selector(cleanChildren)];
-    NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
+    NSMutableArray *venuesArray = [NSMutableArray new];
+    for (NSString *key in pinLocations) {
+        Venue *venue = (Venue *)[pinLocations objectForKey:key];
+        [venue cleanChildren];
+        [venuesArray addObject:venue];
+    }
     
-    for (int i = 0; i < [pinLocations count]; i++) {
-        Venue *venueToCheck = [pinLocations objectAtIndex:i];
+    NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
+        
+    for (int i = 0; i < [pinLocations count]; i++)
+    {
+        Venue *venueToCheck = [venuesArray objectAtIndex:i];
         CLLocationDegrees latitude = venueToCheck.coordinate.latitude;
         CLLocationDegrees longitude = venueToCheck.coordinate.longitude;
-        
+            
         bool found = FALSE;
         for (Venue *tempAnnotation in pinsToShow) {
             if(fabs(tempAnnotation.coordinate.latitude - latitude) < latDelta &&

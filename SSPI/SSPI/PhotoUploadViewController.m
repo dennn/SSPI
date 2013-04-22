@@ -132,6 +132,14 @@
     [picker dismissViewControllerAnimated:TRUE completion:nil];
     NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:@"photo" name:name];
     getInfo.delegate = self;
+    UIImage *editedImage = (UIImage *) [info objectForKey: UIImagePickerControllerEditedImage];
+    UIImage *originalImage = (UIImage *) [info objectForKey: UIImagePickerControllerOriginalImage];
+    
+    if (editedImage) {
+        getInfo.pickedImage = editedImage;
+    } else {
+        getInfo.pickedImage = originalImage;
+    }
     [parent.navigationController pushViewController:getInfo animated:YES];
 }
 

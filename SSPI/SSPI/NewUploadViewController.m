@@ -16,7 +16,7 @@
 
 @implementation NewUploadViewController
 
-@synthesize pickedImage, datePicker, tableView;
+@synthesize pickedImage, datePicker;
 
 
 - (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname{
@@ -43,10 +43,6 @@
     UIBarButtonItem *finishButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(finish)];
     self.navigationItem.rightBarButtonItem = finishButton;
     
-}
-
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
 }
 
 - (void)didReceiveMemoryWarning

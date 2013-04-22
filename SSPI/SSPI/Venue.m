@@ -12,7 +12,7 @@
 
 @synthesize coordinate, title, subtitle, venues, venueName, venueID, pins;
 
-- (id)initWitVenueID:(NSString *)venue
+- (id)initWithVenueID:(NSString *)venue
 {
     self = [super init];
     if (!self) {
@@ -31,13 +31,19 @@
 {
     if ([self venuesCount] == 1)
     {
-        return venueName;
+#warning Change to use actual venue name
+        return @"Venue Name";
     } else {
         return [NSString stringWithFormat:@"%i places", [self venuesCount]];
     }
 }
 
-- (CLLocationCoordinate2D)getCoordinate
+- (NSString *)subtitle
+{
+    return @"";
+}
+
+- (CLLocationCoordinate2D)coordinate
 {
     return coordinate;
 }

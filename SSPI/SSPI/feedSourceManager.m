@@ -23,12 +23,11 @@
                                           httpMethod:@"GET"
                                                    ssl:NO];
     
-    [op onCompletion:^(MKNetworkOperation *operation){
-        NSLog(@"request string: %@",[op responseString]);
-    }
-             onError:^(NSError *error){
-                 
-             }];  
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        NSLog(@"request string: %@",[completedOperation responseString]);
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+    }];
+
     [engine enqueueOperation:op];
 }
 
