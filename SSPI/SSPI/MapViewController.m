@@ -131,7 +131,7 @@
         {
             Pin *newPin = [[Pin alloc] initWithPinID:[dict valueForKey:@"id"]];
 #warning change this to foursquare ID
-            Venue *newVenue = [[Venue alloc] initWitVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"id"]]];
+            Venue *newVenue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"id"]]];
             [newVenue addPin:newPin];
             [pins addObject:newVenue];
         }

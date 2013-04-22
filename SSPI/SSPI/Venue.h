@@ -13,13 +13,13 @@
 
 @interface Venue : NSObject <MKAnnotation>
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *venueName;
 @property (nonatomic, strong) NSString *venueID;
 @property (nonatomic, strong) NSMutableArray *pins;
 @property (nonatomic, strong) NSMutableArray *venues;
 
-- (id)initWitVenueID:(NSString *)venue;
+- (id)initWithVenueID:(NSString *)venue;
 
 - (void)addPin:(Pin *)pin;
 - (void)addChildVenue:(Venue *)venue;

@@ -1,6 +1,3 @@
-
-
-//#import <UIKit/UIKit.h>
 #define TIMEOUT_INTERVAL 45
 
 @class FSTargetCallback;
@@ -9,7 +6,7 @@
 }
 
 @property (strong,nonatomic) NSMutableArray *requestHistory;
-@property (strong, nonatomic)	NSMutableDictionary *asyncConnDict;
+@property (strong, nonatomic) NSMutableDictionary *asyncConnDict;
 
 
 - (void)handleConnectionError:(NSError *)error;

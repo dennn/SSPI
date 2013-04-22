@@ -12,7 +12,7 @@
 
 @synthesize coordinate, title, subtitle, venues, venueName, venueID, pins;
 
-- (id)initWitVenueID:(NSString *)venue
+- (id)initWithVenueID:(NSString *)venue
 {
     self = [super init];
     if (!self) {

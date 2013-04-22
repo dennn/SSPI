@@ -9,9 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "CreateNewLocationViewController.h"
 
 @class FSVenue;
 
-@interface FoursquareLocationPickerViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+@protocol LocationPickedDelegate <NSObject>
+@required
+
+- (void)didPickVenue:(Venue *)venue;
+
+@end
+
+@interface FoursquareLocationPickerViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, CreateLocationDelegate>
+
+@property (nonatomic, weak) id <LocationPickedDelegate> delegate;
 
 @end

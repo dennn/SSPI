@@ -37,7 +37,6 @@
 @property (nonatomic, strong) TDDatePickerController *datePicker;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) FSVenue *selectedVenue;
 @property (nonatomic, strong) NSArray *venues;
 @property (nonatomic, strong) id <NewUploadViewControllerDelegate> delegate;
