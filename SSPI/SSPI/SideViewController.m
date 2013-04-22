@@ -10,8 +10,10 @@
 #import "JASidePanelController.h"
 #import "UIViewController+JASidePanel.h"
 
+
 #import "SettingsViewController.h"
 #import "MapViewController.h"
+#import "NewFeedsViewController.h"
 
 @interface SideViewController ()
 
@@ -41,6 +43,7 @@
     
     UIButton *userButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 160, 37, 33)];
     [userButton setBackgroundImage:[UIImage imageNamed:@"User-icon.png"] forState:UIControlStateNormal];
+    [userButton addTarget:self action:@selector(loadNewFeedsPage:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *heartButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 230, 37, 34)];
     [heartButton setBackgroundImage:[UIImage imageNamed:@"Heart-icon.png"] forState:UIControlStateNormal];
@@ -64,6 +67,11 @@
 - (void)loadSettingsPage:(id)sender
 {
     self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil]];
+}
+
+- (void)loadNewFeedsPage:(id)sender
+{
+    self.sidePanelController.centerPanel = [[NewFeedsViewController alloc] initWithNibName:@"NewFeedsViewController" bundle:nil];
 }
 
 - (void)sync:(id)sender
