@@ -26,7 +26,7 @@
 }
 
 /* Sends image to server, should be extended (MKNetworkKit used) */
-- (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags type:(NSString *)type{
+- (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags description:(NSString *)description location:(NSString *)location expires:(NSString *)expires type:(NSString *)type{
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* dataPath = [documentsPath stringByAppendingPathComponent:filename];
     NSData *data = nil;
@@ -69,8 +69,7 @@
     [self enqueueOperation:self.operation ];
 }
 
-/*- (void)sendText:(NSString *)filename type:(NSString *)type lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags {
->>>>>>> Started work on pin view
+- (void)sendText:(NSString *)filename type:(NSString *)type lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags description:(NSString *)description location:(NSString *)location expires:(NSString *)expires {
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* dataPath = [documentsPath stringByAppendingPathComponent:filename];
     NSString* string = [[NSString alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:dataPath] encoding:NSUTF8StringEncoding];
@@ -82,7 +81,7 @@
                                        nil];
     [postParams setValue:string forKey:@"text"];
 
-    self.operation = [self.uploadEngine postDataToServer:postParams path:@"coomko/index.php/uploads/run"];
+    self.operation = [self postDataToServer:postParams path:@"coomko/index.php/uploads/run"];
     NSLog(@"GOT THIS FAR - %@", string);
     [self.operation addCompletionHandler:^(MKNetworkOperation* networkOperation) {
         NSLog(@"%@", [networkOperation responseString]);
@@ -97,11 +96,11 @@
                                 [alert show];
                             }];
     
-    [self.uploadEngine enqueueOperation:self.operation ];
+    [self enqueueOperation:self.operation ];
 }
-*/
 
--(void)sendAudio:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags {
+
+-(void)sendAudio:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags description:(NSString *)description location:(NSString *)location expires:(NSString *)expires {
     NSURL *url = [NSURL fileURLWithPath: [NSString stringWithFormat:@"%@/%@", DOCUMENTS_FOLDER, filename ]];
     NSError *err = nil;
     NSData *audioData = [NSData dataWithContentsOfFile:[url path] options: 0 error:&err];
@@ -149,13 +148,13 @@
         NSLog(@"Type: %@, filename: %@, lat: %@, lon: %@, tags: %@", [d objectForKey:@"Type"],[d objectForKey:@"Name"],[d objectForKey:@"Latitude"],[d objectForKey:@"Longitude"],[d objectForKey:@"Tags"]);
         NSLog(@"%@", [d objectForKey:@"Type"]);
         if([[d objectForKey:@"Type"] isEqualToString:@"photo"])
-            [self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] type:[d objectForKey:@"Type"]];
-        //else if([[d objectForKey:@"Type"] isEqualToString:@"text"])
-            //[self sendText:[d objectForKey:@"Name"] type:[d objectForKey:@"Type"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"]];
-        //else if([[d objectForKey:@"Type"] isEqualToString:@"video"])
-            //[self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] type:[d objectForKey:@"Type"]];
-        //else if([[d objectForKey:@"Type"] isEqualToString:@"audio"])
-            //[self sendAudio:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"]];
+            [self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] description:[d objectForKey:@"Description"] location:[d objectForKey:@"Location"] expires:[d objectForKey:@"Expires"] type:[d objectForKey:@"Type"]];
+        else if([[d objectForKey:@"Type"] isEqualToString:@"text"])
+            [self sendText:[d objectForKey:@"Name"] type:[d objectForKey:@"Type"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] description:[d objectForKey:@"Description"] location:[d objectForKey:@"Location"] expires:[d objectForKey:@"Expires"] ];
+        else if([[d objectForKey:@"Type"] isEqualToString:@"video"])
+            [self sendImage:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] description:[d objectForKey:@"Description"] location:[d objectForKey:@"Location"] expires:[d objectForKey:@"Expires"] type:[d objectForKey:@"Type"]];
+        else if([[d objectForKey:@"Type"] isEqualToString:@"audio"])
+            [self sendAudio:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] description:[d objectForKey:@"Description"] location:[d objectForKey:@"Location"] expires:[d objectForKey:@"Expires"] ];
     }
     
     // Open the plist from the filesystem.

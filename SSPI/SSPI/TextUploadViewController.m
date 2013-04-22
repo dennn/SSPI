@@ -79,7 +79,7 @@
     NSString *filename = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
     filename = [filename stringByReplacingOccurrencesOfString:@"." withString:@""];
     name = [NSString stringWithFormat:@"%@.txt",filename];
-    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:@"audio" name:name];
+    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:@"text" name:name];
     getInfo.delegate = self;
     [parent.navigationController pushViewController:getInfo animated:YES];
 }
