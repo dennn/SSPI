@@ -71,7 +71,8 @@
 
 - (void)loadNewFeedsPage:(id)sender
 {
-    self.sidePanelController.centerPanel = [[NewFeedsViewController alloc] initWithNibName:@"NewFeedsViewController" bundle:nil];
+    
+    self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController: [[NewFeedsViewController alloc] initWithNibName:@"NewFeedsViewController" bundle:nil]] ;
 }
 
 - (void)sync:(id)sender

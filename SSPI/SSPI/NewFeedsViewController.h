@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "feedSourceManager.h"
-#import "AFNetworking.h"
+#import "FeedsCell.h"
+#import "MKNetworkEngine.h"
 
-@interface NewFeedsViewController : UIViewController
+@interface NewFeedsViewController : UITableViewController
 {
     feedSourceManager *feedsourcemanager;
+    MKNetworkEngine* engine;
 }
-
-- (IBAction)getFeeds:(UIButton *)sender;
 
 @end

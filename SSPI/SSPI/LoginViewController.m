@@ -153,14 +153,10 @@
                 NSLog(@"Login Success!");
                 
                 //for keychain part
-               // CFDataRef mydataRef = (CFDataRef)[mydataRef dataUsingEncoding]accessGroup:nil];
-                NSMutableDictionary *keychain = [[NSMutableDictionary alloc] init];
-                [keychain setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-                [keychain setObject:username forKey:(__bridge id)kSecAttrAccount];
-                [keychain setObject:password forKey:(__bridge id)kSecValueData];
-                OSStatus s = SecItemAdd((__bridge CFDictionaryRef)keychain, NULL);
-                //[wrapper setObject:username forKey:(__bridge id)(kSecAttrAccount)];
-                NSLog(@"add: %ld",s);
+                NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+                [userdefaults setObject:username forKey:@"username"];
+                [userdefaults synchronize];
+
                 
                 [self gotoMainView];
             }

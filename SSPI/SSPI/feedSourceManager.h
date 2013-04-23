@@ -11,9 +11,17 @@
 
 @interface feedSourceManager : NSObject
 {
-    MKNetworkEngine * engine;
+    MKNetworkEngine *engine;
 }
 
--(void) getFeedsFromServer;
+@property (readonly) NSString *dataLocation;
+@property (readonly) NSString * type;
+@property (readonly) NSInteger *userid;
+@property (readonly) NSInteger *feedid;
+@property (readonly) UIImage *image;
+
+-(id) initWithAttributes: (NSDictionary*) attributes;
+- (void)printAttributes;
++ (void)globalTimelinePostsWithBlock:(void (^)(MKNetworkOperation *completedOperation, NSArray *posts, NSError *error))block;
 
 @end
