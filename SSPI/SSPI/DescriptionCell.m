@@ -41,9 +41,9 @@
         [self.contentView addSubview:_characterCount];
 
         _uploadImage = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _uploadImage.layer.borderColor = [UIColor whiteColor].CGColor;
-        _uploadImage.layer.borderWidth = 3.0;
-        [self.contentView addSubview:_uploadImage];
+        //_uploadImage.layer.borderColor = [UIColor whiteColor].CGColor;
+        //_uploadImage.layer.borderWidth = 3.0;
+        //[self.contentView addSubview:_uploadImage];
     }
     return self;
 }
