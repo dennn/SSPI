@@ -1055,12 +1055,9 @@
 				B7DCBB3B1704F580000CD39E /* search.png in Resources */,
 				B7DCBB3C1704F580000CD39E /* search@2x.png in Resources */,
 				0CD7393B171DE2F90045B0CF /* AddServerViewController.xib in Resources */,
-<<<<<<< HEAD
 				0C8401BC1724B45800397CD7 /* NewFeedsViewController.xib in Resources */,
 				B728442A17268E28007D5F37 /* SORelativeDateTransformer.bundle in Resources */,
-=======
 				0C1228671725B30E00A3C0F1 /* NewFeedsViewController.xib in Resources */,
->>>>>>> newfeedstable
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,17 +1127,16 @@
 				B7EEBAEA171D890600057D71 /* Pin.m in Sources */,
 				B7EEBAED171D9DE200057D71 /* User.m in Sources */,
 				0C8401B21724A9B100397CD7 /* feedSourceManager.m in Sources */,
-<<<<<<< HEAD
+
 				0C8401BB1724B45800397CD7 /* NewFeedsViewController.m in Sources */,
 				B7567430171E8A8B002A9FCA /* CreateNewLocationViewController.m in Sources */,
 				B728441F17257062007D5F37 /* VenueViewController.m in Sources */,
 				B7284422172571E3007D5F37 /* VenueLayout.m in Sources */,
 				B72844251726822A007D5F37 /* VenueCell.m in Sources */,
 				B728442B17268E28007D5F37 /* SORelativeDateTransformer.m in Sources */,
-=======
+                
 				0CEFB7BC172591D8007E0453 /* FeedsCell.m in Sources */,
 				0C1228661725B30E00A3C0F1 /* NewFeedsViewController.m in Sources */,
->>>>>>> newfeedstable
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
