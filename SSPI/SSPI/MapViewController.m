@@ -15,6 +15,8 @@
 #import "AudioUploadViewController.h"
 #import "TextUploadViewController.h"
 #import "UploadViewController.h"
+#import "VenueLayout.h"
+#import "VenueViewController.h"
 
 @interface MapViewController ()
 {
@@ -131,13 +133,13 @@
         for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
         {
             NSString *key = [NSString stringWithFormat:@"%@", [dict valueForKey:@"location"]];
-            Pin *newPin = [[Pin alloc] initWithPinID:[dict valueForKey:@"id"]];
+            Pin *newPin = [[Pin alloc] initWithDictionary:dict];
             if ([venues objectForKey:key] == nil) {
                 venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
             } else {
                 venue = [venues objectForKey:key];
             }
-           
+                       
             [venue addPin:newPin];
             [venues setObject:venue forKey:key];
         }
@@ -145,6 +147,8 @@
         [self filterAnnotations:venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find any pins with this tag" delegate:NULL cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [errorMessage show];
     }];
     
     [operation start];
@@ -208,12 +212,11 @@
            load the venue viewer first */
         if ([tempVenue pinsCount] == 1) {
             PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andPin:[tempVenue.pins objectAtIndex:0]];
-            
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:pinController];
-            [self presentViewController:navController animated:YES completion:nil];
-
+            [self.navigationController pushViewController:pinController animated:YES];
         } else {
-            #warning Add a link to the venue viewer
+            VenueViewController *venueController = [[VenueViewController alloc] initWithCollectionViewLayout:[[VenueLayout alloc] init]];
+            venueController.pins = tempVenue.pins;
+            [self.navigationController pushViewController:venueController animated:YES];
         }
     }
 }

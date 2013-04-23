@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+Resize.h"
 #import "Venue.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface PinViewController () {
     Pin *currentPin;
@@ -28,10 +29,6 @@
     if (self) {
         // Custom initialization
         currentPin = pin;
-        webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
-        webImage.contentMode = UIViewContentModeScaleAspectFit;
-        webImage.backgroundColor = [UIColor blackColor];
-        [self.view addSubview:webImage];
         pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 247, 320, 230)];
         pinTableView.delegate = self;
         pinTableView.dataSource = self;
@@ -44,15 +41,47 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:self
-                                                            action:@selector(goBack)];
-    self.navigationItem.leftBarButtonItem = back;
+    switch (currentPin.uploadType) {
+        case video:
+        {
+            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:currentPin.dataLocation];
+            moviePlayer.view.frame = CGRectMake(0, 0, 320, 245);
+            [self.view addSubview:moviePlayer.view];
+            break;
+        }
+            
+        case image:
+        {
+            webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            webImage.contentMode = UIViewContentModeScaleAspectFit;
+            webImage.backgroundColor = [UIColor blackColor];
+            [self.view addSubview:webImage];
+            [webImage setImageWithURL:currentPin.dataLocation];
+            break;
+        }
+            
+        case audio:
+        {
+            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:currentPin.dataLocation];
+            moviePlayer.view.frame = CGRectMake(0, 0, 320, 245);
+            [self.view addSubview:moviePlayer.view];
+            break;
+        }
+            
+        case text:
+        {
+            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            textView.text = currentPin.description;
+            textView.backgroundColor = [UIColor blackColor];
+            textView.textColor = [UIColor whiteColor];
+            textView.textAlignment = NSTextAlignmentCenter;
+            [self.view addSubview:textView];
+            break;
+        }
+    }
     
     // Do any additional setup after loading the view from its nib.
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getPin/%i/", currentPin.pinID]];
-    NSLog(@"Final URL: %@", url);
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getPin/%i/", [currentPin.pinID intValue]]];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         currentPin.uploadDate = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"date"] intValue]];
@@ -66,21 +95,23 @@
         Venue *newVenue = [Venue new];
         newVenue.venueID = [JSON valueForKey:@"foursquareid"];
         currentPin.venueLocation = newVenue;
-        //Get the upload type
-        NSString *uploadType = [JSON valueForKey:@"type"];
-        if ([uploadType isEqualToString:@"image"]) {
-            currentPin.uploadType = image;
-        } else if ([uploadType isEqualToString:@"audio"]) {
-            currentPin.uploadType = audio;
-        } else if ([uploadType isEqualToString:@"text"]) {
-            currentPin.uploadType = text;
-        } else if ([uploadType isEqualToString:@"video"]) {
-            currentPin.uploadType = video;
+        switch (currentPin.uploadType) {
+            case audio:
+                self.title = [NSString stringWithFormat:@"%@'s audio", currentPin.uploadUser.name];
+                break;
+                
+            case video:
+                self.title = [NSString stringWithFormat:@"%@'s video", currentPin.uploadUser.name];
+                break;
+                
+            case text:
+                self.title = [NSString stringWithFormat:@"%@'s text", currentPin.uploadUser.name];
+                break;
+        
+            case image:
+                self.title = [NSString stringWithFormat:@"%@'s photo", currentPin.uploadUser.name];
+                break;
         }
-        
-        self.title = [NSString stringWithFormat:@"%@'s photo", currentPin.uploadUser.name];
-        [webImage setImageWithURL:currentPin.dataLocation];        
-        
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
     }];
@@ -128,11 +159,6 @@
     }
     
     return cell;
-}
-
-- (void)goBack
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

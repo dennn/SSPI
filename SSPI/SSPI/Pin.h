@@ -21,12 +21,13 @@ typedef enum {
 @interface Pin : NSObject
 
 @property (nonatomic, strong) NSDate *uploadDate;
-@property (nonatomic, assign) int pinID;
+@property (nonatomic, strong) NSNumber *pinID;
 @property (nonatomic, strong) User *uploadUser;
 @property (nonatomic, strong) NSURL *dataLocation;
 @property (nonatomic, strong) Venue *venueLocation;
 @property (nonatomic, assign) UploadType uploadType;
+@property (nonatomic, strong) NSString *description;
 
-- (id)initWithPinID:(int)pin;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

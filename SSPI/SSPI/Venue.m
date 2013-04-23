@@ -34,7 +34,7 @@
 #warning Change to use actual venue name
         return @"Venue Name";
     } else {
-        return [NSString stringWithFormat:@"%i places", [self venuesCount]];
+        return [NSString stringWithFormat:@"%i venues", [self venuesCount]];
     }
 }
 

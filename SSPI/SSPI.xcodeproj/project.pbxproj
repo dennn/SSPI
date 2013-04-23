@@ -22,6 +22,7 @@
 		B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91ED167397D600025577 /* Security.framework */; };
 		B703BD7316767E77000A46D8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EB167397BF00025577 /* CoreData.framework */; };
 		B703BD7416767E7C000A46D8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91E9167397B300025577 /* CFNetwork.framework */; };
+		B71268D71726BBE600F668E9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71268D61726BBE600F668E9 /* MediaPlayer.framework */; };
 		B7198AE316D1281500740CC2 /* PinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7198AE116D1281500740CC2 /* PinViewController.m */; };
 		B7198AE416D1281500740CC2 /* PinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7198AE216D1281500740CC2 /* PinViewController.xib */; };
 		B7254DDF16DA8828005B4913 /* AwesomeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B7254DDC16DA8828005B4913 /* AwesomeMenu.m */; };
@@ -48,6 +49,11 @@
 		B7254E0B16DA9179005B4913 /* icon-write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7254E0316DA9177005B4913 /* icon-write@2x.png */; };
 		B7254E0C16DA9179005B4913 /* icon-mic.png in Resources */ = {isa = PBXBuildFile; fileRef = B7254E0416DA9178005B4913 /* icon-mic.png */; };
 		B7254E0D16DA9179005B4913 /* icon-mic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7254E0516DA9178005B4913 /* icon-mic@2x.png */; };
+		B728441F17257062007D5F37 /* VenueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B728441E17257062007D5F37 /* VenueViewController.m */; };
+		B7284422172571E3007D5F37 /* VenueLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B7284421172571E3007D5F37 /* VenueLayout.m */; };
+		B72844251726822A007D5F37 /* VenueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72844241726822A007D5F37 /* VenueCell.m */; };
+		B728442A17268E28007D5F37 /* SORelativeDateTransformer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B728442717268E28007D5F37 /* SORelativeDateTransformer.bundle */; };
+		B728442B17268E28007D5F37 /* SORelativeDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B728442917268E28007D5F37 /* SORelativeDateTransformer.m */; };
 		B7567430171E8A8B002A9FCA /* CreateNewLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B756742F171E8A8A002A9FCA /* CreateNewLocationViewController.m */; };
 		B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */; };
 		B7660C92166B7CC3005BC8E6 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */; };
@@ -212,6 +218,7 @@
 		18E4A98A16BFDFE6003C2852 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18E4A98B16BFDFE6003C2852 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		B71268D61726BBE600F668E9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		B7198AE016D1281500740CC2 /* PinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinViewController.h; sourceTree = "<group>"; };
 		B7198AE116D1281500740CC2 /* PinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinViewController.m; sourceTree = "<group>"; };
 		B7198AE216D1281500740CC2 /* PinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinViewController.xib; sourceTree = "<group>"; };
@@ -241,6 +248,15 @@
 		B7254E0316DA9177005B4913 /* icon-write@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-write@2x.png"; sourceTree = "<group>"; };
 		B7254E0416DA9178005B4913 /* icon-mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-mic.png"; sourceTree = "<group>"; };
 		B7254E0516DA9178005B4913 /* icon-mic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-mic@2x.png"; sourceTree = "<group>"; };
+		B728441D17257062007D5F37 /* VenueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueViewController.h; sourceTree = "<group>"; };
+		B728441E17257062007D5F37 /* VenueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueViewController.m; sourceTree = "<group>"; };
+		B7284420172571E3007D5F37 /* VenueLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueLayout.h; sourceTree = "<group>"; };
+		B7284421172571E3007D5F37 /* VenueLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueLayout.m; sourceTree = "<group>"; };
+		B72844231726822A007D5F37 /* VenueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueCell.h; sourceTree = "<group>"; };
+		B72844241726822A007D5F37 /* VenueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueCell.m; sourceTree = "<group>"; };
+		B728442717268E28007D5F37 /* SORelativeDateTransformer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SORelativeDateTransformer.bundle; sourceTree = "<group>"; };
+		B728442817268E28007D5F37 /* SORelativeDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORelativeDateTransformer.h; sourceTree = "<group>"; };
+		B728442917268E28007D5F37 /* SORelativeDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORelativeDateTransformer.m; sourceTree = "<group>"; };
 		B756742E171E8A8A002A9FCA /* CreateNewLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewLocationViewController.h; sourceTree = "<group>"; };
 		B756742F171E8A8A002A9FCA /* CreateNewLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewLocationViewController.m; sourceTree = "<group>"; };
 		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -404,9 +420,6 @@
 		CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUploadViewController.m; sourceTree = "<group>"; };
 		CC2F21E3170F2FA8007400DA /* TextUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextUploadViewController.h; sourceTree = "<group>"; };
 		CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextUploadViewController.m; sourceTree = "<group>"; };
-		CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = "<absolute>"; };
-		CC3B12E8167001F30075627A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = "<absolute>"; };
-		CC3B12EA16700CC00075627A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		CC3B12F5167235670075627A /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		CC3B12F6167235670075627A /* camera2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera2.png; sourceTree = "<group>"; };
 		CC3B12F7167235670075627A /* mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mic.png; sourceTree = "<group>"; };
@@ -421,6 +434,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71268D71726BBE600F668E9 /* MediaPlayer.framework in Frameworks */,
 				B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */,
 				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
 				B7A01DAE16BDB67C0065FFC8 /* CoreLocation.framework in Frameworks */,
@@ -469,6 +483,16 @@
 				B7254DEF16DA8857005B4913 /* icon-star@2x.png */,
 			);
 			name = AwesomeMenu;
+			sourceTree = "<group>";
+		};
+		B728442617268E28007D5F37 /* SORelativeDateTransformer */ = {
+			isa = PBXGroup;
+			children = (
+				B728442717268E28007D5F37 /* SORelativeDateTransformer.bundle */,
+				B728442817268E28007D5F37 /* SORelativeDateTransformer.h */,
+				B728442917268E28007D5F37 /* SORelativeDateTransformer.m */,
+			);
+			path = SORelativeDateTransformer;
 			sourceTree = "<group>";
 		};
 		B72BA0721674A55C00126406 /* Model */ = {
@@ -530,6 +554,10 @@
 		B785E5141700A34A0022235F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7284420172571E3007D5F37 /* VenueLayout.h */,
+				B7284421172571E3007D5F37 /* VenueLayout.m */,
+				B72844231726822A007D5F37 /* VenueCell.h */,
+				B72844241726822A007D5F37 /* VenueCell.m */,
 				B785E51117009F6C0022235F /* DescriptionCell.h */,
 				B785E51217009F6C0022235F /* DescriptionCell.m */,
 			);
@@ -591,6 +619,7 @@
 		B7860925166A75A3005117A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B71268D61726BBE600F668E9 /* MediaPlayer.framework */,
 				B7A01DAF16BDB67F0065FFC8 /* AVFoundation.framework */,
 				B7A01DAD16BDB67C0065FFC8 /* CoreLocation.framework */,
 				B7A01DAB16BDB6750065FFC8 /* MobileCoreServices.framework */,
@@ -599,9 +628,6 @@
 				B77E91ED167397D600025577 /* Security.framework */,
 				B77E91EB167397BF00025577 /* CoreData.framework */,
 				B77E91E9167397B300025577 /* CFNetwork.framework */,
-				CC3B12EA16700CC00075627A /* AVFoundation.framework */,
-				CC3B12E8167001F30075627A /* CoreLocation.framework */,
-				CC3B12E5166FFDE40075627A /* MobileCoreServices.framework */,
 				B786095C166A78FA005117A2 /* MapKit.framework */,
 				B7860926166A75A3005117A2 /* UIKit.framework */,
 				B7860928166A75A3005117A2 /* Foundation.framework */,
@@ -700,6 +726,7 @@
 		B7860959166A7870005117A2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B728442617268E28007D5F37 /* SORelativeDateTransformer */,
 				B7EEBAE4171D77B900057D71 /* UIImage+Resize */,
 				B785E55C1701160B0022235F /* SSTextView */,
 				B785E54B17010CE50022235F /* TDSemiModal */,
@@ -737,6 +764,8 @@
 				18E4A98B16BFDFE6003C2852 /* LoginViewController.m */,
 				B786093E166A75A3005117A2 /* MapViewController.h */,
 				B786093F166A75A3005117A2 /* MapViewController.m */,
+				B728441D17257062007D5F37 /* VenueViewController.h */,
+				B728441E17257062007D5F37 /* VenueViewController.m */,
 				B7198AE016D1281500740CC2 /* PinViewController.h */,
 				B7198AE116D1281500740CC2 /* PinViewController.m */,
 				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
@@ -1022,6 +1051,7 @@
 				B7DCBB3C1704F580000CD39E /* search@2x.png in Resources */,
 				0CD7393B171DE2F90045B0CF /* AddServerViewController.xib in Resources */,
 				0C8401BC1724B45800397CD7 /* NewFeedsViewController.xib in Resources */,
+				B728442A17268E28007D5F37 /* SORelativeDateTransformer.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,6 +1123,10 @@
 				0C8401B21724A9B100397CD7 /* feedSourceManager.m in Sources */,
 				0C8401BB1724B45800397CD7 /* NewFeedsViewController.m in Sources */,
 				B7567430171E8A8B002A9FCA /* CreateNewLocationViewController.m in Sources */,
+				B728441F17257062007D5F37 /* VenueViewController.m in Sources */,
+				B7284422172571E3007D5F37 /* VenueLayout.m in Sources */,
+				B72844251726822A007D5F37 /* VenueCell.m in Sources */,
+				B728442B17268E28007D5F37 /* SORelativeDateTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
