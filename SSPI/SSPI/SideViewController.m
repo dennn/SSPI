@@ -17,6 +17,8 @@
 
 @interface SideViewController ()
 
+@property (nonatomic, strong) UIImageView *brandingImage;
+
 @end
 
 @implementation SideViewController
@@ -33,6 +35,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setNewLogo:)
+                                                 name:@"NewBranding"
+                                               object:nil];
+    
+        
+    _brandingImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 67, 32)];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int selectedBranding = [defaults integerForKey:@"branding"];
+    
+    switch (selectedBranding) {
+        case 0:
+        {
+            [_brandingImage setImage:[UIImage imageNamed:@"UOB.png"]];
+            [_brandingImage setFrame:CGRectMake(10, 20, 67, 32)];
+            break;
+        }
+            
+        case 1:
+        {
+            [_brandingImage setImage:[UIImage imageNamed:@"IBM.png"]];
+            [_brandingImage setFrame:CGRectMake(10, 20, 67, 32)];
+            break;
+        }
+            
+        case 2:
+        {
+            [_brandingImage setImage:[UIImage imageNamed:@"Council.jpeg"]];
+            [_brandingImage setFrame:CGRectMake(10, 10, 67, 67)];
+            break;
+        }
+            
+        default:
+            break;
+    }
+
 	// Do any additional setup after loading the view.
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Side-BG.jpg"]];
     [self.view addSubview:backgroundImage];
@@ -57,6 +97,39 @@
     [self.view addSubview:userButton];
     [self.view addSubview:heartButton];
     [self.view addSubview:settingsButton];
+    [self.view addSubview:_brandingImage];
+}
+
+- (void)setNewLogo:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"NewBranding"])
+    {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        int selectedBranding = [defaults integerForKey:@"branding"];
+        
+        switch (selectedBranding) {
+            case 0:
+            {
+                [_brandingImage setImage:[UIImage imageNamed:@"UOB.png"]];
+                [_brandingImage setFrame:CGRectMake(10, 20, 67, 32)];
+                break;
+            }
+                
+            case 1:
+            {
+                [_brandingImage setImage:[UIImage imageNamed:@"IBM.png"]];
+                [_brandingImage setFrame:CGRectMake(10, 20, 67, 32)];
+                break;
+            }
+                
+            case 2:
+            {
+                [_brandingImage setImage:[UIImage imageNamed:@"Council.jpeg"]];
+                [_brandingImage setFrame:CGRectMake(10, 20, 67, 67)];
+                break;
+            }
+        }
+    }
 }
 
 - (void)loadMapPage:(id)sender

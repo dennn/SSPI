@@ -73,7 +73,7 @@
             break;
             
         case 3:
-            return 2;
+            return 3;
             break;
             
         default:
@@ -158,6 +158,10 @@
                 case 1:
                     cell.textLabel.text = @"IBM";
                     break;
+                    
+                case 2:
+                    cell.textLabel.text = @"Bristol Council";
+                    break;
             }
             
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -169,6 +173,10 @@
             } else {
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
+            
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"NewBranding"
+             object:self];
             
             break;
         }
