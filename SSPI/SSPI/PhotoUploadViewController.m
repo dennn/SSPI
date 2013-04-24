@@ -188,10 +188,7 @@
          }*/
         NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         
-        NSString *file = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
-        NSString *filenameWithoutDots = [file stringByReplacingOccurrencesOfString:@"." withString:@""];
-        NSString *mp4FilePath = [NSString stringWithFormat:@"%@/%@.mp4",docDir, filenameWithoutDots];
-        name = [NSString stringWithFormat:@"%@.mp4", filenameWithoutDots];
+        NSString *mp4FilePath = [NSString stringWithFormat:@"%@/%@",docDir, name];        //name = [NSString stringWithFormat:@"%@.mp4", filenameWithoutDots];
         NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
         NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
         [videoData writeToFile:mp4FilePath atomically:YES];

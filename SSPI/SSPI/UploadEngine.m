@@ -156,7 +156,23 @@
         else if([[d objectForKey:@"Type"] isEqualToString:@"audio"])
             [self sendAudio:[d objectForKey:@"Name"] lat:[d objectForKey:@"Latitude"] lon:[d objectForKey:@"Longitude"] tags:[d objectForKey:@"Tags"] description:[d objectForKey:@"Description"] location:[d objectForKey:@"Location"] expires:[d objectForKey:@"Expires"] ];
     }
-    
+    if(a.count > 0){
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Sent"
+                          message: [NSString stringWithFormat:@"Sent %d media items to the server", a.count]
+                          delegate: nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil];
+    [alert show];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"There was a problem"
+                              message: @"You have not yet captured any media (click the red menu button in the bottom left corner of the map view."
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+    }
     // Open the plist from the filesystem.
     NSMutableArray *plist = nil;
     if (plist == nil) plist = [NSMutableArray array];

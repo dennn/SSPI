@@ -54,6 +54,7 @@
     autocompleteTableView.hidden = YES;
     [self.view addSubview:autocompleteTableView];
     location = @"";
+    isEditingTags = NO;
     
 }
 
@@ -128,6 +129,7 @@
                 cell.textLabel.text = @"Location";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"Location.png"];
+                locationCell = cell;
                 break;
             }
                 
@@ -155,6 +157,7 @@
                 cell.textLabel.text = @"Expires";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"Calendar.png"];
+                expiryCell = cell;
                 break;
             }
         }
@@ -230,6 +233,7 @@
     [self dismissSemiModalViewController:datePicker];
     expires = @"Never";
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    expiryCell.textLabel.text = expires;
 }
 
 - (void)datePickerSetDate:(TDDatePickerController *)viewController
@@ -241,6 +245,7 @@
                                              timeStyle:NSDateFormatterNoStyle];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
     NSLog(@"Expires: %@", expires);
+    expiryCell.textLabel.text = expires;
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
@@ -317,6 +322,7 @@
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
+    isEditingTags = !isEditingTags;
     const int movementDistance = 190; // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
     
@@ -331,6 +337,11 @@
 
 
 -(void)finish{
+    if(isEditingTags){
+        [self.view endEditing:YES];
+        autocompleteTableView.hidden = YES;
+        return;
+    }
     [self store:tagsField.text];
     tags = tagsField.text;
     cancel = NO;
@@ -381,6 +392,7 @@
     lat = [NSString stringWithFormat:@"%f", coordinate.latitude];
     lon = [NSString stringWithFormat:@"%f", coordinate.longitude];
     
+    locationCell.textLabel.text = location;
     NSLog(@"lat: %@", lat);
 }
 

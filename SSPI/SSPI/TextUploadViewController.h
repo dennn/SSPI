@@ -11,7 +11,7 @@
 #import "NewUploadViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface TextUploadViewController : UIViewController <NewUploadViewControllerDelegate, CLLocationManagerDelegate>
+@interface TextUploadViewController : UIViewController <NewUploadViewControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
     UIViewController *parent;
     IBOutlet UITextView *comments;
