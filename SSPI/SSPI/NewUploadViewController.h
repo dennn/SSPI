@@ -36,6 +36,7 @@
     NSMutableArray *pastTags;
     NSMutableArray *autocompleteTags;
     UITableView *autocompleteTableView;
+    BOOL isEditingTags;
     
     //id <NewUploadViewControllerDelegate> delegate;
 }
