@@ -111,7 +111,7 @@
         if (cell == nil) {
             cell = [[DescriptionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DescriptionCellIdentifier];
         }
-        cell.selectedImage = pickedImage;
+        //cell.selectedImage = pickedImage;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else {

@@ -42,7 +42,7 @@
         mimetype = @"video/mp4";
         extension = @"mp4";
     }
-    NSLog(@"Image path:  %@", dataPath);
+    NSLog(@"Image/video path:  %@", dataPath);
     
     //self = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     
