@@ -27,6 +27,7 @@
     return self;
 }
 
+
 - (void)setFeeds:(feedSourceManager*) feed
 {
     self.detailTextLabel.text = [NSString stringWithFormat: @"userID:%i", (int)feed.feedid];

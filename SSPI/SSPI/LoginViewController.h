@@ -15,6 +15,7 @@
 #import "KeychainItemWrapper.h"
 #import "MKNetworkKit.h"
 #import "UploadEngine.h"
+#import "JASidePanelController.h"
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate, UITabBarControllerDelegate,UIAlertViewDelegate>
 {
@@ -26,7 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
-@property (strong, nonatomic) UITabBarController *tabViewController;
+@property (nonatomic, strong) JASidePanelController *ViewController;
+
 @property (strong, nonatomic) MKNetworkOperation *operation;
 @property (strong, nonatomic) UploadEngine *uploadEngine;
 

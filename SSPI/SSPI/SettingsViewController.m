@@ -10,6 +10,7 @@
 
 #import "ServerViewController.h"
 #import "AddServerViewController.h"
+#import "ServerManager.h"
 
 @interface SettingsViewController ()
 
@@ -25,6 +26,7 @@
         // Custom initialization
         self.title = NSLocalizedString(@"Settings", @"Settings");
         self.tabBarItem.image = [UIImage imageNamed:@"settings"];
+        servermanager = [ServerManager instance];
     }
     return self;
 }
@@ -90,13 +92,13 @@
     {
         case 0:
         {
-            return @"Active Servers";
+            return @"Active Server";
             break;
         }
             
         case 1:
         {
-            return @"Inactive Servers";
+            return @"Saved servers";
             break;
         }
             

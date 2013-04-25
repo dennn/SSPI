@@ -22,14 +22,27 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        
+   
     }
     return self;
+}
+
+- (void)refreshControlRequest
+{
+    NSLog(@"refreshing...");
+    [self.refreshControl beginRefreshing];
+    // Update the table
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlRequest) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl: refreshControl];
     
     [feedSourceManager globalTimelinePostsWithBlock:^(MKNetworkOperation *completedOperation, NSArray *posts, NSError *error) {
         if (error) {
@@ -41,11 +54,10 @@
                 for (feedSourceManager *f in posts) {
                     [f printAttributes];
                 }
-                [self.tableView reloadData];
+                [self refreshControlRequest];
             }
         }
     }];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -63,14 +75,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [_feeds count];
 }
@@ -82,21 +92,31 @@
     if (cell == nil) {
         cell = [[FeedsCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    //[cell setFeeds:[UIImage imageNamed:@"Heart-icon.png"] ];
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
     cell.detailTextLabel.text = [NSString stringWithFormat: @"userID:%i", (int)cell._feed.userid];
     cell.textLabel.text = [NSString stringWithFormat:@"feedID:%i, feed type:%@", (int)cell._feed.feedid, cell._feed.type];
     engine = [[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    if ([cell._feed.type isEqualToString: @"image"]) {
+    if ([cell._feed.type isEqualToString: @"photo"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
+        [engine cacheMemoryCost];
         [engine imageAtURL:imageURL completionHandler:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
-            [cell.imageView setImage:fetchedImage];
-            [self.tableView reloadData];
+                [cell.imageView setImage:fetchedImage];
+            
+            NSLog(@"set image compelte: %i", (int)cell._feed.feedid);
+             [cell setNeedsLayout];
         } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
             NSLog(@"%@", [error localizedDescription]);
         }];
-        NSLog(@"set image");
+        NSLog(@"set image: %i", (int)cell._feed.feedid);
+    }
+    else if([cell._feed.type isEqualToString:@"text"] || [cell._feed.type isEqualToString:@"0"]){
+        NSLog(@"%i,text",(int)cell._feed.userid);
+        [cell.imageView setImage:[UIImage imageNamed:@"User-icon.png"]];
+    }
+    else
+    {
+        [cell.imageView setImage:[UIImage imageNamed:@"User-icon.png"]];
     }
     return cell;
 }

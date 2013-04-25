@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ServerManager.h"
 
 @interface SettingsViewController : UITableViewController
+{
+    ServerManager *servermanager;
+}
 
 @end
