@@ -13,11 +13,11 @@
 #import "Venue.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface PinViewController () {
-    Pin *currentPin;
-    UITableView *pinTableView;
-    UIImageView *webImage;
-}
+@interface PinViewController ()
+
+    @property (nonatomic, strong) Pin *currentPin;
+    @property (nonatomic, strong) UITableView *pinTableView;
+    @property (nonatomic, strong) UIImageView *webImage;
 
 @end
 
@@ -28,11 +28,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        currentPin = pin;
-        pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 247, 320, 230)];
-        pinTableView.delegate = self;
-        pinTableView.dataSource = self;
-        [self.view addSubview:pinTableView];
+        _currentPin = pin;
+        _pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 247, 320, 230)];
+        _pinTableView.delegate = self;
+        _pinTableView.dataSource = self;
+        [self.view addSubview:_pinTableView];
     }
     return self;
 }
@@ -41,10 +41,10 @@
 {
     [super viewDidLoad];
     
-    switch (currentPin.uploadType) {
+    switch (_currentPin.uploadType) {
         case video:
         {
-            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:currentPin.dataLocation];
+            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
             moviePlayer.view.frame = CGRectMake(0, 0, 320, 245);
             [self.view addSubview:moviePlayer.view];
             break;
@@ -52,17 +52,17 @@
             
         case image:
         {
-            webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
-            webImage.contentMode = UIViewContentModeScaleAspectFit;
-            webImage.backgroundColor = [UIColor blackColor];
-            [self.view addSubview:webImage];
-            [webImage setImageWithURL:currentPin.dataLocation];
+            _webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            _webImage.contentMode = UIViewContentModeScaleAspectFit;
+            _webImage.backgroundColor = [UIColor blackColor];
+            [self.view addSubview:_webImage];
+            [_webImage setImageWithURL:_currentPin.dataLocation];
             break;
         }
             
         case audio:
         {
-            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:currentPin.dataLocation];
+            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
             moviePlayer.view.frame = CGRectMake(0, 0, 320, 245);
             [self.view addSubview:moviePlayer.view];
             break;
@@ -71,7 +71,7 @@
         case text:
         {
             UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
-            textView.text = currentPin.description;
+            textView.text = _currentPin.description;
             textView.backgroundColor = [UIColor blackColor];
             textView.textColor = [UIColor whiteColor];
             textView.textAlignment = NSTextAlignmentCenter;
@@ -81,37 +81,52 @@
     }
     
     // Do any additional setup after loading the view from its nib.
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getPin/%i/", [currentPin.pinID intValue]]];
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getPin/%i/", [_currentPin.pinID intValue]]];
+    User *newUser = [User new];
+    NSLog(@"Final URL: %@", url);
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        currentPin.uploadDate = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"date"] intValue]];
-        currentPin.pinID = [JSON valueForKey:@"id"];
+        _currentPin.uploadDate = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"date"] intValue]];
+        _currentPin.pinID = [JSON valueForKey:@"id"];
         //Create a new User object
-        User *newUser = [User new];
-        newUser.userID = [JSON valueForKey:@"userid"];
-        currentPin.uploadUser = newUser;
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getUsername/%@", [JSON valueForKey:@"userid"]]];
+        NSLog(@"Final URL: %@", url);
+        NSURLRequest *userRequest = [[NSURLRequest alloc] initWithURL:url];
+        AFJSONRequestOperation *userOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:userRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            newUser.name = [JSON valueForKey:@"user"];
+            _currentPin.uploadUser = newUser;
+            
+            [_pinTableView reloadData];
+            
+            switch (_currentPin.uploadType) {
+                case audio:
+                    self.title = [NSString stringWithFormat:@"%@'s audio", _currentPin.uploadUser.name];
+                    break;
+                    
+                case video:
+                    self.title = [NSString stringWithFormat:@"%@'s video", _currentPin.uploadUser.name];
+                    break;
+                    
+                case text:
+                    self.title = [NSString stringWithFormat:@"%@'s text", _currentPin.uploadUser.name];
+                    break;
+                    
+                case image:
+                    self.title = [NSString stringWithFormat:@"%@'s photo", _currentPin.uploadUser.name];
+                    break;
+            }
+
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        }];
+        [userOperation start];
+        
         //Data location holds the URL of the uploaded media
-        currentPin.dataLocation = [NSURL URLWithString:[JSON valueForKey:@"dataLocation"]];
+        _currentPin.dataLocation = [NSURL URLWithString:[JSON valueForKey:@"dataLocation"]];
         Venue *newVenue = [Venue new];
         newVenue.venueID = [JSON valueForKey:@"foursquareid"];
-        currentPin.venueLocation = newVenue;
-        switch (currentPin.uploadType) {
-            case audio:
-                self.title = [NSString stringWithFormat:@"%@'s audio", currentPin.uploadUser.name];
-                break;
-                
-            case video:
-                self.title = [NSString stringWithFormat:@"%@'s video", currentPin.uploadUser.name];
-                break;
-                
-            case text:
-                self.title = [NSString stringWithFormat:@"%@'s text", currentPin.uploadUser.name];
-                break;
-        
-            case image:
-                self.title = [NSString stringWithFormat:@"%@'s photo", currentPin.uploadUser.name];
-                break;
-        }
+        _currentPin.venueLocation = newVenue;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
     }];
@@ -145,11 +160,12 @@
             
         case 1:
             cell.textLabel.text = @"Uploaded by-";
+            cell.detailTextLabel.text = _currentPin.uploadUser.name;
             break;
             
         case 2:
             cell.textLabel.text = @"Uploaded on-";
-            cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:currentPin.uploadDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
+            cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:_currentPin.uploadDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
             break;
             
         case 3:

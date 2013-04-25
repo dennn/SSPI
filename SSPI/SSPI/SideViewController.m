@@ -74,8 +74,7 @@
     }
 
 	// Do any additional setup after loading the view.
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Side-BG.jpg"]];
-    [self.view addSubview:backgroundImage];
+    self.view.backgroundColor = [UIColor colorWithRed:38.0f/255.0f green:39.0f/255.0f blue:47.0f/255.0f alpha:1.0];
     
     UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 90, 42, 34)];
     [mapButton setBackgroundImage:[UIImage imageNamed:@"Map-icon.png"] forState:UIControlStateNormal];
