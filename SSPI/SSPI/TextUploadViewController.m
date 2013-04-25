@@ -54,6 +54,10 @@
     lon = longitude;
 }
 
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    textView.text = @"";
+}
+
 -(void)save:(NSString *)description tags:(NSString *)tags expires:(NSString *)expires{
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@",docDir, name];

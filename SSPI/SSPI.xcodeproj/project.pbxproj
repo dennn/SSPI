@@ -55,6 +55,10 @@
 		B72844251726822A007D5F37 /* VenueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B72844241726822A007D5F37 /* VenueCell.m */; };
 		B728442A17268E28007D5F37 /* SORelativeDateTransformer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B728442717268E28007D5F37 /* SORelativeDateTransformer.bundle */; };
 		B728442B17268E28007D5F37 /* SORelativeDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B728442917268E28007D5F37 /* SORelativeDateTransformer.m */; };
+		B739B036172940A70092CA4B /* Header.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B034172940A70092CA4B /* Header.png */; };
+		B739B037172940A70092CA4B /* Header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B035172940A70092CA4B /* Header@2x.png */; };
+		B739B0641729638A0092CA4B /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B0621729638A0092CA4B /* Button.png */; };
+		B739B0651729638A0092CA4B /* Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B0631729638A0092CA4B /* Button@2x.png */; };
 		B7567430171E8A8B002A9FCA /* CreateNewLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B756742F171E8A8A002A9FCA /* CreateNewLocationViewController.m */; };
 		B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */; };
 		B7660C92166B7CC3005BC8E6 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */; };
@@ -129,6 +133,7 @@
 		B7A01DAE16BDB67C0065FFC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A01DAD16BDB67C0065FFC8 /* CoreLocation.framework */; };
 		B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A01DAF16BDB67F0065FFC8 /* AVFoundation.framework */; };
 		B7A319CD16D91EF000F1DD4F /* NewUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */; };
+		B7BA833717284A890026CD78 /* Council.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BA833617284A890026CD78 /* Council.jpeg */; };
 		B7D5AFDE16C8215D0095ED5A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */; };
 		B7D5AFDF16C8215D0095ED5A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCE16C8215D0095ED5A /* AFHTTPRequestOperation.m */; };
 		B7D5AFE016C8215D0095ED5A /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFD016C8215D0095ED5A /* AFImageRequestOperation.m */; };
@@ -260,6 +265,10 @@
 		B728442717268E28007D5F37 /* SORelativeDateTransformer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SORelativeDateTransformer.bundle; sourceTree = "<group>"; };
 		B728442817268E28007D5F37 /* SORelativeDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORelativeDateTransformer.h; sourceTree = "<group>"; };
 		B728442917268E28007D5F37 /* SORelativeDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORelativeDateTransformer.m; sourceTree = "<group>"; };
+		B739B034172940A70092CA4B /* Header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Header.png; sourceTree = "<group>"; };
+		B739B035172940A70092CA4B /* Header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Header@2x.png"; sourceTree = "<group>"; };
+		B739B0621729638A0092CA4B /* Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button.png; sourceTree = "<group>"; };
+		B739B0631729638A0092CA4B /* Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button@2x.png"; sourceTree = "<group>"; };
 		B756742E171E8A8A002A9FCA /* CreateNewLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewLocationViewController.h; sourceTree = "<group>"; };
 		B756742F171E8A8A002A9FCA /* CreateNewLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewLocationViewController.m; sourceTree = "<group>"; };
 		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -380,6 +389,7 @@
 		B7A1C2C91673A5420089210D /* IBM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IBM@2x.png"; sourceTree = "<group>"; };
 		B7A319CB16D91EF000F1DD4F /* NewUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUploadViewController.h; sourceTree = "<group>"; };
 		B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUploadViewController.m; sourceTree = "<group>"; };
+		B7BA833617284A890026CD78 /* Council.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Council.jpeg; sourceTree = "<group>"; };
 		B7D5AFCB16C8215D0095ED5A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		B7D5AFCD16C8215D0095ED5A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -683,6 +693,11 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B739B0621729638A0092CA4B /* Button.png */,
+				B739B0631729638A0092CA4B /* Button@2x.png */,
+				B739B034172940A70092CA4B /* Header.png */,
+				B739B035172940A70092CA4B /* Header@2x.png */,
+				B7BA833617284A890026CD78 /* Council.jpeg */,
 				B7DCBB391704F580000CD39E /* search.png */,
 				B7DCBB3A1704F580000CD39E /* search@2x.png */,
 				B785E56C17011DA60022235F /* Location.png */,
@@ -1057,6 +1072,11 @@
 				0CD7393B171DE2F90045B0CF /* AddServerViewController.xib in Resources */,
 				B728442A17268E28007D5F37 /* SORelativeDateTransformer.bundle in Resources */,
 				0C1228671725B30E00A3C0F1 /* NewFeedsViewController.xib in Resources */,
+				B7BA833717284A890026CD78 /* Council.jpeg in Resources */,
+				B739B036172940A70092CA4B /* Header.png in Resources */,
+				B739B037172940A70092CA4B /* Header@2x.png in Resources */,
+				B739B0641729638A0092CA4B /* Button.png in Resources */,
+				B739B0651729638A0092CA4B /* Button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

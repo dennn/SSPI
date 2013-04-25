@@ -76,7 +76,7 @@
 
 - (void)loadPhoto{
     
-    type = @"image";
+    type = @"photo";
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
@@ -128,9 +128,12 @@
     [self setLatLon];
     NSString *file = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
     NSString *filenameWithoutDots = [file stringByReplacingOccurrencesOfString:@"." withString:@""];
-    name = [NSString stringWithFormat:@"%@.jpeg", filenameWithoutDots];
+    if([type isEqualToString:@"photo"])
+        name = [NSString stringWithFormat:@"%@.jpeg", filenameWithoutDots];
+    else
+        name = [NSString stringWithFormat:@"%@.mp4", filenameWithoutDots];
     [picker dismissViewControllerAnimated:TRUE completion:nil];
-    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:@"photo" name:name];
+    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:type name:name];
     getInfo.delegate = self;
     UIImage *editedImage = (UIImage *) [info objectForKey: UIImagePickerControllerEditedImage];
     UIImage *originalImage = (UIImage *) [info objectForKey: UIImagePickerControllerOriginalImage];
@@ -139,6 +142,7 @@
         getInfo.pickedImage = editedImage;
     } else {
         getInfo.pickedImage = originalImage;
+        
     }
     [parent.navigationController pushViewController:getInfo animated:YES];
 }
@@ -188,10 +192,7 @@
          }*/
         NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         
-        NSString *file = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
-        NSString *filenameWithoutDots = [file stringByReplacingOccurrencesOfString:@"." withString:@""];
-        NSString *mp4FilePath = [NSString stringWithFormat:@"%@/%@.mp4",docDir, filenameWithoutDots];
-        name = [NSString stringWithFormat:@"%@.mp4", filenameWithoutDots];
+        NSString *mp4FilePath = [NSString stringWithFormat:@"%@/%@",docDir, name];        //name = [NSString stringWithFormat:@"%@.mp4", filenameWithoutDots];
         NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
         NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
         [videoData writeToFile:mp4FilePath atomically:YES];

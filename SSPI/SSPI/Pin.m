@@ -22,7 +22,7 @@
     pinID = [dictionary valueForKey:@"id"];
     uploadDate = [NSDate dateWithTimeIntervalSince1970:[[dictionary valueForKey:@"date"] doubleValue]];
     NSString *dataType = [dictionary valueForKey:@"type"];
-    if ([dataType isEqualToString:@"image"]) {
+    if ([dataType isEqualToString:@"photo"]) {
         uploadType = image;
     } else if ([dataType isEqualToString:@"video"]) {
         uploadType = video;

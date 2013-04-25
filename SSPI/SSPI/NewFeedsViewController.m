@@ -97,7 +97,7 @@
     cell.detailTextLabel.text = [NSString stringWithFormat: @"userID:%i", (int)cell._feed.userid];
     cell.textLabel.text = [NSString stringWithFormat:@"feedID:%i, feed type:%@", (int)cell._feed.feedid, cell._feed.type];
     engine = [[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    if ([cell._feed.type isEqualToString: @"photo"]) {
+    if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [engine cacheMemoryCost];
         [engine imageAtURL:imageURL completionHandler:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {

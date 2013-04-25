@@ -25,14 +25,16 @@
 
     LoginViewController *loginpage = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     MapViewController *mapController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginpage];
-    navController.navigationBar.hidden = YES;
-/*    SideViewController *sideController = [[SideViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapController];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Header.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage imageNamed:@"Button.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        
 
+    SideViewController *sideController = [[SideViewController alloc] initWithNibName:nil bundle:nil];
+    
     self.viewController.centerPanel = navController;
     self.viewController.leftPanel = sideController;
-    */
-    self.window.rootViewController = navController;
+    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
     return YES;

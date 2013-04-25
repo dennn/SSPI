@@ -136,6 +136,7 @@
             Pin *newPin = [[Pin alloc] initWithDictionary:dict];
             if ([venues objectForKey:key] == nil) {
                 venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
+                venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
             } else {
                 venue = [venues objectForKey:key];
             }

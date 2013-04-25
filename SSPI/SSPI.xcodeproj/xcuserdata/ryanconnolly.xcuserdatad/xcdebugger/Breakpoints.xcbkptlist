@@ -136,12 +136,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SSPI/PhotoUploadViewController.m"
-         timestampString = "386856423.999194"
+         timestampString = "388534683.246914"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "139"
-         endingLineNumber = "139"
-         landmarkName = "-save:tags:expires:"
+         startingLineNumber = "142"
+         endingLineNumber = "142"
+         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

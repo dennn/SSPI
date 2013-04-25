@@ -10,6 +10,7 @@
 
 @interface UploadEngine : MKNetworkEngine{
     UIActivityIndicatorView* activityIndicator;
+    NSString *userid;
 }
 
 @property (strong, nonatomic) MKNetworkOperation *operation;
