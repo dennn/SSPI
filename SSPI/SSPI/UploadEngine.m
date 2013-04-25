@@ -45,9 +45,9 @@
     NSLog(@"Image/video path:  %@", dataPath);
     
     //self = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    
-    NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",
+    NSLog(@"type: %@", type);
+    NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, @"type",
+                                       latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",description, @"description",location, @"location",expires, @"expires",
                                        nil];
     self.operation = [self postDataToServer:postParams path:@"coomko/index.php/uploads/run"];
     [self.operation addData:data forKey:@"userfl" mimeType:mimetype fileName:[NSString stringWithFormat:@"upload.%@", extension]];
@@ -77,7 +77,7 @@
     //self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     
     NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       type, @"type",latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",
+                                       type, @"type",latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",description, @"description",location, @"location",expires, @"expires",
                                        nil];
     [postParams setValue:string forKey:@"text"];
 
@@ -108,8 +108,8 @@
     
     //self = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     
-    NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",
+    NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"audio", @"type",
+                                       latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",description, @"description",location, @"location",expires, @"expires",
                                        nil];
     self.operation = [self postDataToServer:postParams path:@"coomko/index.php/uploads/run"];
     [self.operation addData:audioData forKey:@"userfl" mimeType:@"audio/x-caf" fileName:@"upload.caf"];
