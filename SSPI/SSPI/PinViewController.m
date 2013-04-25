@@ -11,13 +11,13 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+Resize.h"
 #import "Venue.h"
-#import <MediaPlayer/MediaPlayer.h>
 
 @interface PinViewController ()
 
     @property (nonatomic, strong) Pin *currentPin;
     @property (nonatomic, strong) UITableView *pinTableView;
     @property (nonatomic, strong) UIImageView *webImage;
+    @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 
 @end
 
@@ -44,9 +44,16 @@
     switch (_currentPin.uploadType) {
         case video:
         {
-            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
-            moviePlayer.view.frame = CGRectMake(0, 0, 320, 245);
-            [self.view addSubview:moviePlayer.view];
+            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
+            [_moviePlayer setControlStyle:MPMovieControlStyleNone];
+            [_moviePlayer setRepeatMode:MPMovieRepeatModeOne];
+            [_moviePlayer prepareToPlay];
+            [_moviePlayer setShouldAutoplay:YES];
+            
+            [[_moviePlayer view] setFrame:[playerView bounds]];
+            [playerView addSubview:[_moviePlayer view]];
+            [self.view addSubview:playerView];
             break;
         }
             
@@ -62,9 +69,16 @@
             
         case audio:
         {
-            MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
-            moviePlayer.view.frame = CGRectMake(0, 0, 320, 245);
-            [self.view addSubview:moviePlayer.view];
+            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
+            [_moviePlayer setControlStyle:MPMovieControlStyleNone];
+            [_moviePlayer setRepeatMode:MPMovieRepeatModeOne];
+            [_moviePlayer prepareToPlay];
+            [_moviePlayer setShouldAutoplay:YES];
+            
+            [[_moviePlayer view] setFrame:[playerView bounds]];
+            [playerView addSubview:[_moviePlayer view]];
+            [self.view addSubview:playerView];
             break;
         }
             
@@ -122,8 +136,6 @@
         }];
         [userOperation start];
         
-        //Data location holds the URL of the uploaded media
-        _currentPin.dataLocation = [NSURL URLWithString:[JSON valueForKey:@"dataLocation"]];
         Venue *newVenue = [Venue new];
         newVenue.venueID = [JSON valueForKey:@"foursquareid"];
         _currentPin.venueLocation = newVenue;
@@ -133,6 +145,25 @@
     
     [operation start];
     
+}
+
+- (void)handleMPMoviePlayerPlaybackDidFinish:(NSNotification *)notification
+{
+    NSDictionary *notificationUserInfo = [notification userInfo];
+    NSNumber *resultValue = [notificationUserInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
+    MPMovieFinishReason reason = [resultValue intValue];
+    if (reason == MPMovieFinishReasonPlaybackError)
+    {
+        NSError *mediaPlayerError = [notificationUserInfo objectForKey:@"error"];
+        if (mediaPlayerError)
+        {
+            NSLog(@"playback failed with error description: %@", [mediaPlayerError localizedDescription]);
+        }
+        else
+        {
+            NSLog(@"playback failed without any given reason");
+        }
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
