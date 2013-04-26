@@ -19,12 +19,12 @@
 #import "VenueViewController.h"
 
 @interface MapViewController ()
-{
-    IBOutlet MKMapView *currentMapView;
-    NSMutableDictionary *venues;
-    CLLocationDegrees zoomLevel;
-    BOOL searchBarShown;
-}
+
+    @property (nonatomic, strong) IBOutlet MKMapView *currentMapView;
+    @property (nonatomic, strong) NSMutableDictionary *venues;
+    @property (nonatomic, assign) CLLocationDegrees zoomLevel;
+    @property (nonatomic, assign) BOOL searchBarShown;
+    @property (nonatomic, assign) BOOL changedMapRegion;
 
 - (void)filterAnnotations:(NSMutableDictionary *)pinLocations;
 
@@ -50,7 +50,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     //Add the search button to toggle the search bar
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleSearch)];
-    searchBarShown = FALSE;
+    _searchBarShown = FALSE;
+    _changedMapRegion = FALSE;
     
     search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 50)];
     search.delegate = self;
@@ -58,10 +59,10 @@
 
     [self.view addSubview:search];
     
-    venues = [NSMutableDictionary new];
+    _venues = [NSMutableDictionary new];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapGesture:)];
-    [currentMapView addGestureRecognizer:tapGesture];
+    [_currentMapView addGestureRecognizer:tapGesture];
     
     /*
      * Add the new Pin menu in the bottom right. We then wait for a delegate callback whenever
@@ -104,28 +105,28 @@
 
 - (void)toggleSearch
 {
-    if (searchBarShown)
+    if (_searchBarShown)
     {
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         search.frame = CGRectMake(0, -60, search.frame.size.width, search.frame.size.height);
         [UIView commitAnimations];
-        searchBarShown = FALSE;
+        _searchBarShown = FALSE;
     } else {
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         search.frame = CGRectMake(0, 0, search.frame.size.width, search.frame.size.height);
         [UIView commitAnimations];
-        searchBarShown = TRUE;
+        _searchBarShown = TRUE;
     }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     //Grab the text from the search bar and send off a query
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)currentMapView.region.center.longitude, (double)currentMapView.region.center.latitude, searchBar.text]];
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, searchBar.text]];
     NSLog(@"Final URL: %@", url);
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -134,18 +135,18 @@
         {
             NSString *key = [NSString stringWithFormat:@"%@", [dict valueForKey:@"location"]];
             Pin *newPin = [[Pin alloc] initWithDictionary:dict];
-            if ([venues objectForKey:key] == nil) {
+            if ([_venues objectForKey:key] == nil) {
                 venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
                 venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
             } else {
-                venue = [venues objectForKey:key];
+                venue = [_venues objectForKey:key];
             }
                        
             [venue addPin:newPin];
-            [venues setObject:venue forKey:key];
+            [_venues setObject:venue forKey:key];
         }
-        
-        [self filterAnnotations:venues];
+        _changedMapRegion = TRUE;
+        [self filterAnnotations:_venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
         UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find any pins with this tag" delegate:NULL cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
@@ -224,8 +225,9 @@
 
 - (void)filterAnnotations:(NSMutableDictionary *)pinLocations
 {
-    float latDelta = currentMapView.region.span.latitudeDelta/9.0;
-    float longDelta = currentMapView.region.span.longitudeDelta/11.0;
+    // Cluster pins that are too close to each other
+    float latDelta = _currentMapView.region.span.latitudeDelta/9.0;
+    float longDelta = _currentMapView.region.span.longitudeDelta/11.0;
     NSMutableArray *venuesArray = [NSMutableArray new];
     for (NSString *key in pinLocations) {
         Venue *venue = (Venue *)[pinLocations objectForKey:key];
@@ -246,7 +248,7 @@
             if(fabs(tempAnnotation.coordinate.latitude - latitude) < latDelta &&
                fabs(tempAnnotation.coordinate.longitude - longitude) < longDelta)
             {
-                [currentMapView removeAnnotation:venueToCheck];
+                [_currentMapView removeAnnotation:venueToCheck];
                 found = TRUE;
                 [tempAnnotation addChildVenue:venueToCheck];
                 break;
@@ -254,17 +256,39 @@
         }
         if (!found) {
             [pinsToShow addObject:venueToCheck];
-            [currentMapView addAnnotation:venueToCheck];
+            [_currentMapView addAnnotation:venueToCheck];
         }
+    }
+
+
+    // Move the map to show the pins that have been found
+    if (_changedMapRegion) {
+        MKMapRect rectToShow = MKMapRectNull;
+
+        for (id <MKAnnotation> annotation in _currentMapView.annotations) {
+            if (![annotation isKindOfClass:[MKUserLocation class]]) {
+                MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
+                MKMapRect rectForPoint = MKMapRectMake(point.x, point.y, 0.1, 0.1);
+                if (MKMapRectIsNull(rectToShow)) {
+                    rectToShow = rectForPoint;
+                } else {
+                    rectToShow = MKMapRectUnion(rectToShow, rectForPoint);
+                }
+            }
+        }
+
+        [_currentMapView setVisibleMapRect:rectToShow edgePadding:UIEdgeInsetsMake(10, 0, 0, 0) animated:YES];
+        _changedMapRegion = FALSE;
     }
 }
 
+
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    if (zoomLevel != mapView.region.span.longitudeDelta)
+    if (_zoomLevel != mapView.region.span.longitudeDelta)
     {
-        [self filterAnnotations:venues];
-        zoomLevel = mapView.region.span.longitudeDelta;
+        [self filterAnnotations:_venues];
+        _zoomLevel = mapView.region.span.longitudeDelta - 10.0;
     }
 }
 

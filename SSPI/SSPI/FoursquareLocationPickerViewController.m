@@ -39,6 +39,7 @@
     _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
     _mapView.delegate = self;
     _mapView.zoomEnabled = FALSE;
+    _mapView.showsUserLocation = TRUE;
     _researching = NO;
     
     // Do any additional setup after loading the view.
@@ -146,20 +147,25 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    static NSString *reuseId = @"StandardPin";
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    } else {
+
+        static NSString *reuseId = @"StandardPin";
     
-    MKPinAnnotationView *aView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
-    if (aView == nil)
-    {
-        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+        MKPinAnnotationView *aView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
+        if (aView == nil)
+        {
+            aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                  reuseIdentifier:reuseId];
-        aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        aView.canShowCallout = YES;
+            aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            aView.canShowCallout = YES;
+        }
+    
+        aView.annotation = annotation;
+    
+        return aView;
     }
-    
-    aView.annotation = annotation;
-    
-    return aView;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
