@@ -48,6 +48,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
     //Add the search button to toggle the search bar
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleSearch)];
     _searchBarShown = FALSE;
@@ -101,6 +102,20 @@
     menu.delegate = self;
     
     [self.view addSubview:menu];
+    
+    /*
+     Check whether there is a previous uploaded pin and if there is set the map to 
+     be centered at that location
+     */
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    CLLocationDegrees lat = [[defaults valueForKey:@"Latitude"] doubleValue];
+    CLLocationDegrees lon = [[defaults valueForKey:@"Longitude"] doubleValue];
+    CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(lat, lon);
+    if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lon))) {
+        MKCoordinateRegion viewRegion = [_currentMapView regionThatFits:MKCoordinateRegionMakeWithDistance(startCoordinate, 100000, 100000)];
+        [_currentMapView setRegion:viewRegion animated:NO];
+        [_currentMapView setCenterCoordinate:startCoordinate animated:YES];
+    }
 }
 
 - (void)toggleSearch
@@ -126,8 +141,14 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     //Grab the text from the search bar and send off a query
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, searchBar.text]];
-    NSLog(@"Final URL: %@", url);
+    [self searchForString:searchBar.text];
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchForString:(NSString *)string
+{
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, string]];
+    NSLog(@"Final URL %@", url);
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         Venue *venue;
@@ -141,20 +162,22 @@
             } else {
                 venue = [_venues objectForKey:key];
             }
-                       
+            
             [venue addPin:newPin];
             [_venues setObject:venue forKey:key];
         }
-        _changedMapRegion = TRUE;
+        if ([string isEqualToString:@""])
+            _changedMapRegion = TRUE;
         [self filterAnnotations:_venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
-        UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find any pins with this tag" delegate:NULL cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [errorMessage show];
+        if (![string isEqualToString:@""]) {
+            UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find any pins with this tag" delegate:NULL cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [errorMessage show];
+        }
     }];
     
     [operation start];
-    [searchBar resignFirstResponder];
+
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -285,6 +308,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+    [self searchForString:@""];
     if (_zoomLevel != mapView.region.span.longitudeDelta)
     {
         [self filterAnnotations:_venues];
