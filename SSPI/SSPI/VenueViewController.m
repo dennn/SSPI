@@ -52,12 +52,15 @@
             break;
             
         case video:
+            [cell.pinImage setImage:[UIImage imageNamed:@"Video.png"]];
             break;
             
         case audio:
+            [cell.pinImage setImage:[UIImage imageNamed:@"Audio.png"]];
             break;
             
         case text:
+            [cell.pinImage setImage:[UIImage imageNamed:@"Write.png"]];
             break;
     }
 

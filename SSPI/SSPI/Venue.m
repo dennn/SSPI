@@ -71,7 +71,8 @@
 
 - (void)addPin:(Pin *)pin
 {
-    [pins addObject:pin];
+    if (![pins containsObject:pin])
+        [pins addObject:pin];
 }
 
 @end

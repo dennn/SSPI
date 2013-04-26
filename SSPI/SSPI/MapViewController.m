@@ -166,7 +166,7 @@
             [venue addPin:newPin];
             [_venues setObject:venue forKey:key];
         }
-        if ([string isEqualToString:@""])
+        if (![string isEqualToString:@""])
             _changedMapRegion = TRUE;
         [self filterAnnotations:_venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

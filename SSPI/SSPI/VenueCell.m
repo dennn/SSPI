@@ -25,6 +25,7 @@
         _pinImage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _pinImage.layer.borderColor = [UIColor whiteColor].CGColor;
         _pinImage.layer.borderWidth = 4.0;
+        _pinImage.layer.cornerRadius = 6.0;
         
         _pinText = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 105, 14)];
         _pinText.backgroundColor = [UIColor clearColor];
