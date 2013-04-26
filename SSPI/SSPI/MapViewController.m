@@ -56,7 +56,7 @@
     
     search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 50)];
     search.delegate = self;
-    search.showsCancelButton = TRUE;
+    search.showsCancelButton = FALSE;
 
     [self.view addSubview:search];
     
@@ -145,10 +145,36 @@
     [searchBar resignFirstResponder];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.text = @"";
+    [self toggleSearch];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [search setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    if (![searchBar.text isEqualToString:@""])
+        [search setShowsCancelButton:NO animated:YES];
+    else
+        [search setShowsCancelButton:NO animated:NO];
+}
+
 - (void)searchForString:(NSString *)string
 {
     NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, string]];
     NSLog(@"Final URL %@", url);
+    
+    if (![string isEqualToString:@""]) {
+        _changedMapRegion = TRUE;
+        [_venues removeAllObjects];
+    }
+    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         Venue *venue;
@@ -166,8 +192,6 @@
             [venue addPin:newPin];
             [_venues setObject:venue forKey:key];
         }
-        if (![string isEqualToString:@""])
-            _changedMapRegion = TRUE;
         [self filterAnnotations:_venues];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (![string isEqualToString:@""]) {
@@ -180,24 +204,15 @@
 
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [searchBar resignFirstResponder];
-    searchBar.text = @"";
-}
-
 - (void)mapTapGesture:(UIGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
         return;
     
-    if (search.isFirstResponder)
+    if (_searchBarShown) {
         [search resignFirstResponder];
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [search setShowsCancelButton:YES animated:YES];
+        [self toggleSearch];
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
@@ -217,7 +232,11 @@
             pinView.pinColor = MKPinAnnotationColorRed;
             pinView.enabled = YES;
             pinView.canShowCallout = YES;
-            pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            Venue *tempVenue = (Venue *)annotation;
+            if ([tempVenue venuesCount] == 1)
+                pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            else
+                pinView.rightCalloutAccessoryView = nil;
             pinView.userInteractionEnabled = YES;
         }
         
@@ -308,6 +327,12 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+    if ([_currentMapView.selectedAnnotations count] > 0) {
+        for (id <MKAnnotation> annotation in _currentMapView.annotations) {
+            [_currentMapView deselectAnnotation:annotation animated:NO];
+        }
+    }
+    
     [self searchForString:@""];
     if (_zoomLevel != mapView.region.span.longitudeDelta)
     {
