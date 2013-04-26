@@ -366,6 +366,10 @@
         [info writeToFile:filePath atomically:YES];
     }
     NSLog(@"Name: %@", name);
+    
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+    [ud setValue:lat forKey:@"Latitude"];
+    [ud setValue:lon forKey:@"Longitude"];
     // Create the new dictionary that will be inserted into the plist.
     NSMutableDictionary *nameDictionary = [NSMutableDictionary dictionary];
     [nameDictionary setValue:type forKey:@"Type"];
