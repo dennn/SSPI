@@ -10,7 +10,7 @@
 #import "Pin.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface PinViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MPMediaPlayback>
+@interface PinViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPin:(Pin *)pin;
 

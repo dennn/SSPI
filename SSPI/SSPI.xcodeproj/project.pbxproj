@@ -59,6 +59,10 @@
 		B739B037172940A70092CA4B /* Header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B035172940A70092CA4B /* Header@2x.png */; };
 		B739B0641729638A0092CA4B /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B0621729638A0092CA4B /* Button.png */; };
 		B739B0651729638A0092CA4B /* Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B0631729638A0092CA4B /* Button@2x.png */; };
+		B739B06917297C0F0092CA4B /* UOB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B06717297C0F0092CA4B /* UOB@2x.png */; };
+		B739B06A17297C0F0092CA4B /* UOB.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B06817297C0F0092CA4B /* UOB.png */; };
+		B739B06C17297C230092CA4B /* IBM.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B06B17297C230092CA4B /* IBM.png */; };
+		B739B06E17297C540092CA4B /* IBM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B739B06D17297C540092CA4B /* IBM@2x.png */; };
 		B7567430171E8A8B002A9FCA /* CreateNewLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B756742F171E8A8A002A9FCA /* CreateNewLocationViewController.m */; };
 		B7660C91166B7CC3005BC8E6 /* SettingsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */; };
 		B7660C92166B7CC3005BC8E6 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */; };
@@ -269,6 +273,10 @@
 		B739B035172940A70092CA4B /* Header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Header@2x.png"; sourceTree = "<group>"; };
 		B739B0621729638A0092CA4B /* Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button.png; sourceTree = "<group>"; };
 		B739B0631729638A0092CA4B /* Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button@2x.png"; sourceTree = "<group>"; };
+		B739B06717297C0F0092CA4B /* UOB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UOB@2x.png"; sourceTree = "<group>"; };
+		B739B06817297C0F0092CA4B /* UOB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UOB.png; sourceTree = "<group>"; };
+		B739B06B17297C230092CA4B /* IBM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IBM.png; sourceTree = "<group>"; };
+		B739B06D17297C540092CA4B /* IBM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IBM@2x.png"; sourceTree = "<group>"; };
 		B756742E171E8A8A002A9FCA /* CreateNewLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewLocationViewController.h; sourceTree = "<group>"; };
 		B756742F171E8A8A002A9FCA /* CreateNewLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewLocationViewController.m; sourceTree = "<group>"; };
 		B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -383,10 +391,6 @@
 		B7A01DAB16BDB6750065FFC8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		B7A01DAD16BDB67C0065FFC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B7A01DAF16BDB67F0065FFC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		B7A1C2C61673A5410089210D /* UOB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UOB.png; sourceTree = "<group>"; };
-		B7A1C2C71673A5410089210D /* UOB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UOB@2x.png"; sourceTree = "<group>"; };
-		B7A1C2C81673A5420089210D /* IBM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IBM.png; sourceTree = "<group>"; };
-		B7A1C2C91673A5420089210D /* IBM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IBM@2x.png"; sourceTree = "<group>"; };
 		B7A319CB16D91EF000F1DD4F /* NewUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUploadViewController.h; sourceTree = "<group>"; };
 		B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUploadViewController.m; sourceTree = "<group>"; };
 		B7BA833617284A890026CD78 /* Council.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Council.jpeg; sourceTree = "<group>"; };
@@ -699,6 +703,10 @@
 				B739B035172940A70092CA4B /* Header@2x.png */,
 				B7BA833617284A890026CD78 /* Council.jpeg */,
 				B7DCBB391704F580000CD39E /* search.png */,
+				B739B06717297C0F0092CA4B /* UOB@2x.png */,
+				B739B06B17297C230092CA4B /* IBM.png */,
+				B739B06D17297C540092CA4B /* IBM@2x.png */,
+				B739B06817297C0F0092CA4B /* UOB.png */,
 				B7DCBB3A1704F580000CD39E /* search@2x.png */,
 				B785E56C17011DA60022235F /* Location.png */,
 				B785E56D17011DA70022235F /* Location@2x.png */,
@@ -729,10 +737,6 @@
 				CC28A20916764C51002362DD /* light_off@2x.png */,
 				CC28A1FE1676450C002362DD /* micbg@2x.png */,
 				CC28A20016764583002362DD /* micbg.png */,
-				B7A1C2C61673A5410089210D /* UOB.png */,
-				B7A1C2C71673A5410089210D /* UOB@2x.png */,
-				B7A1C2C81673A5420089210D /* IBM.png */,
-				B7A1C2C91673A5420089210D /* IBM@2x.png */,
 				CC3B12F4167235670075627A /* icons */,
 				CC5D14F6166C12CE00065884 /* bg.png */,
 				B7660C9B166B8D06005BC8E6 /* upload.png */,
@@ -1077,6 +1081,10 @@
 				B739B037172940A70092CA4B /* Header@2x.png in Resources */,
 				B739B0641729638A0092CA4B /* Button.png in Resources */,
 				B739B0651729638A0092CA4B /* Button@2x.png in Resources */,
+				B739B06917297C0F0092CA4B /* UOB@2x.png in Resources */,
+				B739B06A17297C0F0092CA4B /* UOB.png in Resources */,
+				B739B06C17297C230092CA4B /* IBM.png in Resources */,
+				B739B06E17297C540092CA4B /* IBM@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
