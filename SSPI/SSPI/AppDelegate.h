@@ -10,7 +10,7 @@
 
 @class JASidePanelController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAppearanceContainer>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) JASidePanelController *viewController;

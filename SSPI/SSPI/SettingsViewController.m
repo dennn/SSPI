@@ -35,11 +35,8 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.backgroundView = nil;
+    self.view.backgroundColor = [UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:246.0f/255.0f alpha:1.0f];
 }
 
 - (void)viewDidAppear:(BOOL)animated
