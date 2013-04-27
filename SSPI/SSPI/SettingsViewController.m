@@ -42,6 +42,14 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.tableView reloadData];
+    NSLog(@"reload");
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -53,7 +61,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -71,13 +79,9 @@
             break;
             
         case 2:
-            return 1;
-            break;
-            
-        case 3:
             return 3;
             break;
-            
+
         default:
         {
             return 0;
@@ -96,13 +100,7 @@
             break;
         }
             
-        case 1:
-        {
-            return @"Saved servers";
-            break;
-        }
-            
-        case 3:
+        case 2:
         {
             return @"Branding";
             break;
@@ -129,19 +127,13 @@
     {
         case 0:
         {
-            cell.textLabel.text = @"";
+            NSString *server = [servermanager getActiveServerName];
+            cell.textLabel.text = server;
             cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             break;
         }
             
         case 1:
-        {
-            cell.textLabel.text = @"";
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-            break;
-        }
-            
-        case 2:
         {
             cell.textLabel.text = @"Add new server";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -149,7 +141,7 @@
         }
            
             
-        case 3:
+        case 2:
         {
             switch (indexPath.row)
             {
@@ -196,19 +188,19 @@
     {
         case 0:
         {
-            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil section:0];
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
             [self.navigationController pushViewController:serverViewController animated:YES];
             break;
         }
-            
+        /*
         case 1:
         {
             ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil section:1];
             [self.navigationController pushViewController:serverViewController animated:YES];
             break;
-        }
+        }*/
             
-        case 2:
+        case 1:
         {           
             AddServerViewController *addServerViewController = [[AddServerViewController alloc]
                                                                 initWithNibName: @"AddServerViewController" bundle:nil];
@@ -216,12 +208,12 @@
             break;
         }
             
-        case 3:
+        case 2:
         {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             [defaults setInteger:indexPath.row forKey:@"branding"];
             
-            [tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
             [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             

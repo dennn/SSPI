@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C1228661725B30E00A3C0F1 /* NewFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1228641725B30E00A3C0F1 /* NewFeedsViewController.m */; };
 		0C1228671725B30E00A3C0F1 /* NewFeedsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C1228651725B30E00A3C0F1 /* NewFeedsViewController.xib */; };
+		0C643A51172AC2AD0028459D /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C643A50172AC2AD0028459D /* SDWebImage.framework */; };
+		0C643A53172AC31B0028459D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C643A52172AC31B0028459D /* ImageIO.framework */; };
 		0C69927116C91C5F007E71DC /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C69927016C91C5F007E71DC /* KeychainItemWrapper.m */; };
 		0C6DE92D16C0579A00C6AA58 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */; };
 		0C8401B21724A9B100397CD7 /* feedSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8401B11724A9B100397CD7 /* feedSourceManager.m */; };
@@ -211,6 +213,8 @@
 		0C1228631725B30E00A3C0F1 /* NewFeedsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFeedsViewController.h; sourceTree = "<group>"; };
 		0C1228641725B30E00A3C0F1 /* NewFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFeedsViewController.m; sourceTree = "<group>"; };
 		0C1228651725B30E00A3C0F1 /* NewFeedsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewFeedsViewController.xib; sourceTree = "<group>"; };
+		0C643A50172AC2AD0028459D /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = SSPI/SDWebImage.framework; sourceTree = "<group>"; };
+		0C643A52172AC31B0028459D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0C69926F16C91C5F007E71DC /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		0C69927016C91C5F007E71DC /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C643A53172AC31B0028459D /* ImageIO.framework in Frameworks */,
 				B71268D71726BBE600F668E9 /* MediaPlayer.framework in Frameworks */,
 				B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */,
 				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
@@ -460,6 +465,7 @@
 				B7860927166A75A3005117A2 /* UIKit.framework in Frameworks */,
 				B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */,
 				B786092B166A75A3005117A2 /* CoreGraphics.framework in Frameworks */,
+				0C643A51172AC2AD0028459D /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +623,7 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+				0C643A52172AC31B0028459D /* ImageIO.framework */,
 				B786092C166A75A3005117A2 /* SSPI */,
 				B7860925166A75A3005117A2 /* Frameworks */,
 				B7860923166A75A3005117A2 /* Products */,
@@ -634,6 +641,7 @@
 		B7860925166A75A3005117A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C643A50172AC2AD0028459D /* SDWebImage.framework */,
 				B71268D61726BBE600F668E9 /* MediaPlayer.framework */,
 				B7A01DAF16BDB67F0065FFC8 /* AVFoundation.framework */,
 				B7A01DAD16BDB67C0065FFC8 /* CoreLocation.framework */,
@@ -1253,6 +1261,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSPI\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SSPI/SSPI-Prefix.pch";
 				INFOPLIST_FILE = "SSPI/SSPI-Info.plist";
@@ -1266,6 +1278,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSPI\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SSPI/SSPI-Prefix.pch";
 				INFOPLIST_FILE = "SSPI/SSPI-Info.plist";

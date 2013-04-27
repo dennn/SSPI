@@ -10,34 +10,36 @@
 #import "AFHTTPClient.h"
 
 @interface ServerManager : NSObject{
-    NSMutableArray * activeServerTable;
     NSMutableArray * inactiveServerTable;
     NSMutableArray * authInformation;
+    AFHTTPClient * activeServer;
 }
 
 
 //make a class instance
 + (ServerManager*) instance;
 //return tablesize
-- (int)tablesizeByName: (NSString *) tablename;
-//return table by name
-- (NSMutableArray*) selectTable: (NSString *) tablename;
+- (int)tablesize;
 
 //add AFHTTPClient object by given path, username and password, and table name
-- (void)addServerByPathAndAuth: (NSString *)Path User:(NSString *)username Pass:(NSString *)password Table:(NSString *)table;
+- (void)addServerByPathAndAuth: (NSString *)Path User:(NSString *)username Pass:(NSString *)password;
 //add AFHTTPClient by existing object
-- (void)addServerByHTTPClient: (AFHTTPClient *)Client name:(NSString *)tablename;
+- (void)addServerByHTTPClient: (AFHTTPClient *)Client;
 //delete server from a table by given index and tablename
-- (void)deleteServerByIndex: (int)index name:(NSString *)tablename;
+- (void)deleteServerByIndex: (int)index;
 
 //search server methods
-- (AFHTTPClient*) searchServerByIndex: (int *)index name:(NSString* )tablename;
-- (AFHTTPClient*) searchServerByServername: (NSString *)servername name:(NSString *)tablename;
+- (AFHTTPClient*) searchServerByIndex: (int *)index;
+- (AFHTTPClient*) searchServerByServername: (NSString *)servername;
 
 //get absolute URL string from a AFHttpclient object
-- (NSString* )getNameAtIndex: (int)index name:(NSString *)tablename;
+- (NSString* )getNameAtIndex: (int)index;
 
+- (NSString* )getActiveServerName;
 //save and load for user default
+- (AFHTTPClient* )getActiveServer;
+- (void)updateActiveServer:(AFHTTPClient* )newActives;
+
 - (void)save;
 - (void)load;
 @end

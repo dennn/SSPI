@@ -23,10 +23,18 @@
     self.textLabel.textColor = [UIColor blackColor];
     self.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
     self.detailTextLabel.numberOfLines = 0;
-    self.selectionStyle = UITableViewCellSelectionStyleGray;
+    //self.selectionStyle = UITableViewCellSelectionStyleGray;
     return self;
 }
 
+-(void) prepareForReuse
+{
+    [self.imageView setImage:nil];
+    self.textLabel.text = @"";
+    /*[self.contentView setBackgroundColor:[UIColor clearColor]];
+    [self.textLabel setBackgroundColor:[UIColor clearColor]];
+    [self.detailTextLabel setBackgroundColor:[UIColor clearColor]];*/
+}
 
 - (void)setFeeds:(feedSourceManager*) feed
 {
@@ -51,7 +59,6 @@
 
 + (CGFloat)heightForCellWithPost:(feedSourceManager *)feed {
     CGSize sizeToFit = [[NSString stringWithFormat:@"feedID:%i", (int)feed.feedid] sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(220.0f, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-    
     return fmaxf(70.0f, sizeToFit.height + 100.0f);
 }
 
@@ -60,12 +67,29 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.imageView.frame = CGRectMake(10.0f, 10.0f, 50.0f, 50.0f);
-    self.textLabel.frame = CGRectMake(70.0f, 10.0f, 240.0f, 20.0f);
+    if([_feed.type isEqualToString:@"photo"] || [_feed.type isEqualToString:@"image"])
+    {
+        //NSLog(@"%@",[[UIScreen mainScreen] applicationFrame] );
+        
+        self.textLabel.frame = CGRectMake(10.0f, 10.0f, 300.0f, 20.0f);
+        //self.imageView.frame = CGRectMake(250.0f, 10.0f, 60.0f, 80.0f);
+        CGRect imageFrame = CGRectOffset(self.imageView.frame, 0.0f, 25.0f);
+        CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 25.0f);
+        detailTextLabelFrame.size.height = [[self class] heightForCellWithPost:_feed] - 15.0f;
+        imageFrame.size.height=[[self class] heightForCellWithPost:_feed] - 55.0f;
+        self.detailTextLabel.frame = detailTextLabelFrame;
+        self.imageView.frame  = imageFrame;
+    }
+    else
+    {
+        //self.imageView.frame = CGRectMake(10.0f, 10.0f, 60.0f, 80.0f);
+        self.textLabel.frame = CGRectMake(10.0f, 10.0f, 310.0f, 20.0f);
+        
+        CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 25.0f);
+        detailTextLabelFrame.size.height = [[self class] heightForCellWithPost:_feed] - 45.0f;
+        self.detailTextLabel.frame = detailTextLabelFrame;
+    }
     
-    CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 25.0f);
-    detailTextLabelFrame.size.height = [[self class] heightForCellWithPost:_feed] - 45.0f;
-    self.detailTextLabel.frame = detailTextLabelFrame;
 }
 
 

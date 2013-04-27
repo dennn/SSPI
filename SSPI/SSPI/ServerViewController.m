@@ -15,14 +15,13 @@
 
 @implementation ServerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil section:(int)flag
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Server Setup", @"Server Setup");
         servermanager = [ServerManager instance];
-        sectionNumber = flag;
     }
     return self;
 }
@@ -59,16 +58,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (sectionNumber == 0)
-    {
-        //NSLog(@"%d", [servermanager tablesizeByName:@"active"]);
-        return [servermanager tablesizeByName:@"active"];
-    }
-    else
-    {
-        //NSLog(@"%d", [servermanager tablesizeByName:@"inactive"]);
-        return [servermanager tablesizeByName:@"inactive"];
-    }
+        return [servermanager tablesize];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,16 +68,8 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    if (sectionNumber == 0)
-    {
-        NSString *cellname = [servermanager getNameAtIndex: indexPath.row name:@"active"];
+        NSString *cellname = [servermanager getNameAtIndex: indexPath.row];
         cell.textLabel.text= cellname;
-    }
-    else
-    {
-        NSString *cellname = [servermanager getNameAtIndex: indexPath.row name:@"inactive"];
-        cell.textLabel.text= cellname;
-    }
     return cell;
 }
 
@@ -106,12 +88,8 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        if (sectionNumber ==0) {
-            [servermanager deleteServerByIndex:indexPath.row name:@"active"];
-        }
-        else
-            [servermanager deleteServerByIndex:indexPath.row name:@"inactive"];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [servermanager deleteServerByIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -140,37 +118,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    if (sectionNumber == 0) {
-         UIActionSheet* actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:@"Set Inactive"  otherButtonTitles:nil, nil];
-        actionsheet.tag = sectionNumber;
-        [actionsheet showInView:self.view];
-    }
-    else
-    {
         UIActionSheet* actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:@"Set Active"  otherButtonTitles:nil, nil];
-        actionsheet.tag = sectionNumber;
         [actionsheet showInView:self.view];
-    }
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0)
     {
-        if(actionSheet.tag == 0)
-        {
-            AFHTTPClient* temp = [servermanager searchServerByIndex:self.tableView.indexPathForSelectedRow.row name:@"active"];
-            [servermanager addServerByHTTPClient:temp name:@"inactive"];
-            [servermanager deleteServerByIndex: self.tableView.indexPathForSelectedRow.row name:@"active"];
-            [self viewDidAppear:YES];
-        }
-        else
-        {
-            AFHTTPClient* temp = [servermanager searchServerByIndex:self.tableView.indexPathForSelectedRow.row name:@"inactive"];
-            [servermanager addServerByHTTPClient:temp name:@"active"];
-            [servermanager deleteServerByIndex: self.tableView.indexPathForSelectedRow.row name:@"inactive"];
-            [self viewDidAppear:YES];
-        }
+        AFHTTPClient* temp = [servermanager getActiveServer];
+        [servermanager updateActiveServer:[servermanager searchServerByIndex:self.tableView.indexPathForSelectedRow.row]];
+        [servermanager deleteServerByIndex: self.tableView.indexPathForSelectedRow.row];
+        [servermanager addServerByHTTPClient:temp];
+        [self.tableView reloadData];
+        [self viewDidAppear:YES];
     }
 }
 @end

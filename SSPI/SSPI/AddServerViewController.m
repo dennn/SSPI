@@ -49,8 +49,8 @@
 
 - (IBAction)Addbutton:(id)sender {
     serverpath = self.txtpath.text;
-    username = self.txtname.text;
-    password = self.txtpass.text;
+   // username = self.txtname.text;
+   // password = self.txtpass.text;
     /*if([username length] <1 || [password length]<1)
     {
         NSLog(@"empty username password");
@@ -58,7 +58,7 @@
         password = @"test";
     }*/
     NSLog(@"%@",serverpath);
-    [servermanager addServerByPathAndAuth:serverpath User:username Pass:password Table:@"inactive"];
+    [servermanager addServerByPathAndAuth:serverpath User:@"test" Pass:@"test"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 @end

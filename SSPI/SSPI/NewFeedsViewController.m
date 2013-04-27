@@ -7,6 +7,7 @@
 //
 
 #import "NewFeedsViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface NewFeedsViewController ()
 
@@ -38,6 +39,8 @@
 
 - (void)viewDidLoad
 {
+    self.title = @"New Feeds";
+    //[self.view setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:1]];
     [super viewDidLoad];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -58,17 +61,27 @@
             }
         }
     }];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2)
+    {
+        [cell setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:.8]];
+    }
+    else
+    {
+        [cell setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:.5]];
+    }
+    NSLog(@"%@",[cell.textLabel.backgroundColor description]);
+    [self.tableView reloadInputViews];
+    NSLog(@"set color");
 }
 
 #pragma mark - Table view data source
@@ -91,33 +104,29 @@
     FeedsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[FeedsCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        [cell.contentView setBackgroundColor:[UIColor clearColor]];
+        [cell.textLabel setBackgroundColor:[UIColor clearColor]];
+        [cell.detailTextLabel setBackgroundColor:[UIColor clearColor]];
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
     cell.detailTextLabel.text = [NSString stringWithFormat: @"userID:%i", (int)cell._feed.userid];
-    cell.textLabel.text = [NSString stringWithFormat:@"feedID:%i, feed type:%@", (int)cell._feed.feedid, cell._feed.type];
-    engine = [[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+    cell.detailTextLabel.font = [UIFont fontWithName: @"Arial" size: 18.0 ];
+    cell.textLabel.text = [NSString stringWithFormat:@"User%i uploaded new:%@",(int)cell._feed.userid,cell._feed.type];
+    cell.textLabel.font = [UIFont fontWithName: @"ChalkboardSE-Bold" size: 14.0 ];
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
-        [engine cacheMemoryCost];
-        [engine imageAtURL:imageURL completionHandler:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
-                [cell.imageView setImage:fetchedImage];
-            
-            NSLog(@"set image compelte: %i", (int)cell._feed.feedid);
-             [cell setNeedsLayout];
-        } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-            NSLog(@"%@", [error localizedDescription]);
-        }];
-        NSLog(@"set image: %i", (int)cell._feed.feedid);
+        [cell.imageView setImageWithURL:imageURL
+                       placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
     }
-    else if([cell._feed.type isEqualToString:@"text"] || [cell._feed.type isEqualToString:@"0"]){
-        NSLog(@"%i,text",(int)cell._feed.userid);
-        [cell.imageView setImage:[UIImage imageNamed:@"User-icon.png"]];
+    else if([cell._feed.type isEqualToString:@"text"]){
+        [cell setNeedsLayout];
     }
     else
     {
-        [cell.imageView setImage:[UIImage imageNamed:@"User-icon.png"]];
+        [cell setNeedsLayout];
     }
+    
     return cell;
 }
 

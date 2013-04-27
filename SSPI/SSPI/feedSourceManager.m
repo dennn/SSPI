@@ -14,7 +14,7 @@
     NSURL* photoURL;
 }
 
-@synthesize userid,feedid,dataLocation,type;
+@synthesize userid,feedid,dataLocation,type,text,tags;
 
 -(id)initWithAttributes:(NSDictionary *)attributes{
     
@@ -23,6 +23,8 @@
     type = [attributes objectForKey:@"type"];
     userid = [[attributes valueForKeyPath:@"userid"] integerValue];
     feedid = [[attributes valueForKeyPath:@"id"] integerValue];
+    text = [attributes valueForKey:@"data"];
+    tags = [attributes valueForKey:@"tags"];
     //engine = [[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
 
     return self;
