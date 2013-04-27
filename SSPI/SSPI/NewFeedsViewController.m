@@ -110,10 +110,8 @@
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"userID:%i", (int)cell._feed.userid];
-    cell.detailTextLabel.font = [UIFont fontWithName: @"Arial" size: 18.0 ];
-    cell.textLabel.text = [NSString stringWithFormat:@"User%i uploaded new:%@",(int)cell._feed.userid,cell._feed.type];
-    cell.textLabel.font = [UIFont fontWithName: @"ChalkboardSE-Bold" size: 14.0 ];
+    cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", cell._feed.text];
+    cell.textLabel.text = [NSString stringWithFormat:@"User%i uploaded new %@",(int)cell._feed.userid,cell._feed.type];
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL

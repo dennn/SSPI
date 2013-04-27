@@ -21,7 +21,9 @@
     
     self.textLabel.adjustsFontSizeToFitWidth = YES;
     self.textLabel.textColor = [UIColor blackColor];
-    self.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
+    self.textLabel.font = [UIFont fontWithName: @"ChalkboardSE-Bold" size: 14.0 ];
+    self.detailTextLabel.font = [UIFont fontWithName: @"Arial" size: 18.0 ];
+    self.detailTextLabel.textColor = [UIColor blackColor];
     self.detailTextLabel.numberOfLines = 0;
     //self.selectionStyle = UITableViewCellSelectionStyleGray;
     return self;
