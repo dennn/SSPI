@@ -14,10 +14,14 @@
 {
     if(self =[super init])
     {
-        activeServerTable = [[NSMutableArray alloc] init];
         inactiveServerTable = [[NSMutableArray alloc] init];
         authInformation = [[NSMutableArray alloc] init];
         [self load];
+        if (activeServer ==nil)
+        {
+            NSLog(@"create");
+            activeServer = [[AFHTTPClient alloc] initWithBaseURL:[[NSURL alloc] initWithString:@"thenicestthing.co.uk"]];
+        }
     }
     return self;
 }
@@ -34,57 +38,52 @@
     return Instance;
 }
 
--(int) tablesizeByName: (NSString*) name
+-(int) tablesize
 {
-    if ([name isEqualToString:@"active"]) 
-        return [activeServerTable count];
-    else
-        return [inactiveServerTable count];
+    return [inactiveServerTable count];
 }
 
--(NSMutableArray*) selectTable:(NSString *)tablename
+-(NSString*) getNameAtIndex:(int)index
 {
-    if([tablename isEqualToString:@"active"])
-        return activeServerTable;
-    else
-        return inactiveServerTable;
-}
-
--(NSString*) getNameAtIndex:(int)index name:(NSString *)tablename
-{
-    NSURL *URLpath = [[[self selectTable:tablename] objectAtIndex:index] baseURL];
+    NSURL *URLpath = [[inactiveServerTable objectAtIndex:index] baseURL];
     return [URLpath absoluteString];
 }
 
--(void) addServerByPathAndAuth:(NSString *)Path User:(NSString *)username Pass:(NSString *)password Table:(NSString *)table
+-(NSString *)getActiveServerName
+{
+    NSURL *URLpath = [activeServer baseURL];
+    return [URLpath absoluteString];
+}
+
+-(void) addServerByPathAndAuth:(NSString *)Path User:(NSString *)username Pass:(NSString *)password
 {
     NSURL* URLString =[[NSURL alloc] initWithString:Path];
     AFHTTPClient *server = [[AFHTTPClient alloc] initWithBaseURL:URLString];
     [server setAuthorizationHeaderWithUsername:username password:password];
-    [[self selectTable:table] addObject:server];
+    [inactiveServerTable addObject:server];
     [self save];
 }
 
--(void) addServerByHTTPClient:(AFHTTPClient *)Client name:(NSString *)tablename
+-(void) addServerByHTTPClient:(AFHTTPClient *)Client
 {
-    [[self selectTable:tablename] addObject:Client];
+    [inactiveServerTable addObject:Client];
     [self save];
 }
 
--(void) deleteServerByIndex:(int)index name:(NSString *)tablename
+-(void) deleteServerByIndex:(int)index
 {
-    [[self selectTable:tablename] removeObjectAtIndex:index];
+    [inactiveServerTable removeObjectAtIndex:index];
     [self save];
 }
 
--(AFHTTPClient*) searchServerByIndex:(int *)index name:(NSString *)tablename
+-(AFHTTPClient*) searchServerByIndex:(int *)index 
 {
-    return [[self selectTable:tablename] objectAtIndex:index];
+    return [inactiveServerTable objectAtIndex:index];
 }
 
 -(AFHTTPClient*) searchServerByServername:(NSString *)servername name:(NSString *)tablename
 {
-    for (AFHTTPClient*server in [self selectTable:tablename]) {
+    for (AFHTTPClient*server in inactiveServerTable) {
         NSString* searchname = [[server baseURL] absoluteString];
         if ([searchname isEqualToString:servername]) {
             return server;
@@ -93,26 +92,21 @@
     return nil;
 }
 
+-(AFHTTPClient *)getActiveServer
+{
+    return activeServer;
+}
+
+-(void)updateActiveServer:(AFHTTPClient *)newActives
+{
+    activeServer = newActives;
+    [self save];
+}
+
 -(void) save
 {
     NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *activestrings = [[NSMutableArray alloc] init];
     NSMutableArray *inactivestrings = [[NSMutableArray alloc] init];
-    if ([activeServerTable count] == 0)
-    {
-        [userdefaults removeObjectForKey:@"active"];
-        [userdefaults synchronize];
-    }
-    else
-    {
-        for (int i =0; i<[activeServerTable count]; i++) {
-            AFHTTPClient* temp = [self searchServerByIndex:i name:@"active"];
-            NSString* stringURL = [[temp baseURL] absoluteString];
-            [activestrings addObject:stringURL];
-        }
-    }
-    [userdefaults setObject:activestrings forKey:@"active"];
-    [userdefaults synchronize];
     if ([inactiveServerTable count] == 0) {
         [userdefaults removeObjectForKey:@"inactive"];
         [userdefaults synchronize];
@@ -120,28 +114,33 @@
     else
     {
         for (int i =0; i<[inactiveServerTable count]; i++) {
-            AFHTTPClient* temp = [self searchServerByIndex:i name:@"inactive"];
+            AFHTTPClient* temp = [self searchServerByIndex:i];
             NSString* stringURL = [[temp baseURL] absoluteString];
             [inactivestrings addObject:stringURL];
         }
     }
     [userdefaults setObject:inactivestrings forKey:@"inactive"];
+    NSString* active = [[activeServer baseURL] absoluteString];
+    [userdefaults setObject:active forKey:@"active"];
+    NSLog(@"saved:%@",[userdefaults objectForKey:@"active"]);
     [userdefaults synchronize];
 }
 
 -(void)load
 {
+    NSLog(@"Load");
     NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *activestrings = [userdefaults objectForKey:@"active"];
     NSMutableArray *inactivestrings = [userdefaults objectForKey:@"inactive"];
-    for(int i=0; i< [activestrings count]; i++)
-    {
-        [self addServerByPathAndAuth:[activestrings objectAtIndex:i] User:@"test" Pass:@"test" Table:@"active"];
+    if ([userdefaults objectForKey:@"active"] != nil) {
+        NSURL* URLString =[[NSURL alloc] initWithString:[userdefaults objectForKey:@"active"]];
+        AFHTTPClient *server = [[AFHTTPClient alloc] initWithBaseURL:URLString];
+        activeServer = server;
     }
     for(int i=0; i< [inactivestrings count]; i++)
     {
-        [self addServerByPathAndAuth:[inactivestrings objectAtIndex:i] User:@"test" Pass:@"test" Table:@"inactive"];
+        [self addServerByPathAndAuth:[inactivestrings objectAtIndex:i] User:@"test" Pass:@"test"];
     }
+
 }
 
 @end

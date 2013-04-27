@@ -14,7 +14,7 @@
     NSURL* photoURL;
 }
 
-@synthesize userid,feedid,dataLocation,type;
+@synthesize userid,feedid,dataLocation,type,text,tags;
 
 -(id)initWithAttributes:(NSDictionary *)attributes{
     
@@ -23,60 +23,13 @@
     type = [attributes objectForKey:@"type"];
     userid = [[attributes valueForKeyPath:@"userid"] integerValue];
     feedid = [[attributes valueForKeyPath:@"id"] integerValue];
-    engine = [[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+    text = [attributes valueForKey:@"data"];
+    tags = [attributes valueForKey:@"tags"];
+    //engine = [[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
 
     return self;
 }
 
-/*
--(void) getFeedsFromServer{
-    NSLog(@"get feeds");
-    MKNetworkOperation *op = [engine operationWithPath:@"/coomko/index.php/uploads/getLatest"
-                                              params:nil
-                                          httpMethod:@"GET"
-                                                   ssl:NO];
-<<<<<<< HEAD
-    
-    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-        NSLog(@"request string: %@",[completedOperation responseString]);
-    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-    }];
-
-=======
-        [op onCompletion:^(MKNetworkOperation *operation){
-        //NSDictionary *dic = [NSDictionary alloc];
-        //NSArray *pins = [NSArray alloc];
-        NSDictionary *dic = [op responseJSON];
-        NSArray *pins = [dic objectForKey:@"pins"];
-            
-        NSDictionary *pin = [NSDictionary alloc];
-        NSString* location = [NSString alloc];
-        pin = [pins objectAtIndex:3];
-        location = [pin objectForKey:@"dataLocation"];
-        photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@",@"thenicestthing.co.uk/coomko/uploads/",location ]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:photoURL];
-        NSLog(@"request string: %@",[photoURL absoluteString]);
-        AFImageRequestOperation *iop2 = [AFImageRequestOperation imageRequestOperationWithRequest:request imageProcessingBlock:^UIImage *(UIImage *image) {
-            if(image == nil)
-            {
-                NSLog(@"nil image");
-            }else
-                NSLog(@"get image");
-            return image;
-            } success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                test = image;
-            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                NSLog(@"%@",[error localizedDescription]);
-            }];
-            [iop2 start];
-        }
-        onError:^(NSError *error){
-            NSLog(@"%@", [error localizedDescription]);
-        }];
->>>>>>> newfeedstable
-    [engine enqueueOperation:op];
- 
-}*/
 
 + (void)globalTimelinePostsWithBlock:(void (^)(MKNetworkOperation *completedOperation, NSArray *posts, NSError *error))block
 {

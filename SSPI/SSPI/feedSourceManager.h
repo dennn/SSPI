@@ -18,7 +18,9 @@
 @property (readonly) NSString * type;
 @property (readonly) NSInteger *userid;
 @property (readonly) NSInteger *feedid;
+@property (readonly) NSString *tags;
 @property (readonly) UIImage *image;
+@property (readonly) NSString *text;
 
 -(id) initWithAttributes: (NSDictionary*) attributes;
 - (void)printAttributes;

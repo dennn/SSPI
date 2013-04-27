@@ -11,10 +11,9 @@
 
 @interface ServerViewController : UITableViewController<UIActionSheetDelegate>
 {
-    int sectionNumber;
     ServerManager* servermanager;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil section:(int)flag;
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 @end

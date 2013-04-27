@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "JASidePanelController.h"
 #import "SideViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -22,6 +23,7 @@
     self.viewController.shouldDelegateAutorotateToVisiblePanel = NO;
     self.viewController.leftFixedWidth = 90.0;
 
+    LoginViewController *loginpage = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     MapViewController *mapController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapController];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Header.png"] forBarMetrics:UIBarMetricsDefault];
@@ -32,7 +34,6 @@
     
     self.viewController.centerPanel = navController;
     self.viewController.leftPanel = sideController;
-    
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     

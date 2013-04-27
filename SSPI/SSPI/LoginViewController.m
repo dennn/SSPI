@@ -9,6 +9,8 @@
 #import "SettingsViewController.h"
 #import "UploadViewController.h"
 #import "MapViewController.h"
+#import "SideViewController.h"
+#import "JASidePanelController.h"
 
 @interface LoginViewController (){
 
@@ -19,7 +21,7 @@
 @implementation LoginViewController
 
 
-@synthesize txtPassword,txtUsername,tabViewController,operation,uploadEngine,loginButton;
+@synthesize txtPassword,txtUsername,operation,uploadEngine,loginButton;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -151,12 +153,13 @@
             if (![[blockOperation responseString] isEqual: @"0"])
             {
                 NSLog(@"Login Success!");
-                
                 //for keychain part
+                NSDictionary *dic = [operation responseJSON];
+                NSString *st= [dic objectForKey:@"id"];
                 NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
                 [userdefaults setObject:username forKey:@"username"];
+                [userdefaults setObject:st forKey:@"id"];
                 [userdefaults synchronize];
-
                 
                 [self gotoMainView];
             }
@@ -201,8 +204,18 @@
 
 -(void)gotoMainView
 {
+    self.ViewController = [[JASidePanelController alloc] init];
+    self.ViewController.shouldDelegateAutorotateToVisiblePanel = NO;
+    self.ViewController.leftFixedWidth = 90.0;
+    
     UIViewController *mapViewController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    [self.navigationController pushViewController:mapViewController animated:YES];
+    SideViewController *sideController = [[SideViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    
+    self.ViewController.centerPanel = navController;
+    self.ViewController.leftPanel = sideController;
+
+    [self.navigationController pushViewController:self.ViewController animated:YES];
 }
 
 @end
