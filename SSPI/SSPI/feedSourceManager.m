@@ -8,6 +8,8 @@
 
 #import "feedSourceManager.h"
 #import "AFImageRequestOperation.h"
+#import <AVFoundation/AVFoundation.h>
+#import <CoreMedia/CoreMedia.h>
 
 @implementation feedSourceManager
 {

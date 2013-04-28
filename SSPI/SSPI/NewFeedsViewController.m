@@ -8,6 +8,7 @@
 
 #import "NewFeedsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface NewFeedsViewController ()
 
@@ -79,9 +80,7 @@
     {
         [cell setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:.5]];
     }
-    NSLog(@"%@",[cell.textLabel.backgroundColor description]);
     [self.tableView reloadInputViews];
-    NSLog(@"set color");
 }
 
 #pragma mark - Table view data source
@@ -110,15 +109,39 @@
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", cell._feed.text];
     cell.textLabel.text = [NSString stringWithFormat:@"User%i uploaded new %@",(int)cell._feed.userid,cell._feed.type];
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL
                        placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"description:%@", cell._feed.text];
     }
-    else if([cell._feed.type isEqualToString:@"text"]){
-        [cell setNeedsLayout];
+    else if([cell._feed.type isEqualToString:@"text"])
+    {
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", cell._feed.text];
+    }
+    else if([cell._feed.type isEqualToString:@"video"])
+    {
+        
+        NSURL *videoURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
+        [[SDImageCache sharedImageCache] queryDiskCacheForKey:[videoURL absoluteString] done:^(UIImage *image,SDImageCacheType cacheType)
+        {
+            if (image != nil) {
+                [cell.imageView setImage:image];
+                NSLog(@"in cache");
+                [cell setNeedsLayout];
+            }
+            else{
+                MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc]
+                                                        initWithContentURL:videoURL];
+                moviePlayer.shouldAutoplay = NO;
+                UIImage *thumbnail = [moviePlayer thumbnailImageAtTime:(NSTimeInterval)2.0                                                   timeOption:MPMovieTimeOptionNearestKeyFrame];
+                [[SDImageCache sharedImageCache] storeImage:thumbnail forKey:[videoURL absoluteString]];
+                [cell.imageView setImage:thumbnail];
+                NSLog(@"Downloaded");
+            }
+        }];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"description:%@", cell._feed.text];
     }
     else
     {
@@ -171,13 +194,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    feedSourceManager* f = [_feeds objectAtIndex:indexPath.row];
+    NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",f.dataLocation]];
+    if([f.type isEqualToString:@"photo"])
+    {
+        UIImageView *detailViewController = [[UIImageView alloc] init];
+        [detailViewController setBackgroundColor:[UIColor blackColor]];
+        [detailViewController setImageWithURL:imageURL
+                       placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
+        
+    }
 }
 
 #pragma mark - UITableViewDelegate

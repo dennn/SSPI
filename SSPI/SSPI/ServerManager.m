@@ -7,6 +7,8 @@
 //
 
 #import "ServerManager.h"
+#import "MKNetworkEngine.h"
+#import "UploadEngine.h"
 
 @implementation ServerManager
 
@@ -101,6 +103,27 @@
 {
     activeServer = newActives;
     [self save];
+}
+
+-(BOOL)checkValid:(AFHTTPClient *)Server
+{
+    NSLog(@"check valid");
+    //NSURL* url = [Server baseURL];
+    //NSString* string = [url absoluteString];
+    MKNetworkOperation *op;
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:@"google.co.uk" forKey:@"path"];
+    MKNetworkEngine *eng = [[MKNetworkEngine alloc]initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+    op = [eng operationWithPath:@"/coomko/index.php/server/validServer" params:dic httpMethod:@"POST" ssl:nil];
+    [op addCompletionHandler:^(MKNetworkOperation *blockOperation){
+        NSString* response = [blockOperation responseJSON];
+        NSLog(@"%@",response);
+    } errorHandler:^(MKNetworkOperation *errorOp, NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
+    [eng enqueueOperation:op];
+    NSLog(@"check valid2");
+    return YES;
 }
 
 -(void) save

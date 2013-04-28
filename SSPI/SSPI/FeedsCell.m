@@ -10,6 +10,8 @@
 
 @implementation FeedsCell
 
+static CGFloat cellHeight;
+
 @synthesize _feed;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -21,8 +23,8 @@
     
     self.textLabel.adjustsFontSizeToFitWidth = YES;
     self.textLabel.textColor = [UIColor blackColor];
-    self.textLabel.font = [UIFont fontWithName: @"ChalkboardSE-Bold" size: 14.0 ];
-    self.detailTextLabel.font = [UIFont fontWithName: @"Arial" size: 18.0 ];
+    self.textLabel.font = [UIFont fontWithName: @"ChalkboardSE-Regular" size: 14.0 ];
+    self.detailTextLabel.font = [UIFont fontWithName: @"ChalkboardSE-Bold" size: 16.0 ];
     self.detailTextLabel.textColor = [UIColor blackColor];
     self.detailTextLabel.numberOfLines = 0;
     //self.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -45,10 +47,8 @@
     if ([feed.type isEqualToString: @"image"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://%@%@",@"thenicestthing.co.uk/coomko/uploads/",feed.dataLocation]];
         [self.imageView setImageFromURL:imageURL placeHolderImage:nil];
-        NSLog(@"set image");
     }
-    
-    NSLog(@"call:%@,%@", self.textLabel.text,self.detailTextLabel.text);
+
     [self setNeedsLayout];
 }
 
@@ -60,8 +60,13 @@
 }
 
 + (CGFloat)heightForCellWithPost:(feedSourceManager *)feed {
-    CGSize sizeToFit = [[NSString stringWithFormat:@"feedID:%i", (int)feed.feedid] sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(220.0f, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-    return fmaxf(70.0f, sizeToFit.height + 100.0f);
+    if([feed.type isEqual: @"text"])
+        return 100.0f;
+    else if ([feed.type isEqualToString:@"audio"])
+        return 100.0f;
+    else
+        return 250.0f;
+    
 }
 
 #pragma mark - UIView
@@ -69,27 +74,29 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    CGRect f = [[UIScreen mainScreen] applicationFrame];
+    
     if([_feed.type isEqualToString:@"photo"] || [_feed.type isEqualToString:@"image"])
     {
-        //NSLog(@"%@",[[UIScreen mainScreen] applicationFrame] );
-        
         self.textLabel.frame = CGRectMake(10.0f, 10.0f, 300.0f, 20.0f);
-        //self.imageView.frame = CGRectMake(250.0f, 10.0f, 60.0f, 80.0f);
-        CGRect imageFrame = CGRectOffset(self.imageView.frame, 0.0f, 25.0f);
-        CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 25.0f);
-        detailTextLabelFrame.size.height = [[self class] heightForCellWithPost:_feed] - 15.0f;
-        imageFrame.size.height=[[self class] heightForCellWithPost:_feed] - 55.0f;
+        self.imageView.frame = CGRectMake(80.0f, 47.0f, 120.0f, 160.0f);
+        CGRect detailTextLabelFrame = CGRectMake(10.0f,208.0f, 300.0f, 25.0f);
         self.detailTextLabel.frame = detailTextLabelFrame;
-        self.imageView.frame  = imageFrame;
+    }
+    else if([_feed.type isEqualToString:@"video"])
+    {
+        self.textLabel.frame = CGRectMake(10.0f, 10.0f, 300.0f, 20.0f);
+        self.imageView.frame = CGRectMake(80.0f, 47.0f, 120.0f, 160.0f);
+        CGRect detailTextLabelFrame = CGRectMake(10.0f,208.0f, 300.0f, 25.0f);
+        self.detailTextLabel.frame = detailTextLabelFrame;
     }
     else
     {
-        //self.imageView.frame = CGRectMake(10.0f, 10.0f, 60.0f, 80.0f);
-        self.textLabel.frame = CGRectMake(10.0f, 10.0f, 310.0f, 20.0f);
+        self.textLabel.frame = CGRectMake(10.0f, 10.0f, f.size.width-10.0*2, 20.0f);
         
-        CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 25.0f);
-        detailTextLabelFrame.size.height = [[self class] heightForCellWithPost:_feed] - 45.0f;
-        self.detailTextLabel.frame = detailTextLabelFrame;
+        //CGRect detailTextLabelFrame = CGRectOffset(self.textLabel.frame, 0.0f, 25.0f);
+        //detailTextLabelFrame.size.height = [[self class] heightForCellWithPost:_feed] - 45.0f;
+        self.detailTextLabel.frame = CGRectMake(30.0f, 40.0f, f.size.width-10.0*2, 20.0f);
     }
     
 }

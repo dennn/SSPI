@@ -40,6 +40,8 @@
 - (AFHTTPClient* )getActiveServer;
 - (void)updateActiveServer:(AFHTTPClient* )newActives;
 
+- (BOOL)checkValid:(AFHTTPClient* )Server;
+
 - (void)save;
 - (void)load;
 @end

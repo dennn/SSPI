@@ -15,6 +15,7 @@
 		0C6DE92D16C0579A00C6AA58 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DE92C16C0579A00C6AA58 /* LoginViewController.xib */; };
 		0C8401B21724A9B100397CD7 /* feedSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8401B11724A9B100397CD7 /* feedSourceManager.m */; };
 		0C874A3A16CE7B2600DB6F7E /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C874A3916CE7B2600DB6F7E /* ServerManager.m */; };
+		0C908834172C71410040E9CC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C908833172C71410040E9CC /* CoreMedia.framework */; };
 		0CD7393A171DE2F90045B0CF /* AddServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73938171DE2F70045B0CF /* AddServerViewController.m */; };
 		0CD7393B171DE2F90045B0CF /* AddServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CD73939171DE2F80045B0CF /* AddServerViewController.xib */; };
 		0CD7393C171E0ECE0045B0CF /* AddServerViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73937171DE2F60045B0CF /* AddServerViewController.h */; };
@@ -234,6 +235,7 @@
 		0C8401B11724A9B100397CD7 /* feedSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = feedSourceManager.m; sourceTree = "<group>"; };
 		0C874A3816CE7B2600DB6F7E /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
 		0C874A3916CE7B2600DB6F7E /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
+		0C908833172C71410040E9CC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		0CD73937171DE2F60045B0CF /* AddServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddServerViewController.h; sourceTree = "<group>"; };
 		0CD73938171DE2F70045B0CF /* AddServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerViewController.m; sourceTree = "<group>"; };
 		0CD73939171DE2F80045B0CF /* AddServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddServerViewController.xib; sourceTree = "<group>"; };
@@ -471,8 +473,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C643A53172AC31B0028459D /* ImageIO.framework in Frameworks */,
 				B71268D71726BBE600F668E9 /* MediaPlayer.framework in Frameworks */,
+				0C908834172C71410040E9CC /* CoreMedia.framework in Frameworks */,
+				0C643A53172AC31B0028459D /* ImageIO.framework in Frameworks */,
 				B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */,
 				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
 				B7A01DAE16BDB67C0065FFC8 /* CoreLocation.framework in Frameworks */,
@@ -643,6 +646,7 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+				0C908833172C71410040E9CC /* CoreMedia.framework */,
 				B7FF8144172A87BB00CC50DC /* Icon@2x.png */,
 				B7FF8142172A87A900CC50DC /* Icon.png */,
 				0C643A52172AC31B0028459D /* ImageIO.framework */,

@@ -58,6 +58,8 @@
         password = @"test";
     }*/
     NSLog(@"%@",serverpath);
+    AFHTTPClient* test = [[AFHTTPClient alloc]initWithBaseURL:[[NSURL alloc]initWithString:@"test"]];
+    [servermanager checkValid:nil];
     [servermanager addServerByPathAndAuth:serverpath User:@"test" Pass:@"test"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

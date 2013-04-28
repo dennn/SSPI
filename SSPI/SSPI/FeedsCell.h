@@ -11,9 +11,11 @@
 
 @interface FeedsCell : UITableViewCell
 
+
 @property (nonatomic,strong) feedSourceManager* _feed;
 
 -(void)set_feed:(feedSourceManager *)_feed;
++ (CGFloat)cellHeight;
 + (CGFloat)heightForCellWithPost:(feedSourceManager *)feed;
 
 @end
