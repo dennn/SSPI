@@ -10,6 +10,11 @@
 #import "feedSourceManager.h"
 #import "FeedsCell.h"
 #import "MKNetworkEngine.h"
+#import "NewFeedsViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "DetailViewController.h"
+#import "VideoViewController.h"
 
 @interface NewFeedsViewController : UITableViewController
 {
@@ -17,4 +22,5 @@
     MKNetworkEngine* engine;
 }
 
+@property (nonatomic,strong) MPMoviePlayerController *videoplayer;
 @end

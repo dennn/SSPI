@@ -16,6 +16,10 @@
 		0C8401B21724A9B100397CD7 /* feedSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8401B11724A9B100397CD7 /* feedSourceManager.m */; };
 		0C874A3A16CE7B2600DB6F7E /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C874A3916CE7B2600DB6F7E /* ServerManager.m */; };
 		0C908834172C71410040E9CC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C908833172C71410040E9CC /* CoreMedia.framework */; };
+		0C99C885172D5D10005EB024 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C99C883172D5D10005EB024 /* DetailViewController.m */; };
+		0C99C886172D5D10005EB024 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C99C884172D5D10005EB024 /* DetailViewController.xib */; };
+		0C99C892172D66BC005EB024 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C99C890172D66BC005EB024 /* VideoViewController.m */; };
+		0C99C893172D66BC005EB024 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C99C891172D66BC005EB024 /* VideoViewController.xib */; };
 		0CD7393A171DE2F90045B0CF /* AddServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73938171DE2F70045B0CF /* AddServerViewController.m */; };
 		0CD7393B171DE2F90045B0CF /* AddServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CD73939171DE2F80045B0CF /* AddServerViewController.xib */; };
 		0CD7393C171E0ECE0045B0CF /* AddServerViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73937171DE2F60045B0CF /* AddServerViewController.h */; };
@@ -236,6 +240,12 @@
 		0C874A3816CE7B2600DB6F7E /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
 		0C874A3916CE7B2600DB6F7E /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
 		0C908833172C71410040E9CC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		0C99C882172D5D10005EB024 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		0C99C883172D5D10005EB024 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		0C99C884172D5D10005EB024 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		0C99C88F172D66BC005EB024 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		0C99C890172D66BC005EB024 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		0C99C891172D66BC005EB024 /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
 		0CD73937171DE2F60045B0CF /* AddServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddServerViewController.h; sourceTree = "<group>"; };
 		0CD73938171DE2F70045B0CF /* AddServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerViewController.m; sourceTree = "<group>"; };
 		0CD73939171DE2F80045B0CF /* AddServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddServerViewController.xib; sourceTree = "<group>"; };
@@ -802,6 +812,7 @@
 		B786095A166A787F005117A2 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				0C99C891172D66BC005EB024 /* VideoViewController.xib */,
 				0C1228651725B30E00A3C0F1 /* NewFeedsViewController.xib */,
 				0CD73939171DE2F80045B0CF /* AddServerViewController.xib */,
 				B7198AE216D1281500740CC2 /* PinViewController.xib */,
@@ -810,6 +821,7 @@
 				18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */,
 				B7660CF4166BADF8005BC8E6 /* ServerViewController.xib */,
 				B7660C90166B7CC3005BC8E6 /* SettingsViewController.xib */,
+				0C99C884172D5D10005EB024 /* DetailViewController.xib */,
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
 				B7860960166A7B31005117A2 /* UploadViewController.xib */,
 				CC3B13001675442E0075627A /* ModalTextInputView.xib */,
@@ -851,7 +863,11 @@
 				0C1228631725B30E00A3C0F1 /* NewFeedsViewController.h */,
 				0C1228641725B30E00A3C0F1 /* NewFeedsViewController.m */,
 				B7A319CB16D91EF000F1DD4F /* NewUploadViewController.h */,
+				0C99C88F172D66BC005EB024 /* VideoViewController.h */,
+				0C99C890172D66BC005EB024 /* VideoViewController.m */,
 				B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */,
+				0C99C882172D5D10005EB024 /* DetailViewController.h */,
+				0C99C883172D5D10005EB024 /* DetailViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1129,6 +1145,8 @@
 				B76E7759172AD23B00BC8100 /* Video@2x.png in Resources */,
 				B76E775C172AD29000BC8100 /* Write.png in Resources */,
 				B76E775D172AD29000BC8100 /* Write@2x.png in Resources */,
+				0C99C886172D5D10005EB024 /* DetailViewController.xib in Resources */,
+				0C99C893172D66BC005EB024 /* VideoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,6 +1223,8 @@
 				B728442B17268E28007D5F37 /* SORelativeDateTransformer.m in Sources */,
 				0CEFB7BC172591D8007E0453 /* FeedsCell.m in Sources */,
 				0C1228661725B30E00A3C0F1 /* NewFeedsViewController.m in Sources */,
+				0C99C885172D5D10005EB024 /* DetailViewController.m in Sources */,
+				0C99C892172D66BC005EB024 /* VideoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,8 @@
 #import "NewFeedsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "DetailViewController.h"
+#import "VideoViewController.h"
 
 @interface NewFeedsViewController ()
 
@@ -18,6 +20,8 @@
 @private
     NSArray* _feeds;
 }
+
+@synthesize videoplayer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -196,13 +200,23 @@
 {
     feedSourceManager* f = [_feeds objectAtIndex:indexPath.row];
     NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",f.dataLocation]];
-    if([f.type isEqualToString:@"photo"])
+    if([f.type isEqualToString:@"photo"] || [f.type isEqualToString:@"image"])
     {
-        UIImageView *detailViewController = [[UIImageView alloc] init];
-        [detailViewController setBackgroundColor:[UIColor blackColor]];
-        [detailViewController setImageWithURL:imageURL
+        DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+        UIImageView *detailView = [[UIImageView alloc] init];
+        [detailView setBackgroundColor:[UIColor blackColor]];
+        [detailView setImageWithURL:imageURL
                        placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
-        
+        detailViewController.view = detailView;
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
+    else if([f.type isEqualToString:@"video"])
+    {
+        VideoViewController *videoviewcontroller = [[VideoViewController alloc] initWithNibName:@"VideoViewController" bundle:nil];
+        self.videoplayer = [[MPMoviePlayerController alloc]initWithContentURL:imageURL];
+        [videoplayer prepareToPlay];
+        videoviewcontroller.view = videoplayer.view;
+        [self.navigationController pushViewController:videoviewcontroller animated:YES];
     }
 }
 
