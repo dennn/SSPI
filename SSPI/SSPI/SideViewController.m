@@ -74,7 +74,7 @@
     }
 
 	// Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:39.0f/255.0f green:39.0f/255.0f blue:39.0f/255.0f alpha:1.0f];
+    self.view.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:33.0f/255.0f blue:36.0f/255.0f alpha:1.0f];
     UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 90, 42, 42)];
     [mapButton setBackgroundImage:[UIImage imageNamed:@"Map.png"] forState:UIControlStateNormal];
     [mapButton addTarget:self action:@selector(loadMapPage:) forControlEvents:UIControlEventTouchUpInside];

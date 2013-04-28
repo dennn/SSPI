@@ -54,9 +54,10 @@
     _searchBarShown = FALSE;
     _changedMapRegion = FALSE;
     
-    search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 50)];
+    search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 44)];
     search.delegate = self;
-    search.showsCancelButton = FALSE;
+    search.tintColor = [UIColor blackColor];
+    search.showsCancelButton = TRUE;
 
     [self.view addSubview:search];
     
@@ -128,6 +129,7 @@
         search.frame = CGRectMake(0, -60, search.frame.size.width, search.frame.size.height);
         [UIView commitAnimations];
         _searchBarShown = FALSE;
+        [search resignFirstResponder];
     } else {
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.4];
@@ -135,6 +137,7 @@
         search.frame = CGRectMake(0, 0, search.frame.size.width, search.frame.size.height);
         [UIView commitAnimations];
         _searchBarShown = TRUE;
+        [search becomeFirstResponder];
     }
 }
 
@@ -150,19 +153,6 @@
     [searchBar resignFirstResponder];
     searchBar.text = @"";
     [self toggleSearch];
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [search setShowsCancelButton:YES animated:YES];
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-    if (![searchBar.text isEqualToString:@""])
-        [search setShowsCancelButton:NO animated:YES];
-    else
-        [search setShowsCancelButton:NO animated:NO];
 }
 
 - (void)searchForString:(NSString *)string
@@ -319,7 +309,7 @@
             }
         }
 
-        [_currentMapView setVisibleMapRect:rectToShow edgePadding:UIEdgeInsetsMake(10, 0, 0, 0) animated:YES];
+        [_currentMapView setVisibleMapRect:rectToShow edgePadding:UIEdgeInsetsMake(54, 0, 0, 0) animated:YES];
         _changedMapRegion = FALSE;
     }
 }
