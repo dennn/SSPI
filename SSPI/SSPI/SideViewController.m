@@ -75,20 +75,20 @@
 
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:39.0f/255.0f green:39.0f/255.0f blue:39.0f/255.0f alpha:1.0f];
-    UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 90, 42, 34)];
-    [mapButton setBackgroundImage:[UIImage imageNamed:@"Map-icon.png"] forState:UIControlStateNormal];
+    UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 90, 42, 42)];
+    [mapButton setBackgroundImage:[UIImage imageNamed:@"Map.png"] forState:UIControlStateNormal];
     [mapButton addTarget:self action:@selector(loadMapPage:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *userButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 160, 37, 33)];
-    [userButton setBackgroundImage:[UIImage imageNamed:@"User-icon.png"] forState:UIControlStateNormal];
+    UIButton *userButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 160, 42, 42)];
+    [userButton setBackgroundImage:[UIImage imageNamed:@"NewsFeed.png"] forState:UIControlStateNormal];
     [userButton addTarget:self action:@selector(loadNewFeedsPage:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *heartButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 230, 37, 34)];
-    [heartButton setBackgroundImage:[UIImage imageNamed:@"Heart-icon.png"] forState:UIControlStateNormal];
+    UIButton *heartButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 230, 42, 42)];
+    [heartButton setBackgroundImage:[UIImage imageNamed:@"Cloud-Upload.png"] forState:UIControlStateNormal];
     [heartButton addTarget:self action:@selector(sync:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(25, 380, 37, 34)];
-    [settingsButton setBackgroundImage:[UIImage imageNamed:@"Settings-icon.png"] forState:UIControlStateNormal];
+    UIButton *settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 380, 42, 42)];
+    [settingsButton setBackgroundImage:[UIImage imageNamed:@"Settings.png"] forState:UIControlStateNormal];
     [settingsButton addTarget:self action:@selector(loadSettingsPage:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:mapButton];
