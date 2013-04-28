@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+- (IBAction)changeServer:(id)sender;
 
 @property (nonatomic, strong) JASidePanelController *ViewController;
 

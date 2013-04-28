@@ -11,6 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "DetailViewController.h"
 #import "VideoViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface NewFeedsViewController ()
 
@@ -132,19 +133,24 @@
         {
             if (image != nil) {
                 [cell.imageView setImage:image];
-                NSLog(@"in cache");
                 [cell setNeedsLayout];
             }
             else{
-                MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc]
-                                                        initWithContentURL:videoURL];
-                moviePlayer.shouldAutoplay = NO;
-                UIImage *thumbnail = [moviePlayer thumbnailImageAtTime:(NSTimeInterval)2.0                                                   timeOption:MPMovieTimeOptionNearestKeyFrame];
+                AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:videoURL options:nil];
+                CMTime time = CMTimeMakeWithSeconds(0.0,600);
+                AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                generator.appliesPreferredTrackTransform=TRUE;
+                NSError *error = nil;
+                CMTime actualTime;
+                
+                CGImageRef image = [generator copyCGImageAtTime:time actualTime:&actualTime error:&error];
+                UIImage *thumbnail = [[UIImage alloc] initWithCGImage:image];
                 [[SDImageCache sharedImageCache] storeImage:thumbnail forKey:[videoURL absoluteString]];
                 [cell.imageView setImage:thumbnail];
-                NSLog(@"Downloaded");
+                [cell setNeedsLayout];
             }
         }];
+        
         cell.detailTextLabel.text = [NSString stringWithFormat: @"description:%@", cell._feed.text];
     }
     else

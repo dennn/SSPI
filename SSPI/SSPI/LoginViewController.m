@@ -11,6 +11,8 @@
 #import "MapViewController.h"
 #import "SideViewController.h"
 #import "JASidePanelController.h"
+#import "ServerManager.h"
+#import "ServerViewController.h"
 
 @interface LoginViewController (){
 
@@ -28,7 +30,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
     }
     return self;
 }
@@ -36,6 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     loginButton.alpha = 0.4;
     loginButton.enabled = NO;
     self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
@@ -43,6 +45,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    self.navigationController.navigationBarHidden = YES;
     [txtPassword setSecureTextEntry:YES];
     self.txtUsername.text = @"";
     self.txtPassword.text = @"";
@@ -173,7 +176,6 @@
                                                       otherButtonTitles:nil];
                 [alert show];
                 NSLog(@"Login Failed");
-                [self gotoMainView];
             }
                 } errorHandler:^(MKNetworkOperation *errorOp, NSError *error) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -212,10 +214,20 @@
     SideViewController *sideController = [[SideViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
     
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:41.0f/255.0f green:128.0f/255.0f blue:185.0f/255.0f alpha:1.0f]];
+    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:41.0f/255.0f green:128.0f/255.0f blue:185.0f/255.0f alpha:1.0f]];
+    
     self.ViewController.centerPanel = navController;
     self.ViewController.leftPanel = sideController;
 
     [self.navigationController pushViewController:self.ViewController animated:YES];
 }
 
+- (IBAction)changeServer:(id)sender {
+    ServerViewController* serverview = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil flag:0];
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController pushViewController:serverview animated:YES];
+}
 @end

@@ -44,7 +44,6 @@
     [super viewDidAppear:animated];
     
     [self.tableView reloadData];
-    NSLog(@"reload");
 }
 
 - (void)didReceiveMemoryWarning
@@ -185,7 +184,7 @@
     {
         case 0:
         {
-            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
+            ServerViewController *serverViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil flag:1];
             [self.navigationController pushViewController:serverViewController animated:YES];
             break;
         }

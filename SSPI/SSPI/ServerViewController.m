@@ -10,26 +10,30 @@
 #import "ServerManager.h"
 
 @interface ServerViewController ()
-
+{
+    int flag;
+}
 @end
 
 @implementation ServerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil flag:(int)pageflag
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = NSLocalizedString(@"Server Setup", @"Server Setup");
+        self.title = NSLocalizedString(@"Choose a server", @"Server Setup");
         servermanager = [ServerManager instance];
     }
+    flag = pageflag;
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    NSLog(@"%d", [servermanager tablesize]);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -58,7 +62,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-        return [servermanager tablesize];
+        return [servermanager tablesize]+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,8 +72,16 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-        NSString *cellname = [servermanager getNameAtIndex: indexPath.row];
+    if (indexPath.row == 0)
+    {
+        cell.textLabel.text = [servermanager getActiveServerName];
+         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else
+    {
+        NSString *cellname = [servermanager getNameAtIndex: indexPath.row-1];
         cell.textLabel.text= cellname;
+    }
     return cell;
 }
 
@@ -88,9 +100,21 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-            [servermanager deleteServerByIndex:indexPath.row];
+        if (indexPath.row == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Cannot remove the active server"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+
+        }
+        else
+        {
+            [servermanager deleteServerByIndex:indexPath.row-1];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        }
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -126,12 +150,30 @@
 {
     if (buttonIndex == 0)
     {
-        AFHTTPClient* temp = [servermanager getActiveServer];
-        [servermanager updateActiveServer:[servermanager searchServerByIndex:self.tableView.indexPathForSelectedRow.row]];
-        [servermanager deleteServerByIndex: self.tableView.indexPathForSelectedRow.row];
-        [servermanager addServerByHTTPClient:temp];
-        [self.tableView reloadData];
-        [self viewDidAppear:YES];
+        if (self.tableView.indexPathForSelectedRow.row != 0)
+        {
+            AFHTTPClient* temp = [servermanager getActiveServer];
+            [servermanager updateActiveServer:[servermanager searchServerByIndex:self.tableView.indexPathForSelectedRow.row-1]];
+            [servermanager deleteServerByIndex: self.tableView.indexPathForSelectedRow.row-1];
+            [servermanager addServerByHTTPClient:temp];
+            [self.tableView reloadData];
+            [self viewDidAppear:YES];
+            if (flag == 0) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else{
+            [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }
+        else
+        {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"server is already active"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
     }
 }
 @end
