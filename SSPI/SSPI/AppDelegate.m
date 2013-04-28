@@ -24,23 +24,8 @@
     self.viewController.leftFixedWidth = 90.0;
 
     LoginViewController *loginpage = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    MapViewController *mapController = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapController];
     UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginpage];
-    /*[[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:41.0f/255.0f green:128.0f/255.0f blue:185.0f/255.0f alpha:1.0f]];
-    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:41.0f/255.0f green:128.0f/255.0f blue:185.0f/255.0f alpha:1.0f]];
-    
-    //[[UISearchBar appearance] setTintColor:[UIColor blackColor]];
-   // [[UIView appearance] setBackgroundColor:[UIColor colorWithRed:52.0f/255.0f green:73.0f/255.0f blue:94.0f/255.0f alpha:1.0f]];
-     
-
-    SideViewController *sideController = [[SideViewController alloc] initWithNibName:nil bundle:nil];
-    
-    self.viewController.centerPanel = navController;
-    self.viewController.leftPanel = sideController;
-    self.window.rootViewController = self.viewController;*/
+   
     navController.navigationBarHidden = YES;
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible]; 

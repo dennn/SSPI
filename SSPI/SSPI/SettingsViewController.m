@@ -34,9 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.tableView.backgroundView = nil;
-    self.view.backgroundColor = [UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:246.0f/255.0f alpha:1.0f];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -656,10 +656,8 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
-				0C908833172C71410040E9CC /* CoreMedia.framework */,
 				B7FF8144172A87BB00CC50DC /* Icon@2x.png */,
 				B7FF8142172A87A900CC50DC /* Icon.png */,
-				0C643A52172AC31B0028459D /* ImageIO.framework */,
 				B786092C166A75A3005117A2 /* SSPI */,
 				B7860925166A75A3005117A2 /* Frameworks */,
 				B7860923166A75A3005117A2 /* Products */,
@@ -677,6 +675,8 @@
 		B7860925166A75A3005117A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C908833172C71410040E9CC /* CoreMedia.framework */,
+				0C643A52172AC31B0028459D /* ImageIO.framework */,
 				0C643A50172AC2AD0028459D /* SDWebImage.framework */,
 				B71268D61726BBE600F668E9 /* MediaPlayer.framework */,
 				B7A01DAF16BDB67F0065FFC8 /* AVFoundation.framework */,
