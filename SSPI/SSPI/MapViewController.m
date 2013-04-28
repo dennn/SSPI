@@ -20,11 +20,12 @@
 
 @interface MapViewController ()
 
-    @property (nonatomic, strong) IBOutlet MKMapView *currentMapView;
-    @property (nonatomic, strong) NSMutableDictionary *venues;
-    @property (nonatomic, assign) CLLocationDegrees zoomLevel;
-    @property (nonatomic, assign) BOOL searchBarShown;
-    @property (nonatomic, assign) BOOL changedMapRegion;
+@property (nonatomic, strong) IBOutlet MKMapView *currentMapView;
+@property (nonatomic, strong) NSMutableDictionary *venues;
+@property (nonatomic, assign) CLLocationDegrees zoomLevel;
+@property (nonatomic, assign) BOOL searchBarShown;
+@property (nonatomic, assign) BOOL changedMapRegion;
+@property (nonatomic, strong) UIButton *userHeadingButton;
 
 - (void)filterAnnotations:(NSMutableDictionary *)pinLocations;
 
@@ -117,6 +118,36 @@
         [_currentMapView setRegion:viewRegion animated:NO];
         [_currentMapView setCenterCoordinate:startCoordinate animated:YES];
     }
+    
+    /* 
+     Add the user tracking button
+     https://github.com/jcalonso/iOS6MapsUserHeadingButton/blob/master/iOS6MapsUserHeadingButton/ViewController.m
+     */
+    
+    //User Heading Button states images
+    UIImage *buttonImage = [UIImage imageNamed:@"greyButtonHighlight.png"];
+    UIImage *buttonImageHighlight = [UIImage imageNamed:@"greyButton.png"];
+    UIImage *buttonArrow = [UIImage imageNamed:@"LocationGrey.png"];
+    
+    //Configure the button
+    _userHeadingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_userHeadingButton addTarget:self action:@selector(startShowingUserHeading:) forControlEvents:UIControlEventTouchUpInside];
+    //Add state images
+    [_userHeadingButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [_userHeadingButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [_userHeadingButton setBackgroundImage:buttonImageHighlight forState:UIControlStateHighlighted];
+    [_userHeadingButton setImage:buttonArrow forState:UIControlStateNormal];
+    
+    //Position and Shadow
+    _userHeadingButton.frame = CGRectMake(8,379,39,30);
+    _userHeadingButton.layer.cornerRadius = 8.0f;
+    _userHeadingButton.layer.masksToBounds = NO;
+    _userHeadingButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    _userHeadingButton.layer.shadowOpacity = 0.8;
+    _userHeadingButton.layer.shadowRadius = 1;
+    _userHeadingButton.layer.shadowOffset = CGSizeMake(0, 1.0f);
+    
+    [_currentMapView addSubview:_userHeadingButton];
 }
 
 - (void)toggleSearch
@@ -372,6 +403,46 @@
             
         }
     }
+}
+
+#pragma mark User Heading
+- (IBAction) startShowingUserHeading:(id)sender{
+    
+    if(_currentMapView.userTrackingMode == 0){
+        [_currentMapView setUserTrackingMode: MKUserTrackingModeFollow animated: YES];
+        
+        //Turn on the position arrow
+        UIImage *buttonArrow = [UIImage imageNamed:@"LocationBlue.png"];
+        [_userHeadingButton setImage:buttonArrow forState:UIControlStateNormal];
+        
+    }
+    else if(_currentMapView.userTrackingMode == 1){
+        [_currentMapView setUserTrackingMode: MKUserTrackingModeFollowWithHeading animated: YES];
+        
+        //Change it to heading angle
+        UIImage *buttonArrow = [UIImage imageNamed:@"LocationHeadingBlue"];
+        [_userHeadingButton setImage:buttonArrow forState:UIControlStateNormal];
+    }
+    else if(_currentMapView.userTrackingMode == 2){
+        [_currentMapView setUserTrackingMode: MKUserTrackingModeNone animated: YES];
+        
+        //Put it back again
+        UIImage *buttonArrow = [UIImage imageNamed:@"LocationGrey.png"];
+        [_userHeadingButton setImage:buttonArrow forState:UIControlStateNormal];
+    }
+    
+    
+}
+
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated{
+    if(_currentMapView.userTrackingMode == 0){
+        [_currentMapView setUserTrackingMode: MKUserTrackingModeNone animated: YES];
+        
+        //Put it back again
+        UIImage *buttonArrow = [UIImage imageNamed:@"LocationGrey.png"];
+        [_userHeadingButton setImage:buttonArrow forState:UIControlStateNormal];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
