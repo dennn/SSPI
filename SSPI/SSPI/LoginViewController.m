@@ -54,6 +54,7 @@
     [passwordView addSubview:passwordImage];
     self.txtPassword.leftView = passwordView;
     self.txtPassword.leftViewMode = UITextFieldViewModeAlways;
+    [self.txtPassword setSecureTextEntry:TRUE];
     
     //Add create label
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signUpPressed:)];

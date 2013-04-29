@@ -32,6 +32,8 @@
 -(void)viewDidLoad{
 
     [super viewDidLoad];
+    self.title = @"Sync queue";
+
     UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(sync)];
     self.navigationItem.rightBarButtonItem = syncButton;
 }

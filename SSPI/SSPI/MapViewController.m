@@ -57,7 +57,7 @@
     
     search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 44)];
     search.delegate = self;
-    search.tintColor = [UIColor blackColor];
+    search.tintColor = [UIColor colorWithRed:30.0f/255.0f green:33.0f/255.0f blue:36.0f/255.0f alpha:1.0f];
     search.showsCancelButton = TRUE;
 
     [self.view addSubview:search];

@@ -25,6 +25,7 @@
 	// Do any additional setup after loading the view.
     
     self.title = @"Pins";
+    self.view.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:33.0f/255.0f blue:36.0f/255.0f alpha:1.0f];
     [self.collectionView registerClass:[VenueCell class] forCellWithReuseIdentifier:@"venueCell"];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
