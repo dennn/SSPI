@@ -159,6 +159,8 @@
 		B7CA31AA172DEB8800B28DCB /* LocationHeadingBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31A4172DEB8800B28DCB /* LocationHeadingBlue@2x.png */; };
 		B7CA31B5172DF78D00B28DCB /* AddServer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31B3172DF78C00B28DCB /* AddServer@2x.png */; };
 		B7CA31B6172DF78D00B28DCB /* AddServer.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31B4172DF78D00B28DCB /* AddServer.png */; };
+		B7CA31BA172DFAD800B28DCB /* Logout.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31B8172DFAD800B28DCB /* Logout.png */; };
+		B7CA31BB172DFAD800B28DCB /* Logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31B9172DFAD800B28DCB /* Logout@2x.png */; };
 		B7D5AFDE16C8215D0095ED5A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */; };
 		B7D5AFDF16C8215D0095ED5A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCE16C8215D0095ED5A /* AFHTTPRequestOperation.m */; };
 		B7D5AFE016C8215D0095ED5A /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFD016C8215D0095ED5A /* AFImageRequestOperation.m */; };
@@ -441,6 +443,8 @@
 		B7CA31A4172DEB8800B28DCB /* LocationHeadingBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationHeadingBlue@2x.png"; sourceTree = "<group>"; };
 		B7CA31B3172DF78C00B28DCB /* AddServer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddServer@2x.png"; sourceTree = "<group>"; };
 		B7CA31B4172DF78D00B28DCB /* AddServer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddServer.png; sourceTree = "<group>"; };
+		B7CA31B8172DFAD800B28DCB /* Logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout.png; sourceTree = "<group>"; };
+		B7CA31B9172DFAD800B28DCB /* Logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logout@2x.png"; sourceTree = "<group>"; };
 		B7D5AFCB16C8215D0095ED5A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		B7D5AFCD16C8215D0095ED5A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -680,7 +684,6 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
-
 				CCC3AF38172DC6F8005F55EF /* AudioToolbox.framework */,
 				CCC3AF36172DC6ED005F55EF /* CoreAudio.framework */,
 				0C908833172C71410040E9CC /* CoreMedia.framework */,
@@ -765,6 +768,8 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B7CA31B8172DFAD800B28DCB /* Logout.png */,
+				B7CA31B9172DFAD800B28DCB /* Logout@2x.png */,
 				B7CA31B3172DF78C00B28DCB /* AddServer@2x.png */,
 				B7CA31B4172DF78D00B28DCB /* AddServer.png */,
 				B7CA3196172DEB7A00B28DCB /* Map */,
@@ -1194,6 +1199,8 @@
 				B7CA31B5172DF78D00B28DCB /* AddServer@2x.png in Resources */,
 				B7CA31B6172DF78D00B28DCB /* AddServer.png in Resources */,
 				CCC3AF3E172DCFA1005F55EF /* CustomMediaCell.xib in Resources */,
+				B7CA31BA172DFAD800B28DCB /* Logout.png in Resources */,
+				B7CA31BB172DFAD800B28DCB /* Logout@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

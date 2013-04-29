@@ -87,6 +87,13 @@
     [heartButton setBackgroundImage:[UIImage imageNamed:@"Cloud-Upload.png"] forState:UIControlStateNormal];
     [heartButton addTarget:self action:@selector(sync:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton *signoutButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 300, 42, 42)];
+    [signoutButton setBackgroundImage:[UIImage imageNamed:@"Logout.png"] forState:UIControlStateNormal];
+    [signoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+#warning make active when fixed
+    signoutButton.enabled = FALSE;
+    
+    
     UIButton *settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 380, 42, 42)];
     [settingsButton setBackgroundImage:[UIImage imageNamed:@"Settings.png"] forState:UIControlStateNormal];
     [settingsButton addTarget:self action:@selector(loadSettingsPage:) forControlEvents:UIControlEventTouchUpInside];
@@ -94,6 +101,7 @@
     [self.view addSubview:mapButton];
     [self.view addSubview:userButton];
     [self.view addSubview:heartButton];
+    [self.view addSubview:signoutButton];
     [self.view addSubview:settingsButton];
     [self.view addSubview:_brandingImage];
 }
