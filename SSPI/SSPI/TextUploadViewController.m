@@ -16,7 +16,6 @@
     NSString *currentText;
 }
 
--(IBAction)dismiss:(id)sender;
 -(IBAction)save:(id)sender;
 
 @end

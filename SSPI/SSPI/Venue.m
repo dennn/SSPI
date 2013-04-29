@@ -31,8 +31,7 @@
 {
     if ([self venuesCount] == 1)
     {
-#warning Change to use actual venue name
-        return @"Venue Name";
+        return venueName;
     } else {
         return [NSString stringWithFormat:@"%i venues", [self venuesCount]];
     }

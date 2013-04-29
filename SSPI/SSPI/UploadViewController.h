@@ -59,7 +59,6 @@ UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, U
 - (IBAction)syncPressed:(id)sender;
 - (IBAction)playAudio:(id)sender;
 - (IBAction)dismissAudio:(id)sender;
-- (void)sendImage:(UIImage *)image;
 
 
 @end

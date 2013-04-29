@@ -12,9 +12,4 @@
 
 @synthesize typeLabel, dateLabel, locationLabel, coverImageView;
 
--(CustomMediaCell *)cellFromNibName{
-    
-}
-
-
 @end

@@ -16,7 +16,7 @@
 
 @implementation NewUploadViewController
 
-@synthesize pickedImage, datePicker, tableView, autocompleteTags, tagsField, pastTags, autocompleteTableView;
+@synthesize pickedImage, datePicker, table, autocompleteTags, tagsField, pastTags, autocompleteTableView;
 
 
 - (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname{
@@ -28,7 +28,7 @@
     if (self) {
         
         description = @"";
-        tags = @"";
+        tag = @"";
         expires = @"";
         lat = @"";
         lon = @"";
@@ -266,9 +266,9 @@
     // Print query string
     NSLog(@"Querying string: %@", [tagsField.text stringByReplacingCharactersInRange:range withString:string]);
     NSArray *tagArray = [[tagsField.text stringByReplacingCharactersInRange:range withString:string] componentsSeparatedByString:@" "];
-    NSString *tag = [tagArray objectAtIndex:tagArray.count-1];
+    NSString *localTag = [tagArray objectAtIndex:tagArray.count-1];
     //Put current text in url
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@coomko/index.php/uploads/autoComplete/%@", server, tag]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@coomko/index.php/uploads/autoComplete/%@", server, localTag]]];
     // Connect to server
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         // Connection successful - get data
@@ -285,7 +285,7 @@
             [pastTags addObject:[tagsDict objectForKey:@"name"]];
         }
         NSLog(@"%@", pastTags);
-        [self searchAutocompleteEntriesWithSubstring:[tag lowercaseString]];
+        [self searchAutocompleteEntriesWithSubstring:[localTag lowercaseString]];
         NSLog(@"updating autocomplete table");
     }];
     
@@ -349,11 +349,11 @@
         return;
     }
     [self store:tagsField.text];
-    tags = tagsField.text;
+    tag = tagsField.text;
     cancel = NO;
     NSLog(@"Delegate: %@", _delegate);
-    NSLog(@"description:%@ tags:%@ expires:%@ lat:%@ lon:%@", description, tags, [NSString stringWithFormat:@"%.0f", [date timeIntervalSince1970]], lat, lon);
-    [_delegate save:description tags:tags expires:expires];
+    NSLog(@"description:%@ tags:%@ expires:%@ lat:%@ lon:%@", description, tag, [NSString stringWithFormat:@"%.0f", [date timeIntervalSince1970]], lat, lon);
+    [_delegate save:description tags:tag expires:expires];
     NSLog(@"Save data");
     [self.navigationController popViewControllerAnimated: YES];
 }

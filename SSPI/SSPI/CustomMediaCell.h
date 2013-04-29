@@ -20,6 +20,4 @@
 @property (nonatomic, retain) UILabel *locationLabel;
 @property (nonatomic, retain) UIImageView *coverImageView;
 
--(CustomMediaCell *)cellFromNibName;
-
 @end

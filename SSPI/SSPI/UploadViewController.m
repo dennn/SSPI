@@ -18,10 +18,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle * )nibBundleOrNil parent:(UIViewController *)parent
 {
     parentController = parent;
-    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    //[self.navigationController pushViewController:getInfo animated:YES];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    //[self addChildViewController:getInfo];
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Upload", @"Upload");
@@ -161,49 +158,6 @@
     NSArray *tags = [self getTags];
 }
 
-/* Sends image to server, should be extended (MKNetworkKit used) */
-/*- (void)sendImage:(NSString *)filename lat:(NSString *)latitude lon:(NSString *)longitude tags:(NSString *)tags type:(NSString *)type{
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString* dataPath = [documentsPath stringByAppendingPathComponent:filename];
-    NSData *data = nil;
-    NSString *mimetype = @"";
-    NSString *extension = @"";
-    if([type isEqualToString:@"image"]){
-        UIImage *image = [UIImage imageWithContentsOfFile:dataPath];
-        data = UIImageJPEGRepresentation(image, 0.1);
-        mimetype = @"image/jpeg";
-        extension = @"jpeg";
-    }else{
-        data = [NSData dataWithContentsOfFile:dataPath];
-        mimetype = @"video/mp4";
-        extension = @"mp4";
-    }
-    NSLog(@"Image path:  %@", dataPath);
-    
-    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    
-    NSMutableDictionary *postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       latitude, @"lat",longitude, @"long",@"634", @"userID",tags,@"tags",
-                                       nil];
-    self.operation = [self.uploadEngine postDataToServer:postParams path:@"coomko/index.php/uploads/run"];
-    [self.operation addData:data forKey:@"userfl" mimeType:mimetype fileName:[NSString stringWithFormat:@"upload.%@", extension]];
-    
-    [self.operation addCompletionHandler:^(MKNetworkOperation* networkOperation) {
-        NSLog(@"%@", [networkOperation responseString]);
-        NSLog(@"Sent");
-    }
-                            errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
-                                NSLog(@"%@", error);
-                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                                message:[error localizedDescription]
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"Dismiss"
-                                                                      otherButtonTitles:nil];
-                                [alert show];
-                            }];
-    
-    [self.uploadEngine enqueueOperation:self.operation ];
-}*/
 
 - (void)loadAudio{
     
