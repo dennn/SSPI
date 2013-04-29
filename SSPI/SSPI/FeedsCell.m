@@ -10,9 +10,8 @@
 
 @implementation FeedsCell
 
-static CGFloat cellHeight;
 
-@synthesize _feed;
+@synthesize _feed,name;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -89,6 +88,18 @@ static CGFloat cellHeight;
         self.imageView.frame = CGRectMake(80.0f, 47.0f, 120.0f, 160.0f);
         CGRect detailTextLabelFrame = CGRectMake(10.0f,208.0f, 300.0f, 25.0f);
         self.detailTextLabel.frame = detailTextLabelFrame;
+    }
+    else if([_feed.type isEqualToString:@"audio"])
+    {
+        self.textLabel.frame = CGRectMake(10.0f, 10.0f, f.size.width-10.0*2, 20.0f);
+        self.imageView.frame = CGRectMake(30.0f, 40.0f, f.size.width-10.0*2, 20.0f);
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect] ;
+        [button addTarget:self
+                   action:@selector(aMethod:)
+         forControlEvents:UIControlEventTouchDown];
+        [button setTitle:@"Show View" forState:UIControlStateNormal];
+        [self.imageView addSubview:button];
+        
     }
     else
     {

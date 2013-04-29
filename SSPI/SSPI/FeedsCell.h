@@ -13,9 +13,9 @@
 
 
 @property (nonatomic,strong) feedSourceManager* _feed;
+@property (nonatomic,strong) NSString* name;
 
 -(void)set_feed:(feedSourceManager *)_feed;
-+ (CGFloat)cellHeight;
 + (CGFloat)heightForCellWithPost:(feedSourceManager *)feed;
 
 @end

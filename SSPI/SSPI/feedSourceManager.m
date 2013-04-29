@@ -12,15 +12,12 @@
 #import <CoreMedia/CoreMedia.h>
 
 @implementation feedSourceManager
-{
-    NSURL* photoURL;
-}
+
 
 @synthesize userid,feedid,dataLocation,type,text,tags;
 
 -(id)initWithAttributes:(NSDictionary *)attributes{
     
-    dataLocation = [NSString alloc];
     dataLocation = [attributes objectForKey:@"dataLocation"];
     type = [attributes objectForKey:@"type"];
     userid = [[attributes valueForKeyPath:@"userid"] integerValue];
@@ -42,13 +39,11 @@
                                                     ssl:NO];
             __block MKNetworkOperation*b_op = op;
             [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-            NSLog(@"completed");
             NSDictionary *dic = [b_op responseJSON];
             NSMutableArray *pins = [dic objectForKey:@"pins"];
             NSMutableArray *mutablePosts = [NSMutableArray arrayWithCapacity:[pins count]];
             for (NSDictionary *attributes in pins) {
                 feedSourceManager *feed = [[feedSourceManager alloc] initWithAttributes:attributes];
-                //[feed printAttributes];
                 [mutablePosts addObject:feed];
             }
                 
@@ -62,7 +57,6 @@
             }
         }];
         [[[MKNetworkEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil] enqueueOperation:op];
-    
 }
 
 

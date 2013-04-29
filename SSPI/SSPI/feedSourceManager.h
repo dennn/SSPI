@@ -21,6 +21,7 @@
 @property (readonly) NSString *tags;
 @property (readonly) UIImage *image;
 @property (readonly) NSString *text;
+@property (readonly) NSString *username;
 
 -(id) initWithAttributes: (NSDictionary*) attributes;
 - (void)printAttributes;

@@ -15,6 +15,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "DetailViewController.h"
 #import "VideoViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface NewFeedsViewController : UITableViewController
 {
@@ -22,5 +23,7 @@
     MKNetworkEngine* engine;
 }
 
+@property (nonatomic,strong) NSMutableArray *username;
 @property (nonatomic,strong) MPMoviePlayerController *videoplayer;
+@property (nonatomic,strong) AVAudioPlayer *audioplayer;
 @end

@@ -37,5 +37,6 @@
 - (IBAction)registerPressed:(id)sender;
 - (IBAction)signUpPressed:(id)sender;
 - (IBAction)loginPressed:(id)sender;
+- (IBAction)back:(id)sender;
 
 @end
