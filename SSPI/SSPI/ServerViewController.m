@@ -158,9 +158,9 @@
             [self.tableView reloadData];
             [self viewDidAppear:YES];
             if (flag == 0) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:NO];
             }else{
-            [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
+            [self.parentViewController.navigationController popToRootViewControllerAnimated:NO];
             }
         }
         else

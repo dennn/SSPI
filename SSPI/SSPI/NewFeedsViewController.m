@@ -11,18 +11,21 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "DetailViewController.h"
 #import "VideoViewController.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface NewFeedsViewController ()
 
 @end
 
-@implementation NewFeedsViewController{
+@implementation NewFeedsViewController
+{
 @private
     NSArray* _feeds;
 }
 
-@synthesize videoplayer;
+@synthesize username;
+
+
+@synthesize videoplayer,audioplayer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,7 +39,6 @@
 
 - (void)refreshControlRequest
 {
-    NSLog(@"refreshing...");
     [self.refreshControl beginRefreshing];
     // Update the table
     [self.tableView reloadData];
@@ -45,10 +47,10 @@
 
 - (void)viewDidLoad
 {
-    self.title = @"New Feeds";
-    //[self.view setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:1]];
+    self.title = @"News Feed";
     [super viewDidLoad];
     
+    username = [[NSMutableArray alloc] init];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshControlRequest) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl: refreshControl];
@@ -60,10 +62,26 @@
             if(completedOperation)
             {
                 _feeds = posts;
-                for (feedSourceManager *f in posts) {
-                    [f printAttributes];
+                for (int i =0; i<[_feeds count]; i++) {
+                    feedSourceManager *f = [_feeds objectAtIndex:i];
+                    NSString* userid = [NSString stringWithFormat:@"coomko/index.php/uploads/getUsername/%d", (int)f.userid];
+                    engine = [[MKNetworkEngine alloc]initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+                    MKNetworkOperation *op = [engine operationWithPath:userid
+                                                                params:nil
+                                                            httpMethod:@"POST"
+                                                                   ssl:NO];
+                    __block MKNetworkOperation*b_op = op;
+                    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+                        NSString *name = [[[b_op responseJSON] objectForKey:@"account"] objectForKey:@"user"];
+                        [username addObject:name];
+                        
+                        [self refreshControlRequest];
+                    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+                        NSLog(@"%@", [error localizedDescription]);
+                    }];
+                    [engine enqueueOperation:op];
+                    
                 }
-                [self refreshControlRequest];
             }
         }
     }];
@@ -114,12 +132,15 @@
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"User%i uploaded new %@",(int)cell._feed.userid,cell._feed.type];
+    if ([username count] > indexPath.row) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded new %@",[username objectAtIndex:indexPath.row],cell._feed.type];
+        [cell setNeedsLayout];
+    }
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL
                        placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
-        cell.detailTextLabel.text = [NSString stringWithFormat: @"description:%@", cell._feed.text];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @""];
     }
     else if([cell._feed.type isEqualToString:@"text"])
     {
@@ -151,54 +172,15 @@
             }
         }];
         
-        cell.detailTextLabel.text = [NSString stringWithFormat: @"description:%@", cell._feed.text];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @""];
     }
     else
     {
-        [cell setNeedsLayout];
+        cell.detailTextLabel.text = @"play";
     }
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -223,6 +205,23 @@
         [videoplayer prepareToPlay];
         videoviewcontroller.view = videoplayer.view;
         [self.navigationController pushViewController:videoviewcontroller animated:YES];
+    }
+    else if([f.type isEqualToString:@"audio"])
+    {
+        NSURL* resourcePath = imageURL;
+
+        NSData *_objectData = [NSData dataWithContentsOfURL:resourcePath];
+        NSError *error;
+
+        self.audioplayer = [[AVAudioPlayer alloc] initWithData:_objectData error:&error];
+        audioplayer.numberOfLoops = 0;
+        audioplayer.volume = 5.0f;
+        [audioplayer prepareToPlay];
+        
+        if (audioplayer == nil)
+            NSLog(@"%@", [error description]);
+        else
+            [audioplayer play];
     }
 }
 

@@ -205,6 +205,10 @@
     }
 }
 
+- (IBAction)back:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 -(NSString*) sha256:(NSString *)data
 {
     const char *s=[data cStringUsingEncoding:NSASCIIStringEncoding];
@@ -239,6 +243,6 @@
 - (IBAction)changeServer:(id)sender {
     ServerViewController* serverview = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil flag:0];
     self.navigationController.navigationBarHidden = NO;
-    [self.navigationController pushViewController:serverview animated:YES];
+    [self.navigationController pushViewController:serverview animated:NO];
 }
 @end
