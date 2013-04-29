@@ -34,6 +34,8 @@
         lon = @"";
         cancel = YES;
     }
+    server = @"http://thenicestthing.co.uk/";
+    
     return self;
 }
 
@@ -260,16 +262,19 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     autocompleteTableView.hidden = NO;
+    // Print query string
     NSLog(@"Querying string: %@", [tagsField.text stringByReplacingCharactersInRange:range withString:string]);
-    //NSString *tag = [[[tagsField.text stringByReplacingCharactersInRange:range withString:string] componentsSeparatedByString:@" "] objectAtIndex:[[tagsField.text stringByReplacingCharactersInRange:range withString:string] componentsSeparatedByString:@" "].count];
     NSArray *tagArray = [[tagsField.text stringByReplacingCharactersInRange:range withString:string] componentsSeparatedByString:@" "];
     NSString *tag = [tagArray objectAtIndex:tagArray.count-1];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/autoComplete/%@", tag]]];
-    //NSData *response = [NSURLConnection sendAsynchronousRequest:request returningResponse:nil error:nil ];
+    //Put current text in url
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@coomko/index.php/uploads/autoComplete/%@", server, tag]]];
+    // Connect to server
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        // Connection successful - get data
         NSData *responseData = data;
         NSError *jsonParsingError = nil;
         NSArray *publicTimeline = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&jsonParsingError];
+        // Create new tags array to display
         pastTags = [[NSMutableArray alloc] init];
         NSDictionary *tagsDict;
         for(int i=0; i<[publicTimeline count];i++)

@@ -188,6 +188,11 @@
 		CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3B13001675442E0075627A /* ModalTextInputView.xib */; };
 		CC3B130316756C330075627A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B130216756C320075627A /* QuartzCore.framework */; };
 		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
+		CCC3AF35172DBFF4005F55EF /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3AF34172DBFF4005F55EF /* SyncViewController.m */; };
+		CCC3AF37172DC6ED005F55EF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC3AF36172DC6ED005F55EF /* CoreAudio.framework */; };
+		CCC3AF39172DC6F8005F55EF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC3AF38172DC6F8005F55EF /* AudioToolbox.framework */; };
+		CCC3AF3C172DCF20005F55EF /* CustomMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3AF3B172DCF20005F55EF /* CustomMediaCell.m */; };
+		CCC3AF3E172DCFA1005F55EF /* CustomMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCC3AF3D172DCFA1005F55EF /* CustomMediaCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -480,6 +485,13 @@
 		CC3B13001675442E0075627A /* ModalTextInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalTextInputView.xib; sourceTree = "<group>"; };
 		CC3B130216756C320075627A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		CCC3AF33172DBFF4005F55EF /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncViewController.h; sourceTree = "<group>"; };
+		CCC3AF34172DBFF4005F55EF /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncViewController.m; sourceTree = "<group>"; };
+		CCC3AF36172DC6ED005F55EF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		CCC3AF38172DC6F8005F55EF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CCC3AF3A172DCF20005F55EF /* CustomMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMediaCell.h; sourceTree = "<group>"; };
+		CCC3AF3B172DCF20005F55EF /* CustomMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMediaCell.m; sourceTree = "<group>"; };
+		CCC3AF3D172DCFA1005F55EF /* CustomMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMediaCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -487,11 +499,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCC3AF39172DC6F8005F55EF /* AudioToolbox.framework in Frameworks */,
+				CCC3AF37172DC6ED005F55EF /* CoreAudio.framework in Frameworks */,
+				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
 				B71268D71726BBE600F668E9 /* MediaPlayer.framework in Frameworks */,
 				0C908834172C71410040E9CC /* CoreMedia.framework in Frameworks */,
 				0C643A53172AC31B0028459D /* ImageIO.framework in Frameworks */,
 				B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */,
-				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
 				B7A01DAE16BDB67C0065FFC8 /* CoreLocation.framework in Frameworks */,
 				B7A01DAC16BDB6750065FFC8 /* MobileCoreServices.framework in Frameworks */,
 				B703BD7116767E63000A46D8 /* SystemConfiguration.framework in Frameworks */,
@@ -618,6 +632,8 @@
 				B785E51217009F6C0022235F /* DescriptionCell.m */,
 				0CEFB7BA172591D8007E0453 /* FeedsCell.h */,
 				0CEFB7BB172591D8007E0453 /* FeedsCell.m */,
+				CCC3AF3A172DCF20005F55EF /* CustomMediaCell.h */,
+				CCC3AF3B172DCF20005F55EF /* CustomMediaCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -660,6 +676,10 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+
+				CCC3AF38172DC6F8005F55EF /* AudioToolbox.framework */,
+				CCC3AF36172DC6ED005F55EF /* CoreAudio.framework */,
+				0C908833172C71410040E9CC /* CoreMedia.framework */,
 				B7FF8144172A87BB00CC50DC /* Icon@2x.png */,
 				B7FF8142172A87A900CC50DC /* Icon.png */,
 				B786092C166A75A3005117A2 /* SSPI */,
@@ -818,6 +838,7 @@
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
 				B7860960166A7B31005117A2 /* UploadViewController.xib */,
 				CC3B13001675442E0075627A /* ModalTextInputView.xib */,
+				CCC3AF3D172DCFA1005F55EF /* CustomMediaCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -861,6 +882,8 @@
 				B7A319CC16D91EF000F1DD4F /* NewUploadViewController.m */,
 				0C99C882172D5D10005EB024 /* DetailViewController.h */,
 				0C99C883172D5D10005EB024 /* DetailViewController.m */,
+				CCC3AF33172DBFF4005F55EF /* SyncViewController.h */,
+				CCC3AF34172DBFF4005F55EF /* SyncViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1162,6 +1185,7 @@
 				B7CA31A8172DEB8800B28DCB /* LocationGrey@2x.png in Resources */,
 				B7CA31A9172DEB8800B28DCB /* LocationHeadingBlue.png in Resources */,
 				B7CA31AA172DEB8800B28DCB /* LocationHeadingBlue@2x.png in Resources */,
+				CCC3AF3E172DCFA1005F55EF /* CustomMediaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,6 +1264,8 @@
 				0C1228661725B30E00A3C0F1 /* NewFeedsViewController.m in Sources */,
 				0C99C885172D5D10005EB024 /* DetailViewController.m in Sources */,
 				0C99C892172D66BC005EB024 /* VideoViewController.m in Sources */,
+				CCC3AF35172DBFF4005F55EF /* SyncViewController.m in Sources */,
+				CCC3AF3C172DCF20005F55EF /* CustomMediaCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

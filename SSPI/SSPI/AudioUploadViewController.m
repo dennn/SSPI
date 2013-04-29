@@ -193,6 +193,9 @@
         return;
     }
     if (!recorder.recording){
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+        AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,sizeof (audioRouteOverride),&audioRouteOverride);
         NSLog(@"Playing audio2");
         NSError *error;
         NSLog(@"Audio path: %@", recorderFilePath);
@@ -241,6 +244,15 @@
 }
 
 - (IBAction)dismiss:(id)sender{
+    if(recorderFilePath == nil){
+        UIAlertView *error =
+            [[UIAlertView alloc] initWithTitle: @"Warning"
+                                       message: @"Nothing has been recorded"
+                                      delegate: nil
+                             cancelButtonTitle:@"OK"
+                             otherButtonTitles:nil];
+        [error show];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
     NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:@"audio" name:name];
     getInfo.delegate = self;

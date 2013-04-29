@@ -78,6 +78,16 @@
 }
 
 - (IBAction)save:(id)sender{
+    if([comments.text isEqualToString:@""]){
+        UIAlertView *error =
+            [[UIAlertView alloc] initWithTitle: @"Warning"
+                               message: @"No text has been entered, please enter some text to save"
+                              delegate: nil
+                     cancelButtonTitle:@"OK"
+                     otherButtonTitles:nil];
+        [error show];
+        return;
+    }
     [self setLatLon];
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *filename = [NSString stringWithFormat:@"%@%@%@",lat, lon, [NSString stringWithFormat:@"%d",arc4random() % 1000]];
