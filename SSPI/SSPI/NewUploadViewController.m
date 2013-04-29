@@ -43,7 +43,7 @@
     [super viewDidLoad];
     self.title = @"Choose location";
     
-    UIBarButtonItem *finishButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(finish)];
+    UIBarButtonItem *finishButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(finish)];
     self.navigationItem.rightBarButtonItem = finishButton;
     
     self.pastTags = [[NSMutableArray alloc] initWithObjects:@"www.google.com", nil];

@@ -14,9 +14,13 @@
 #import "FoursquareLocationPickerViewController.h"
 
 @class NewUploadViewController;
+
 @protocol NewUploadViewControllerDelegate
+
+@required
 - (void)save:(NSString *)description tags:(NSString *)tags expires:(NSString *)expires;
 - (void)cancel;
+
 @end
 
 @class FSVenue;

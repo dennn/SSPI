@@ -38,7 +38,6 @@
 {
     [super viewDidLoad];
     
-    loginButton.enabled = NO;
     self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     
     UIView *loginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 14)];

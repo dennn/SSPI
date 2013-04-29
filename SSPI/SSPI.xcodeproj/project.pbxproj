@@ -195,7 +195,6 @@
 		CC2F21DD170A26F3007400DA /* PhotoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2F21DC170A26F3007400DA /* PhotoUploadViewController.m */; };
 		CC2F21E0170B76A1007400DA /* AudioUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */; };
 		CC2F21E5170F2FB4007400DA /* TextUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */; };
-		CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3B13001675442E0075627A /* ModalTextInputView.xib */; };
 		CC3B130316756C330075627A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3B130216756C320075627A /* QuartzCore.framework */; };
 		CC5D14F7166C12CE00065884 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5D14F6166C12CE00065884 /* bg.png */; };
 		CCC3AF35172DBFF4005F55EF /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC3AF34172DBFF4005F55EF /* SyncViewController.m */; };
@@ -502,7 +501,6 @@
 		CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioUploadViewController.m; sourceTree = "<group>"; };
 		CC2F21E3170F2FA8007400DA /* TextUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextUploadViewController.h; sourceTree = "<group>"; };
 		CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextUploadViewController.m; sourceTree = "<group>"; };
-		CC3B13001675442E0075627A /* ModalTextInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalTextInputView.xib; sourceTree = "<group>"; };
 		CC3B130216756C320075627A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CC5D14F6166C12CE00065884 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		CCC3AF33172DBFF4005F55EF /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncViewController.h; sourceTree = "<group>"; };
@@ -857,7 +855,6 @@
 				0C99C884172D5D10005EB024 /* DetailViewController.xib */,
 				B786094C166A75A3005117A2 /* MapViewController.xib */,
 				B7860960166A7B31005117A2 /* UploadViewController.xib */,
-				CC3B13001675442E0075627A /* ModalTextInputView.xib */,
 				CCC3AF3D172DCFA1005F55EF /* CustomMediaCell.xib */,
 			);
 			name = XIBs;
@@ -1136,7 +1133,6 @@
 				B7660C9E166B8D06005BC8E6 /* upload@2x.png in Resources */,
 				B7660CF6166BADF8005BC8E6 /* ServerViewController.xib in Resources */,
 				CC5D14F7166C12CE00065884 /* bg.png in Resources */,
-				CC3B13011675442E0075627A /* ModalTextInputView.xib in Resources */,
 				CC28A1FF1676450C002362DD /* micbg@2x.png in Resources */,
 				CC28A20116764583002362DD /* micbg.png in Resources */,
 				CC28A20516764606002362DD /* ModalMicView.xib in Resources */,

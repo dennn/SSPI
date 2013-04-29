@@ -390,15 +390,14 @@
         {
             AudioUploadViewController *uvc = [[AudioUploadViewController alloc] initWithParent:self];
             [self presentViewController:uvc animated:YES completion:nil];
-            //NSLog(@"Calling video");
             break;
             
         }
         case 3:
         {
             TextUploadViewController *uvc = [[TextUploadViewController alloc] initWithParent:self];
-            [self presentViewController:uvc animated:YES completion:nil];
-            //NSLog(@"Calling video");
+            UINavigationController *newNavController = [[UINavigationController alloc] initWithRootViewController:uvc];
+            [self presentViewController:newNavController animated:YES completion:nil];
             break;
             
         }

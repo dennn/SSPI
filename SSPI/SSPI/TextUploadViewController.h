@@ -11,10 +11,9 @@
 #import "NewUploadViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface TextUploadViewController : UIViewController <NewUploadViewControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate>
+@interface TextUploadViewController : UIViewController <NewUploadViewControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     UIViewController *parent;
-    IBOutlet UITextView *comments;
     NSString *name;
     NSString *lat;
     NSString *lon;
@@ -23,7 +22,6 @@
 @property(nonatomic, retain) IBOutlet UITextView *comments;
 
 -(id)initWithParent:(UIViewController*)controllerParent;
--(IBAction)dismiss:(id)sender;
--(IBAction)save:(id)sender;
+
 
 @end
