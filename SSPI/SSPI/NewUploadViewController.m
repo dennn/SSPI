@@ -141,6 +141,7 @@
                 tagsField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 280, 40)];
                 tagsField.delegate = self;
                 tagsField.text = @"Add Tags";
+                tagsField.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
                 [tagsField setReturnKeyType:UIReturnKeyDone];
                 [tagsField addTarget:self
                               action:@selector(textFieldFinished:)

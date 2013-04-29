@@ -23,7 +23,7 @@
 @implementation LoginViewController
 
 
-@synthesize txtPassword,txtUsername,operation,uploadEngine,loginButton;
+@synthesize txtPassword,txtUsername,operation,uploadEngine,loginButton, createLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,15 +38,32 @@
 {
     [super viewDidLoad];
     
-    loginButton.alpha = 0.4;
     loginButton.enabled = NO;
     self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+    
+    UIView *loginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 14)];
+    UIImageView *loginImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LoginUser.png"]];
+    loginImage.frame = CGRectMake(0, 0, 10, 12);
+    [loginView addSubview:loginImage];
+    self.txtUsername.leftView = loginView;
+    self.txtUsername.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIView *passwordView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 14)];
+    UIImageView *passwordImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LoginPadlock.png"]];
+    passwordImage.frame = CGRectMake(0, 0, 10, 12);
+    [passwordView addSubview:passwordImage];
+    self.txtPassword.leftView = passwordView;
+    self.txtPassword.leftViewMode = UITextFieldViewModeAlways;
+    
+    //Add create label
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signUpPressed:)];
+    createLabel.userInteractionEnabled = YES;
+    [createLabel addGestureRecognizer: gesture];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = YES;
-    [txtPassword setSecureTextEntry:YES];
     self.txtUsername.text = @"";
     self.txtPassword.text = @"";
     username = @"";
@@ -63,10 +80,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField*)theTextField
 {
     if (self.txtPassword.text.length > 0) {
-        loginButton.alpha = 1.0;
         loginButton.enabled = YES;
     }else{
-        loginButton.alpha = 0.4;
         loginButton.enabled = NO;
     }
     if (theTextField == self.txtUsername || theTextField == self.txtPassword) {
