@@ -22,7 +22,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = NSLocalizedString(@"Choose a server", @"Server Setup");
+        self.title = @"Choose server";
         servermanager = [ServerManager instance];
     }
     flag = pageflag;
@@ -33,7 +33,6 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"%d", [servermanager tablesize]);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

@@ -31,6 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Add server";
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,15 +50,7 @@
 
 - (IBAction)Addbutton:(id)sender {
     serverpath = self.txtpath.text;
-   // username = self.txtname.text;
-   // password = self.txtpass.text;
-    /*if([username length] <1 || [password length]<1)
-    {
-        NSLog(@"empty username password");
-        username = @"test";
-        password = @"test";
-    }*/
-    NSLog(@"%@",serverpath);
+     NSLog(@"%@",serverpath);
     AFHTTPClient* test = [[AFHTTPClient alloc]initWithBaseURL:[[NSURL alloc]initWithString:@"test"]];
     [servermanager checkValid:nil];
     [servermanager addServerByPathAndAuth:serverpath User:@"test" Pass:@"test"];

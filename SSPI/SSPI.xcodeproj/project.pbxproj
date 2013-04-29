@@ -157,6 +157,8 @@
 		B7CA31A8172DEB8800B28DCB /* LocationGrey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31A2172DEB8800B28DCB /* LocationGrey@2x.png */; };
 		B7CA31A9172DEB8800B28DCB /* LocationHeadingBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31A3172DEB8800B28DCB /* LocationHeadingBlue.png */; };
 		B7CA31AA172DEB8800B28DCB /* LocationHeadingBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31A4172DEB8800B28DCB /* LocationHeadingBlue@2x.png */; };
+		B7CA31B5172DF78D00B28DCB /* AddServer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31B3172DF78C00B28DCB /* AddServer@2x.png */; };
+		B7CA31B6172DF78D00B28DCB /* AddServer.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31B4172DF78D00B28DCB /* AddServer.png */; };
 		B7D5AFDE16C8215D0095ED5A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */; };
 		B7D5AFDF16C8215D0095ED5A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCE16C8215D0095ED5A /* AFHTTPRequestOperation.m */; };
 		B7D5AFE016C8215D0095ED5A /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFD016C8215D0095ED5A /* AFImageRequestOperation.m */; };
@@ -432,6 +434,8 @@
 		B7CA31A2172DEB8800B28DCB /* LocationGrey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationGrey@2x.png"; sourceTree = "<group>"; };
 		B7CA31A3172DEB8800B28DCB /* LocationHeadingBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocationHeadingBlue.png; sourceTree = "<group>"; };
 		B7CA31A4172DEB8800B28DCB /* LocationHeadingBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationHeadingBlue@2x.png"; sourceTree = "<group>"; };
+		B7CA31B3172DF78C00B28DCB /* AddServer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddServer@2x.png"; sourceTree = "<group>"; };
+		B7CA31B4172DF78D00B28DCB /* AddServer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddServer.png; sourceTree = "<group>"; };
 		B7D5AFCB16C8215D0095ED5A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		B7D5AFCD16C8215D0095ED5A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -741,6 +745,8 @@
 		B7860958166A786C005117A2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B7CA31B3172DF78C00B28DCB /* AddServer@2x.png */,
+				B7CA31B4172DF78D00B28DCB /* AddServer.png */,
 				B7CA3196172DEB7A00B28DCB /* Map */,
 				B7CA318D172DE14600B28DCB /* Sidepanel */,
 				B76E775A172AD29000BC8100 /* Write.png */,
@@ -833,10 +839,12 @@
 				B728441E17257062007D5F37 /* VenueViewController.m */,
 				B7198AE016D1281500740CC2 /* PinViewController.h */,
 				B7198AE116D1281500740CC2 /* PinViewController.m */,
-				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
-				B7660CF3166BADF8005BC8E6 /* ServerViewController.m */,
 				B7660C8F166B7CC3005BC8E6 /* SettingsViewController.h */,
 				B7660CF7166BAECE005BC8E6 /* SettingsViewController.m */,
+				B7660CF2166BADF8005BC8E6 /* ServerViewController.h */,
+				B7660CF3166BADF8005BC8E6 /* ServerViewController.m */,
+				0CD73937171DE2F60045B0CF /* AddServerViewController.h */,
+				0CD73938171DE2F70045B0CF /* AddServerViewController.m */,
 				B786095E166A7B31005117A2 /* UploadViewController.h */,
 				B786095F166A7B31005117A2 /* UploadViewController.m */,
 				B785E5201700C87B0022235F /* SideViewController.h */,
@@ -851,8 +859,6 @@
 				CC2F21E4170F2FB2007400DA /* TextUploadViewController.m */,
 				CC2F21DE170B769F007400DA /* AudioUploadViewController.h */,
 				CC2F21DF170B76A0007400DA /* AudioUploadViewController.m */,
-				0CD73937171DE2F60045B0CF /* AddServerViewController.h */,
-				0CD73938171DE2F70045B0CF /* AddServerViewController.m */,
 				0C1228631725B30E00A3C0F1 /* NewFeedsViewController.h */,
 				0C1228641725B30E00A3C0F1 /* NewFeedsViewController.m */,
 				B7A319CB16D91EF000F1DD4F /* NewUploadViewController.h */,
@@ -1162,6 +1168,8 @@
 				B7CA31A8172DEB8800B28DCB /* LocationGrey@2x.png in Resources */,
 				B7CA31A9172DEB8800B28DCB /* LocationHeadingBlue.png in Resources */,
 				B7CA31AA172DEB8800B28DCB /* LocationHeadingBlue@2x.png in Resources */,
+				B7CA31B5172DF78D00B28DCB /* AddServer@2x.png in Resources */,
+				B7CA31B6172DF78D00B28DCB /* AddServer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
