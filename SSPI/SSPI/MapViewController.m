@@ -19,6 +19,9 @@
 #import "VenueViewController.h"
 
 @interface MapViewController ()
+{
+    BOOL searching;
+}
 
 @property (nonatomic, strong) IBOutlet MKMapView *currentMapView;
 @property (nonatomic, strong) NSMutableDictionary *venues;
@@ -54,6 +57,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleSearch)];
     _searchBarShown = FALSE;
     _changedMapRegion = FALSE;
+    searching = FALSE;
     
     search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 44)];
     search.delegate = self;
@@ -188,41 +192,45 @@
 
 - (void)searchForString:(NSString *)string
 {
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, string]];
-    NSLog(@"Final URL %@", url);
+    if (!searching) {
+        searching = TRUE;
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, string]];
+        NSLog(@"Final URL %@", url);
     
-    if (![string isEqualToString:@""]) {
-        _changedMapRegion = TRUE;
-        [_venues removeAllObjects];
-    }
-    
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        Venue *venue;
-        for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
-        {
-            NSString *key = [NSString stringWithFormat:@"%@", [dict valueForKey:@"location"]];
-            Pin *newPin = [[Pin alloc] initWithDictionary:dict];
-            if ([_venues objectForKey:key] == nil) {
-                venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
-                venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
-            } else {
-                venue = [_venues objectForKey:key];
-            }
-            
-            [venue addPin:newPin];
-            [_venues setObject:venue forKey:key];
-        }
-        [self filterAnnotations:_venues];
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (![string isEqualToString:@""]) {
-            UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find any pins with this tag" delegate:NULL cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-            [errorMessage show];
+        _changedMapRegion = TRUE;
         }
-    }];
     
-    [operation start];
-
+        [_venues removeAllObjects];
+    
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            Venue *venue;
+            for (NSDictionary *dict in [JSON valueForKeyPath:@"pins"])
+            {
+                NSString *key = [NSString stringWithFormat:@"%@", [dict valueForKey:@"location"]];
+                Pin *newPin = [[Pin alloc] initWithDictionary:dict];
+                if ([_venues objectForKey:key] == nil) {
+                    venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
+                    venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
+                } else {
+                    venue = [_venues objectForKey:key];
+                }
+            
+                [venue addPin:newPin];
+                [_venues setObject:venue forKey:key];
+                searching = FALSE;
+            }
+            [self filterAnnotations:_venues];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            if (![string isEqualToString:@""]) {
+                UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find any pins with this tag" delegate:NULL cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                [errorMessage show];
+            }
+        }];
+    
+        [operation start];
+    }
 }
 
 - (void)mapTapGesture:(UIGestureRecognizer *)gestureRecognizer
@@ -288,6 +296,15 @@
 
 - (void)filterAnnotations:(NSMutableDictionary *)pinLocations
 {
+    // Remove all pins from map view
+    id userLocation = [_currentMapView userLocation];
+    NSMutableArray *pins = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
+    if ( userLocation != nil ) {
+            [pins removeObject:userLocation]; // avoid removing user location off the map
+    }
+    [_currentMapView removeAnnotations:pins];
+    pins = nil;
+    
     // Cluster pins that are too close to each other
     float latDelta = _currentMapView.region.span.latitudeDelta/9.0;
     float longDelta = _currentMapView.region.span.longitudeDelta/11.0;

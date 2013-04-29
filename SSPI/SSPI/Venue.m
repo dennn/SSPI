@@ -31,7 +31,7 @@
 {
     if ([self venuesCount] == 1)
     {
-        return venueName;
+        return @"Venue";
     } else {
         return [NSString stringWithFormat:@"%i venues", [self venuesCount]];
     }
@@ -70,8 +70,13 @@
 
 - (void)addPin:(Pin *)pin
 {
-    if (![pins containsObject:pin])
-        [pins addObject:pin];
+    for (Pin *tempPin in pins) {
+        if (tempPin.pinID == pin.pinID) {
+            return;
+        }
+    }
+    
+    [pins addObject:pin];
 }
 
 @end

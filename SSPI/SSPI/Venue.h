@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-
-@class Pin;
+#import "Pin.h"
 
 @interface Venue : NSObject <MKAnnotation>
 
