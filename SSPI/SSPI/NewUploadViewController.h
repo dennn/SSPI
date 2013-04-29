@@ -39,7 +39,7 @@
     BOOL isEditingTags;
     UITableViewCell *locationCell;
     UITableViewCell *expiryCell;
-    
+    NSString *server;
     //id <NewUploadViewControllerDelegate> delegate;
 }
 

@@ -148,8 +148,12 @@
 
 - (void)sync:(id)sender
 {
-    UploadEngine * ue = [[UploadEngine alloc] init];
-    [ue syncPressed:self];
+    self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[SyncViewController alloc] initWithStyle:UITableViewStylePlain]];
+
+}
+
+-(void)syncd{
+    self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil]];
 }
 
 - (void)didReceiveMemoryWarning

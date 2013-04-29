@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "UploadEngine.h"
+#import "SyncViewController.h"
 
-@interface SideViewController : UIViewController
+@interface SideViewController : UIViewController<SyncViewControllerDelegate>
+
+-(void)loadMapPage:(id)sender;
 
 @end
