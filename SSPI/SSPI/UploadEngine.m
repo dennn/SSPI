@@ -43,6 +43,7 @@
         extension = @"mp4";
     }
     NSLog(@"Image/video path:  %@", dataPath);
+    NSLog(@"");
     
     //self = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     NSLog(@"type: %@", type);

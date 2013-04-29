@@ -252,6 +252,7 @@
                              cancelButtonTitle:@"OK"
                              otherButtonTitles:nil];
         [error show];
+        return;
     }
     [self dismissViewControllerAnimated:YES completion:nil];
     NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:@"audio" name:name];
