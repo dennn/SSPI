@@ -238,8 +238,9 @@
 }
 
 - (IBAction)changeServer:(id)sender {
-    ServerViewController* serverview = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil flag:0];
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationController pushViewController:serverview animated:NO];
+    ServerViewController* serverView = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil flag:0];
+    UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:serverView];
+    navControl.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:navControl animated:YES completion:nil];
 }
 @end

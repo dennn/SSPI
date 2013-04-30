@@ -23,6 +23,7 @@
     if (self) {
         // Custom initialization
         self.title = @"Choose server";
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(backToHome)];
         servermanager = [ServerManager instance];
     }
     flag = pageflag;
@@ -119,23 +120,6 @@
     }   
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -174,5 +158,10 @@
             [alert show];
         }
     }
+}
+
+- (void)backToHome
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

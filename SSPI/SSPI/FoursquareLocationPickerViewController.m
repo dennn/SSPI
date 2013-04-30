@@ -38,7 +38,6 @@
     self.title = @"Choose a location";
     _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
     _mapView.delegate = self;
-    _mapView.zoomEnabled = FALSE;
     _mapView.showsUserLocation = TRUE;
     _researching = NO;
     
