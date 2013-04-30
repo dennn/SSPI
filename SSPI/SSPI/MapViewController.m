@@ -300,7 +300,7 @@
     id userLocation = [_currentMapView userLocation];
     NSMutableArray *pins = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
     if ( userLocation != nil ) {
-            [pins removeObject:userLocation]; // avoid removing user location off the map
+        [pins removeObject:userLocation]; // avoid removing user location off the map
     }
     [_currentMapView removeAnnotations:pins];
     pins = nil;
@@ -371,7 +371,11 @@
         }
     }
     
-    [self searchForString:@""];
+    if (search.text == NULL)
+        [self searchForString:@""];
+    else
+        [self searchForString:search.text];
+
     if (_zoomLevel != mapView.region.span.longitudeDelta)
     {
         [self filterAnnotations:_venues];

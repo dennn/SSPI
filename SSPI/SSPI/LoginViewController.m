@@ -55,6 +55,13 @@
     self.txtPassword.leftViewMode = UITextFieldViewModeAlways;
     [self.txtPassword setSecureTextEntry:TRUE];
     
+    UIView *emailView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 14)];
+    UIImageView *emailImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Mail.png"]];
+    emailImage.frame = CGRectMake(0, 0, 10, 12);
+    [emailView addSubview:emailImage];
+    self.txtEmail.leftView = emailView;
+    self.txtEmail.leftViewMode = UITextFieldViewModeAlways;
+    
     //Add create label
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signUpPressed:)];
     createLabel.userInteractionEnabled = YES;
@@ -79,19 +86,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField*)theTextField
 {
-    if (self.txtPassword.text.length > 0) {
-        loginButton.enabled = YES;
-    }else{
-        loginButton.enabled = NO;
-    }
-    if (theTextField == self.txtUsername || theTextField == self.txtPassword) {
+    if (theTextField == self.txtUsername || theTextField == self.txtPassword || theTextField == self.txtEmail) {
         [theTextField resignFirstResponder];
     }
     return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
 }
 
 

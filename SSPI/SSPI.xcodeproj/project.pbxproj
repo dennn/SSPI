@@ -169,6 +169,10 @@
 		B7CA31D4172E697C00B28DCB /* LoginPadlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31D2172E697C00B28DCB /* LoginPadlock@2x.png */; };
 		B7CA31D5172E6C5C00B28DCB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FF8142172A87A900CC50DC /* Icon.png */; };
 		B7CA31D6172E6C6300B28DCB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7FF8144172A87BB00CC50DC /* Icon@2x.png */; };
+		B7CA31E317300DBD00B28DCB /* Login.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31E117300DBD00B28DCB /* Login.png */; };
+		B7CA31E417300DBD00B28DCB /* Login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31E217300DBD00B28DCB /* Login@2x.png */; };
+		B7CA31EB173013F300B28DCB /* Mail.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31E9173013F300B28DCB /* Mail.png */; };
+		B7CA31EC173013F300B28DCB /* Mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7CA31EA173013F300B28DCB /* Mail@2x.png */; };
 		B7D5AFDE16C8215D0095ED5A /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */; };
 		B7D5AFDF16C8215D0095ED5A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFCE16C8215D0095ED5A /* AFHTTPRequestOperation.m */; };
 		B7D5AFE016C8215D0095ED5A /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D5AFD016C8215D0095ED5A /* AFImageRequestOperation.m */; };
@@ -456,6 +460,10 @@
 		B7CA31CE172E66ED00B28DCB /* LoginUser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginUser@2x.png"; sourceTree = "<group>"; };
 		B7CA31D1172E697C00B28DCB /* LoginPadlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginPadlock.png; sourceTree = "<group>"; };
 		B7CA31D2172E697C00B28DCB /* LoginPadlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginPadlock@2x.png"; sourceTree = "<group>"; };
+		B7CA31E117300DBD00B28DCB /* Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login.png; sourceTree = "<group>"; };
+		B7CA31E217300DBD00B28DCB /* Login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login@2x.png"; sourceTree = "<group>"; };
+		B7CA31E9173013F300B28DCB /* Mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mail.png; sourceTree = "<group>"; };
+		B7CA31EA173013F300B28DCB /* Mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mail@2x.png"; sourceTree = "<group>"; };
 		B7D5AFCB16C8215D0095ED5A /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		B7D5AFCC16C8215D0095ED5A /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		B7D5AFCD16C8215D0095ED5A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -986,6 +994,10 @@
 		B7CA31C4172E662500B28DCB /* Login Page */ = {
 			isa = PBXGroup;
 			children = (
+				B7CA31E9173013F300B28DCB /* Mail.png */,
+				B7CA31EA173013F300B28DCB /* Mail@2x.png */,
+				B7CA31E117300DBD00B28DCB /* Login.png */,
+				B7CA31E217300DBD00B28DCB /* Login@2x.png */,
 				B7CA31CD172E66ED00B28DCB /* LoginUser.png */,
 				B7CA31CE172E66ED00B28DCB /* LoginUser@2x.png */,
 				B7CA31D1172E697C00B28DCB /* LoginPadlock.png */,
@@ -1229,6 +1241,10 @@
 				B7CA31D4172E697C00B28DCB /* LoginPadlock@2x.png in Resources */,
 				B7CA31D5172E6C5C00B28DCB /* Icon.png in Resources */,
 				B7CA31D6172E6C6300B28DCB /* Icon@2x.png in Resources */,
+				B7CA31E317300DBD00B28DCB /* Login.png in Resources */,
+				B7CA31E417300DBD00B28DCB /* Login@2x.png in Resources */,
+				B7CA31EB173013F300B28DCB /* Mail.png in Resources */,
+				B7CA31EC173013F300B28DCB /* Mail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
