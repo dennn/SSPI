@@ -63,6 +63,9 @@
         case text:
             [cell.pinImage setImage:[UIImage imageNamed:@"Write.png"]];
             break;
+            
+        default:
+            break;
     }
 
     

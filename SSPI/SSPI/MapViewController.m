@@ -154,7 +154,7 @@
     
     //Add toolbar with pin filter
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 376, 320, 44)];
-    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"Photo", @"Video", @"Audio", @"Text", @"None"]];
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"Photo", @"Video", @"Audio", @"Text", @"All"]];
     segmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
     [segmentControl addTarget:self action:@selector(valueChanged:) forControlEvents: UIControlEventValueChanged];
     UIBarButtonItem *segBarBtn = [[UIBarButtonItem alloc] initWithCustomView:segmentControl];
