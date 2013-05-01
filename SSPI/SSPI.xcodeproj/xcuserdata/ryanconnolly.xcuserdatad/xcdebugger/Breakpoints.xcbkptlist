@@ -154,8 +154,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "11"
          endingLineNumber = "11"
-         landmarkName = "@implementation TextUploadViewController"
-         landmarkType = "3">
+         landmarkName = "@interface TextUploadViewController()"
+         landmarkType = "2">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
