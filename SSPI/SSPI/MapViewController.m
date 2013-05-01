@@ -22,6 +22,7 @@
 {
     BOOL searching;
     BOOL searched;
+    BOOL shouldMoveToCurrentLocation;
     UploadType currentFilter;
 }
 
@@ -123,8 +124,7 @@
         [_currentMapView setCenterCoordinate:startCoordinate animated:YES];
         [_currentMapView setRegion:viewRegion animated:NO];
     } else {
-        MKCoordinateRegion viewRegion = [_currentMapView regionThatFits:MKCoordinateRegionMakeWithDistance(_currentMapView.userLocation.location.coordinate, 10000, 10000)];
-        [_currentMapView setRegion:viewRegion animated:NO];
+        shouldMoveToCurrentLocation = TRUE;
         [_currentMapView setCenterCoordinate:_currentMapView.userLocation.location.coordinate animated:YES];
     }
     
@@ -276,7 +276,6 @@
                     [venue addPin:newPin];
                     [_venues setObject:venue forKey:key];
                 }
-                searching = FALSE;
             }
             [self filterAnnotations:_venues];
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -332,6 +331,17 @@
     }
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    if (shouldMoveToCurrentLocation)
+    {
+        _currentMapView.centerCoordinate = userLocation.location.coordinate;
+        shouldMoveToCurrentLocation = FALSE;
+        MKCoordinateRegion viewRegion = [_currentMapView regionThatFits:MKCoordinateRegionMakeWithDistance(_currentMapView.centerCoordinate, 5000, 5000)];
+        [_currentMapView setRegion:viewRegion animated:YES];
+    }
+}
+
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     Venue *tempVenue = (Venue *)view.annotation;
@@ -353,14 +363,14 @@
 
 - (void)filterAnnotations:(NSMutableDictionary *)pinLocations
 {
+    if (searching)
+    {
     // Remove all pins from map view
     id userLocation = [_currentMapView userLocation];
-    NSMutableArray *pins = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
+    NSMutableArray *pinsToRemove = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
     if ( userLocation != nil ) {
-        [pins removeObject:userLocation]; // avoid removing user location off the map
+        [pinsToRemove removeObject:userLocation]; // avoid removing user location off the map
     }
-    [_currentMapView removeAnnotations:pins];
-    pins = nil;
     
     // Cluster pins that are too close to each other
     float latDelta = _currentMapView.region.span.latitudeDelta/9.0;
@@ -393,9 +403,29 @@
         }
         if (!found) {
             [pinsToShow addObject:venueToCheck];
-            [_currentMapView addAnnotation:venueToCheck];
         }
     }
+    
+    NSArray *tempPinsToShow = [pinsToShow copy];
+    NSArray *tempPinsToRemove = [pinsToRemove copy];
+    
+    for (Venue *venueOut in tempPinsToShow)
+    {
+        for (Venue *venueIn in tempPinsToRemove)
+        {
+            if ([venueIn.venueID isEqualToString:venueOut.venueID])
+            {
+                [pinsToRemove removeObject:venueIn];
+                [pinsToShow removeObject:venueOut];
+            }
+        }
+    }
+    
+    [_currentMapView removeAnnotations:pinsToRemove];
+    [_currentMapView addAnnotations:pinsToShow];
+
+    pinsToRemove = nil;
+    pinsToShow = nil;
 
 
     // Move the map to show the pins that have been found
@@ -417,6 +447,9 @@
         [_currentMapView setVisibleMapRect:rectToShow edgePadding:UIEdgeInsetsMake(54, 0, 0, 0) animated:YES];
         _changedMapRegion = FALSE;
     }
+    
+    searching = FALSE;
+    }
 }
 
 
@@ -427,13 +460,11 @@
             [_currentMapView deselectAnnotation:annotation animated:NO];
         }
     }
-    
-    if (search.text == NULL)
-        [self searchForString:@""];
 
     if (_zoomLevel != mapView.region.span.longitudeDelta)
     {
-        [self filterAnnotations:_venues];
+        if (search.text == NULL)
+            [self searchForString:@""];
         _zoomLevel = mapView.region.span.longitudeDelta - 10.0;
     }
 }

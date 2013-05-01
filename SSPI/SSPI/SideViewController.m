@@ -9,6 +9,7 @@
 #import "SideViewController.h"
 #import "JASidePanelController.h"
 #import "UIViewController+JASidePanel.h"
+#import <QuartzCore/QuartzCore.h>
 
 #import "AppDelegate.h"
 #import "SettingsViewController.h"
@@ -86,11 +87,10 @@
     UIButton *heartButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 230, 42, 42)];
     [heartButton setBackgroundImage:[UIImage imageNamed:@"Cloud-Upload.png"] forState:UIControlStateNormal];
     [heartButton addTarget:self action:@selector(sync:) forControlEvents:UIControlEventTouchUpInside];
-    
+        
     UIButton *signoutButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 300, 42, 42)];
     [signoutButton setBackgroundImage:[UIImage imageNamed:@"Logout.png"] forState:UIControlStateNormal];
     [signoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-    
     
     UIButton *settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 380, 42, 42)];
     [settingsButton setBackgroundImage:[UIImage imageNamed:@"Settings.png"] forState:UIControlStateNormal];
