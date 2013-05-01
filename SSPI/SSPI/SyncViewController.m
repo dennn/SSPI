@@ -18,7 +18,6 @@
             NSLog(@"Nothing yet synced");
             
         }
-        
         NSArray* a = [NSArray arrayWithContentsOfFile:plistPath];
         stuff = [a mutableCopy];
         for (NSDictionary *d in a){
@@ -34,7 +33,7 @@
     [super viewDidLoad];
     self.title = @"Sync queue";
 
-    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(sync)];
+    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithTitle:@"Sync" style:UIBarButtonItemStylePlain target:self action:@selector(sync)];
     self.navigationItem.rightBarButtonItem = syncButton;
 }
 
@@ -110,8 +109,34 @@
     return 80.0;
 }
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //[[stuff objectAtIndex:indexPath.row] objectForKey:@"Location"];
+    
+    NSLog(@"Clicked - index: %d", indexPath.row);
+    NewUploadViewController *getInfo = [[NewUploadViewController alloc] initWithStyle:UITableViewStyleGrouped type:[[stuff objectAtIndex:indexPath.row] objectForKey:@"Type"] name:[[stuff objectAtIndex:indexPath.row] objectForKey:@"Name"] overwrite:YES array:[stuff objectAtIndex:indexPath.row] ident:indexPath.row];
+    getInfo.delegate = self;
+    [self.navigationController pushViewController:getInfo animated:YES];
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+}
+
+-(void)cancel{
+    
+    
+}
+-(void)back{
+    NSString *DocPath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString* plistPath=[DocPath stringByAppendingPathComponent:@"sync.plist"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]){
+        NSLog(@"Nothing yet synced");
+        
+    }
+    NSArray* a = [NSArray arrayWithContentsOfFile:plistPath];
+    stuff = [a mutableCopy];
+    
+}
+
+-(void)save:(NSString *)description tags:(NSString *)tags expires:(NSString *)expires{
+    
 }
 
 - (void)sync

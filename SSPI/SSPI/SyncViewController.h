@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "UploadEngine.h"
 #import "CustomMediaCell.h"
+#import "NewUploadViewController.h"
 
 @class SyncViewController;
 @protocol SyncViewControllerDelegate
 - (void)syncd;
 @end
 
-@interface SyncViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>{
+@interface SyncViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NewUploadViewControllerDelegate>{
     IBOutlet CustomMediaCell *_cell;
     NSMutableArray *stuff;
 }

@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SSTextView.h"
 
-@interface DescriptionCell : UITableViewCell <UITextViewDelegate>
+@interface DescriptionCell : UITableViewCell <UITextViewDelegate>{
+    SSTextView *descriptionText;
+}
 
 @property (nonatomic, strong) SSTextView *descriptionText;
 @property (nonatomic, strong) UIImage *selectedImage;

@@ -12,6 +12,8 @@
 #import "TDDatePickerController.h"
 #import "UploadEngine.h"
 #import "FoursquareLocationPickerViewController.h"
+#import "DescriptionCell.h"
+
 
 @class NewUploadViewController;
 
@@ -20,7 +22,7 @@
 @required
 - (void)save:(NSString *)description tags:(NSString *)tags expires:(NSString *)expires;
 - (void)cancel;
-
+- (void)back;
 @end
 
 @class FSVenue;
@@ -44,6 +46,9 @@
     UITableViewCell *locationCell;
     UITableViewCell *expiryCell;
     NSString *server;
+    BOOL overwrite;
+    DescriptionCell *dcell;
+    int ident;
     //id <NewUploadViewControllerDelegate> delegate;
 }
 
@@ -64,7 +69,9 @@
 @property (strong, nonatomic) UploadEngine *uploadEngine;
 
 
+
 - (id)initWithStyle:(UITableViewStyle)style type:(NSString *)type name:(NSString *)name;
+- (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname overwrite:(BOOL)localoverwrite array:(NSDictionary*)dict ident:(int)identity;
 - (void)finish;
 
 @end
