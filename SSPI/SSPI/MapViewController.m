@@ -21,6 +21,7 @@
 @interface MapViewController ()
 {
     BOOL searching;
+    UploadType currentFilter;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *currentMapView;
@@ -50,9 +51,7 @@
 							
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
+    [super viewDidLoad];    
     //Add the search button to toggle the search bar
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleSearch)];
     _searchBarShown = FALSE;
@@ -104,7 +103,7 @@
     AwesomeMenu *menu = [[AwesomeMenu alloc] initWithFrame:self.view.frame menus:menuArray];
     menu.menuWholeAngle = M_PI/180 * 90;
     menu.rotateAngle = M_PI/180 * -90;
-    menu.startPoint = CGPointMake(290, 380);
+    menu.startPoint = CGPointMake(290, 347);
     menu.delegate = self;
     
     [self.view addSubview:menu];
@@ -143,7 +142,7 @@
     [_userHeadingButton setImage:buttonArrow forState:UIControlStateNormal];
     
     //Position and Shadow
-    _userHeadingButton.frame = CGRectMake(8,379,39,30);
+    _userHeadingButton.frame = CGRectMake(8,376,39,30);
     _userHeadingButton.layer.cornerRadius = 8.0f;
     _userHeadingButton.layer.masksToBounds = NO;
     _userHeadingButton.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -152,6 +151,54 @@
     _userHeadingButton.layer.shadowOffset = CGSizeMake(0, 1.0f);
     
     [_currentMapView addSubview:_userHeadingButton];
+    
+    //Add toolbar with pin filter
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 376, 320, 44)];
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"Photo", @"Video", @"Audio", @"Text", @"None"]];
+    segmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    [segmentControl addTarget:self action:@selector(valueChanged:) forControlEvents: UIControlEventValueChanged];
+    UIBarButtonItem *segBarBtn = [[UIBarButtonItem alloc] initWithCustomView:segmentControl];
+    UIBarButtonItem *space =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolbar setItems:@[space, segBarBtn, space] animated:YES];
+    segmentControl.selectedSegmentIndex = 4;
+    currentFilter = none;
+
+    [self.view addSubview:toolbar];
+}
+
+- (void)valueChanged:(id)sender
+{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+
+    switch (selectedSegment)
+    {
+        case 0:
+            currentFilter = image;
+            break;
+            
+        case 1:
+            currentFilter = video;
+            break;
+            
+        case 2:
+            currentFilter = audio;
+            break;
+            
+        case 3:
+            currentFilter = text;
+            break;
+            
+        case 4:
+            currentFilter = none;
+            break;
+            
+        default:
+            currentFilter = none;
+            break;
+    }
+    
+    [self searchForString:@""];
 }
 
 - (void)toggleSearch
@@ -210,16 +257,18 @@
             {
                 NSString *key = [NSString stringWithFormat:@"%@", [dict valueForKey:@"location"]];
                 Pin *newPin = [[Pin alloc] initWithDictionary:dict];
-                if ([_venues objectForKey:key] == nil) {
-                    venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
-                    venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
-                    venue.venueName = [dict valueForKey:@"locationName"];
-                } else {
-                    venue = [_venues objectForKey:key];
-                }
+                if (currentFilter == newPin.uploadType || currentFilter == none) {
+                    if ([_venues objectForKey:key] == nil) {
+                        venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
+                        venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
+                        venue.venueName = [dict valueForKey:@"locationName"];
+                    } else {
+                        venue = [_venues objectForKey:key];
+                    }
             
-                [venue addPin:newPin];
-                [_venues setObject:venue forKey:key];
+                    [venue addPin:newPin];
+                    [_venues setObject:venue forKey:key];
+                }
                 searching = FALSE;
             }
             [self filterAnnotations:_venues];

@@ -32,7 +32,7 @@
     if ([self venuesCount] == 1)
     {
         if (![venueName isEqualToString:@""])
-            return venueName;
+            return [venueName capitalizedString];
         else
             return @"Venue";
     } else {

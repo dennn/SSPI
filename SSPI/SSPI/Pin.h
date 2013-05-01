@@ -15,7 +15,8 @@ typedef enum {
     image,
     video,
     audio,
-    text
+    text,
+    none
 } UploadType;
 
 @interface Pin : NSObject
