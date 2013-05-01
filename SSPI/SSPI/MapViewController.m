@@ -345,19 +345,26 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     Venue *tempVenue = (Venue *)view.annotation;
-    if ([tempVenue venuesCount] == 1) {
-        
-        /* We're looking at one venue, now check how many pins there are at this venues
-           If there is one pin then load the pin viewer straight away. If there are multiple pins
-           load the venue viewer first */
-        if ([tempVenue pinsCount] == 1) {
-            PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andPin:[tempVenue.pins objectAtIndex:0]];
-            [self.navigationController pushViewController:pinController animated:YES];
-        } else {
-            VenueViewController *venueController = [[VenueViewController alloc] initWithCollectionViewLayout:[[VenueLayout alloc] init]];
-            venueController.pins = tempVenue.pins;
-            [self.navigationController pushViewController:venueController animated:YES];
+    
+    NSMutableArray *pins = [NSMutableArray new];
+    if ([tempVenue venuesCount] > 1) {
+        for (Venue *ven in tempVenue.venues) {
+            [pins addObjectsFromArray:ven.pins];
         }
+    } else {
+        pins = tempVenue.pins;
+    }
+        
+    /* We're looking at the venues, now check how many pins there are at this venues
+       If there is one pin then load the pin viewer straight away. If there are multiple pins
+       load the venue viewer first */
+    if ([pins count] == 1) {
+        PinViewController *pinController = [[PinViewController alloc] initWithNibName:@"PinViewController" bundle:nil andPin:[pins objectAtIndex:0]];
+        [self.navigationController pushViewController:pinController animated:YES];
+    } else {
+        VenueViewController *venueController = [[VenueViewController alloc] initWithCollectionViewLayout:[[VenueLayout alloc] init]];
+        venueController.pins = pins;
+        [self.navigationController pushViewController:venueController animated:YES];
     }
 }
 
