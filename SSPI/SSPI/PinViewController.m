@@ -111,8 +111,11 @@
     }];
     
     [operation start];
-    
-  
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_moviePlayer stop];
 }
 
 - (void)getUsername:(int)userID
