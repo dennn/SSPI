@@ -21,6 +21,7 @@
 @interface MapViewController ()
 {
     BOOL searching;
+    BOOL searched;
     UploadType currentFilter;
 }
 
@@ -57,6 +58,7 @@
     _searchBarShown = FALSE;
     _changedMapRegion = FALSE;
     searching = FALSE;
+    searched = FALSE;
     
     search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 44)];
     search.delegate = self;
@@ -116,10 +118,14 @@
     CLLocationDegrees lat = [[defaults valueForKey:@"Latitude"] doubleValue];
     CLLocationDegrees lon = [[defaults valueForKey:@"Longitude"] doubleValue];
     CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(lat, lon);
-    if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lon))) {
-        MKCoordinateRegion viewRegion = [_currentMapView regionThatFits:MKCoordinateRegionMakeWithDistance(startCoordinate, 100000, 100000)];
-        [_currentMapView setRegion:viewRegion animated:NO];
+    if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lon)) && !((lat == 0) || (lon == 0))) {
+        MKCoordinateRegion viewRegion = [_currentMapView regionThatFits:MKCoordinateRegionMakeWithDistance(startCoordinate, 10000, 10000)];
         [_currentMapView setCenterCoordinate:startCoordinate animated:YES];
+        [_currentMapView setRegion:viewRegion animated:NO];
+    } else {
+        MKCoordinateRegion viewRegion = [_currentMapView regionThatFits:MKCoordinateRegionMakeWithDistance(_currentMapView.userLocation.location.coordinate, 10000, 10000)];
+        [_currentMapView setRegion:viewRegion animated:NO];
+        [_currentMapView setCenterCoordinate:_currentMapView.userLocation.location.coordinate animated:YES];
     }
     
     /* 
@@ -228,6 +234,7 @@
     //Grab the text from the search bar and send off a query
     [self searchForString:searchBar.text];
     [searchBar resignFirstResponder];
+    searched = TRUE;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -423,8 +430,6 @@
     
     if (search.text == NULL)
         [self searchForString:@""];
-    else
-        [self searchForString:search.text];
 
     if (_zoomLevel != mapView.region.span.longitudeDelta)
     {

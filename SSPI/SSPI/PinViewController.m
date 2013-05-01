@@ -29,7 +29,7 @@
     if (self) {
         // Custom initialization
         _currentPin = pin;
-        _pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 247, 320, 230)];
+        _pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 325, 320, 120)];
         _pinTableView.delegate = self;
         _pinTableView.dataSource = self;
         [self.view addSubview:_pinTableView];
@@ -44,7 +44,7 @@
     switch (_currentPin.uploadType) {
         case video:
         {
-            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
             _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
             [_moviePlayer setControlStyle:MPMovieControlStyleNone];
             [_moviePlayer setRepeatMode:MPMovieRepeatModeOne];
@@ -59,7 +59,7 @@
             
         case image:
         {
-            _webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            _webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
             _webImage.contentMode = UIViewContentModeScaleAspectFit;
             _webImage.backgroundColor = [UIColor blackColor];
             [self.view addSubview:_webImage];
@@ -69,7 +69,7 @@
             
         case audio:
         {
-            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
             _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
             [_moviePlayer setControlStyle:MPMovieControlStyleNone];
             [_moviePlayer setRepeatMode:MPMovieRepeatModeOne];
@@ -84,7 +84,7 @@
             
         case text:
         {
-            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
             textView.text = _currentPin.description;
             textView.backgroundColor = [UIColor blackColor];
             textView.textColor = [UIColor whiteColor];
@@ -150,6 +150,9 @@
             case image:
                 self.title = [NSString stringWithFormat:@"%@'s photo", newUser.name];
                 break;
+                
+            default:
+                break;
         }
         
         
@@ -185,7 +188,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -198,22 +201,13 @@
     
     switch(indexPath.row) {
         case 0:
-            cell.textLabel.text = @"Voting";
-            break;
-            
-        case 1:
             cell.textLabel.text = @"Uploaded by-";
             cell.detailTextLabel.text = _currentPin.uploadUser.name;
             break;
             
-        case 2:
+        case 1:
             cell.textLabel.text = @"Uploaded on-";
             cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:_currentPin.uploadDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
-            break;
-            
-        case 3:
-            cell.textLabel.text = @"Venue";
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             break;
     }
     
