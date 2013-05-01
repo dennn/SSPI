@@ -12,6 +12,9 @@
 #import "FSConverter.h"
 
 @interface FoursquareLocationPickerViewController ()
+{
+    UITableView *table;
+}
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKMapView *mapView;
@@ -34,9 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	// Add map
     self.title = @"Choose a location";
-    _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+    _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 250)];
     _mapView.delegate = self;
     _mapView.showsUserLocation = TRUE;
     _researching = NO;
@@ -57,6 +60,12 @@
     [toolbar setItems:toolbarItems];
     
     [self.view addSubview:toolbar];
+    
+    // Add table
+    table = [[UITableView alloc] initWithFrame:CGRectMake(0, 251, 320, 125) style:UITableViewStylePlain];
+    table.delegate = self;
+    table.dataSource = self;
+    [self.view addSubview:table];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,6 +93,7 @@
     [self removeAllAnnotationExceptOfCurrentUser];
     [self.mapView addAnnotations:self.venuesArray];
     _researching = FALSE;
+    [table reloadData];
 }
 
 - (void)getVenuesAtLocation:(CLLocation *)location
@@ -178,7 +188,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark -
 #pragma mark Delegate methods
 
 - (void)createNewVenue
@@ -192,6 +201,54 @@
 {
     NSLog(@"Calling delegate");
     [self.delegate didPickVenue:venue];
+}
+
+#pragma mark Table methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _venuesArray.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.textLabel.text = [_venuesArray[indexPath.row] name];
+    FSVenue *venue = _venuesArray[indexPath.row];
+    if (venue.location.address) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@m, %@",
+                                     venue.location.distance,
+                                     venue.location.address];
+    }else{
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@m",
+                                     venue.location.distance];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    FSVenue *currentAnnotation = _venuesArray[indexPath.row];
+    Venue *newVenue = [[Venue alloc] initWithVenueID:nil];
+    newVenue.venueName = currentAnnotation.name;
+    newVenue.coordinate = currentAnnotation.coordinate;
+    
+    [self.delegate didPickVenue:newVenue];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

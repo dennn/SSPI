@@ -20,7 +20,7 @@
 
 @end
 
-@interface FoursquareLocationPickerViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, CreateLocationDelegate>
+@interface FoursquareLocationPickerViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, CreateLocationDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) id <LocationPickedDelegate> delegate;
 
