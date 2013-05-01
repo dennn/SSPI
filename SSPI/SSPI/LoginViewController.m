@@ -239,6 +239,7 @@
 
 - (IBAction)changeServer:(id)sender {
     ServerViewController* serverView = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil flag:0];
+    serverView.fromLogin = TRUE;
     UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:serverView];
     navControl.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:navControl animated:YES completion:nil];

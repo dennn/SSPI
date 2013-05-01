@@ -23,7 +23,6 @@
     if (self) {
         // Custom initialization
         self.title = @"Choose server";
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(backToHome)];
         servermanager = [ServerManager instance];
     }
     flag = pageflag;
@@ -33,6 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (_fromLogin)
+    {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(backToHome)];
+    }
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

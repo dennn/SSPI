@@ -14,6 +14,8 @@
     ServerManager* servermanager;
 }
 
+@property (nonatomic, assign) BOOL fromLogin;
+
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil flag:(int)pageflag;
 
 @end

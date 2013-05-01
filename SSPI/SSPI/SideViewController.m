@@ -10,7 +10,7 @@
 #import "JASidePanelController.h"
 #import "UIViewController+JASidePanel.h"
 
-
+#import "AppDelegate.h"
 #import "SettingsViewController.h"
 #import "MapViewController.h"
 #import "NewFeedsViewController.h"
@@ -90,8 +90,6 @@
     UIButton *signoutButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 300, 42, 42)];
     [signoutButton setBackgroundImage:[UIImage imageNamed:@"Logout.png"] forState:UIControlStateNormal];
     [signoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-#warning make active when fixed
-    signoutButton.enabled = FALSE;
     
     
     UIButton *settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 380, 42, 42)];
@@ -163,6 +161,14 @@
 -(void)syncd{
     self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil]];
 }
+
+- (void)logout
+{
+  //  UINavigationController *myNavCon = (UINavigationController*)(AppDelegate*)[[UIApplication sharedApplication] delegate]
+//.window.rootViewController;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
