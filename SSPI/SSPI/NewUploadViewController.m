@@ -36,8 +36,6 @@
             description = @"";
             tag = @"";
             expires = @"";
-            lat = @"";
-            lon = @"";
             cancel = YES;
         }else{
             overwrite = YES;
@@ -79,6 +77,9 @@
         location = @"";
     }
     isEditingTags = NO;
+    
+    [self setLatLon];
+
     
 }
 
@@ -465,6 +466,30 @@
     
     locationCell.textLabel.text = location;
     NSLog(@"lat: %@", lat);
+}
+
+- (void)setLatLon{
+    
+    // Get location
+    CLLocationManager *locationManager;
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    [locationManager startUpdatingLocation];
+    
+    CLLocation *location = [locationManager location];
+    
+    // Configure the new event with information from the location
+    CLLocationCoordinate2D coordinate = [location coordinate];
+    
+    NSString *latitude = [NSString stringWithFormat:@"%f", coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f", coordinate.longitude];
+    
+    NSLog(@"dLatitude : %@", latitude);
+    NSLog(@"dLongitude : %@",longitude);
+    lat = latitude;
+    lon = longitude;
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
