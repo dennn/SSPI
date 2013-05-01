@@ -213,6 +213,7 @@
                 if ([_venues objectForKey:key] == nil) {
                     venue = [[Venue alloc] initWithVenueID:[NSString stringWithFormat:@"%@",[dict valueForKey:@"location"]]];
                     venue.coordinate = CLLocationCoordinate2DMake([[dict valueForKey:@"lat"] doubleValue], [[dict valueForKey:@"long"] doubleValue]);
+                    venue.venueName = [dict valueForKey:@"locationName"];
                 } else {
                     venue = [_venues objectForKey:key];
                 }
