@@ -96,55 +96,64 @@
     
     // Do any additional setup after loading the view from its nib.
     NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getPin/%i/", [_currentPin.pinID intValue]]];
-    User *newUser = [User new];
     NSLog(@"Final URL: %@", url);
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         _currentPin.uploadDate = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"date"] intValue]];
         _currentPin.pinID = [JSON valueForKey:@"id"];
-        //Create a new User object
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getUsername/%@", [JSON valueForKey:@"userid"]]];
-        NSLog(@"Final URL: %@", url);
-        NSURLRequest *userRequest = [[NSURLRequest alloc] initWithURL:url];
-        AFJSONRequestOperation *userOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:userRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            newUser.name = [JSON valueForKey:@"user"];
-            _currentPin.uploadUser = newUser;
-            
-            [_pinTableView reloadData];
-            
-            switch (_currentPin.uploadType) {
-                case audio:
-                    self.title = [NSString stringWithFormat:@"%@'s audio", _currentPin.uploadUser.name];
-                    break;
-                    
-                case video:
-                    self.title = [NSString stringWithFormat:@"%@'s video", _currentPin.uploadUser.name];
-                    break;
-                    
-                case text:
-                    self.title = [NSString stringWithFormat:@"%@'s text", _currentPin.uploadUser.name];
-                    break;
-                    
-                case image:
-                    self.title = [NSString stringWithFormat:@"%@'s photo", _currentPin.uploadUser.name];
-                    break;
-            }
-
-            
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
-        }];
-        [userOperation start];
-        
+        int user = [[JSON valueForKey:@"userid"] intValue];
         Venue *newVenue = [Venue new];
         newVenue.venueID = [JSON valueForKey:@"foursquareid"];
         _currentPin.venueLocation = newVenue;
+        [self getUsername:user];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
     }];
     
     [operation start];
     
+  
+}
+
+- (void)getUsername:(int)userID
+{
+    //Create a new User object
+    NSURL *userURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/getUsername/%i", userID]];
+    NSLog(@"Final URL: %@", userURL);
+    NSURLRequest *userRequest = [[NSURLRequest alloc] initWithURL:userURL];
+    AFJSONRequestOperation *userOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:userRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        JSON = [JSON valueForKey:@"account"];
+        User *newUser = [User new];
+        newUser.name = [NSString stringWithFormat:@"%@",[JSON valueForKey:@"user"]];
+        NSLog(@"%@", newUser.name);
+        newUser.userID = userID;
+        _currentPin.uploadUser = newUser;
+        
+        [_pinTableView reloadData];
+        
+        switch (_currentPin.uploadType) {
+            case audio:
+                self.title = [NSString stringWithFormat:@"%@'s audio", newUser.name];
+                break;
+                
+            case video:
+                self.title = [NSString stringWithFormat:@"%@'s video", newUser.name];
+                break;
+                
+            case text:
+                self.title = [NSString stringWithFormat:@"%@'s text", newUser.name];
+                break;
+                
+            case image:
+                self.title = [NSString stringWithFormat:@"%@'s photo", newUser.name];
+                break;
+        }
+        
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+    }];
+    [userOperation start];
 }
 
 - (void)handleMPMoviePlayerPlaybackDidFinish:(NSNotification *)notification
