@@ -32,6 +32,8 @@
         table.dataSource = self;
         [self.view addSubview:table];
         self.title = @"Text upload";
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
     }
     return self;
 }
@@ -153,6 +155,11 @@
 - (void)cancel
 {
     
+}
+
+- (void)dismiss
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)save:(NSString *)description tags:(NSString *)tags expires:(NSString *)expires{
