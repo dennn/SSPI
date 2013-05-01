@@ -64,8 +64,8 @@
             
         case 2:
         {
-            [_brandingImage setImage:[UIImage imageNamed:@"Council.jpeg"]];
-            [_brandingImage setFrame:CGRectMake(10, 10, 67, 67)];
+            [_brandingImage setImage:[UIImage imageNamed:@"Council.png"]];
+            [_brandingImage setFrame:CGRectMake(10, 20, 67, 32)];
             break;
         }
             

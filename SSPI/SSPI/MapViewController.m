@@ -194,7 +194,7 @@
 {
     if (!searching) {
         searching = TRUE;
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/3/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, string]];
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://thenicestthing.co.uk/coomko/index.php/uploads/search/%f/%f/5/%@", (double)_currentMapView.region.center.longitude, (double)_currentMapView.region.center.latitude, string]];
         NSLog(@"Final URL %@", url);
     
         if (![string isEqualToString:@""]) {
