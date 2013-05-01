@@ -21,19 +21,39 @@
 
 - (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname{
     
-    self = [super initWithStyle:style];
+    
+    return [self initWithStyle:style type:localtype name:localname overwrite:NO array:nil ident:0];
+}
+
+- (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname overwrite:(BOOL)localoverwrite array:(NSDictionary*)dict ident:(int)identity{
+    
     type = localtype;
     name = localname;
     NSLog(@"Localname: %@", localname);
     if (self) {
-        
-        description = @"";
-        tag = @"";
-        expires = @"";
-        lat = @"";
-        lon = @"";
-        cancel = YES;
+        if(!localoverwrite){
+            overwrite = NO;
+            description = @"";
+            tag = @"";
+            expires = @"";
+            lat = @"";
+            lon = @"";
+            cancel = YES;
+        }else{
+            overwrite = YES;
+            ident = identity;
+            description = [dict objectForKey:@"Description"];
+            tag = [dict objectForKey:@"Tags"];
+            expires = [dict objectForKey:@"Expires"];
+            lat = [dict objectForKey:@"Latitude"];
+            lon = [dict objectForKey:@"Longitude"];
+            location = [dict objectForKey:@"Location"];
+            NSLog(@"overwrite - tags: %@, desc: %@, location: %@", [dict objectForKey:@"Tags"], description, location);
+            cancel = YES;
+        }
     }
+    self = [super initWithStyle:style];
+
     server = @"http://thenicestthing.co.uk/";
     
     return self;
@@ -55,7 +75,9 @@
     autocompleteTableView.scrollEnabled = YES;
     autocompleteTableView.hidden = YES;
     [self.view addSubview:autocompleteTableView];
-    location = @"";
+    if(!overwrite){
+        location = @"";
+    }
     isEditingTags = NO;
     
 }
@@ -109,13 +131,16 @@
     if (indexPath.section == 0) {
         NSLog(@"Creating description cell");
         static NSString *DescriptionCellIdentifier = @"DescriptionCell";
-        DescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:DescriptionCellIdentifier];
-        if (cell == nil) {
-            cell = [[DescriptionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DescriptionCellIdentifier];
+        dcell = [tableView dequeueReusableCellWithIdentifier:DescriptionCellIdentifier];
+        if (dcell == nil) {
+            dcell = [[DescriptionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DescriptionCellIdentifier];
         }
         //cell.selectedImage = pickedImage;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        dcell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if(overwrite){
+            dcell.descriptionText.text = description;
+        }
+        return dcell;
     } else {
         static NSString *CellIdentifier = @"Cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -131,6 +156,10 @@
                 cell.textLabel.text = @"Location";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"Location.png"];
+                if(overwrite && ![location isEqualToString:@""]){
+                    NSLog(@"LOCATION:::: %@", location);
+                    cell.textLabel.text = location;
+                }
                 locationCell = cell;
                 break;
             }
@@ -147,16 +176,28 @@
                               action:@selector(textFieldFinished:)
                     forControlEvents:UIControlEventEditingDidEndOnExit];
                 [cell.contentView addSubview:tagsField];
-                
+                if(overwrite){
+                    tagsField.text = tag;
+                }
                 break;
             }
                 
             case 3:
             {
-                if (expires)
+                if (expires && !overwrite)
                 {
                     cell.detailTextLabel.text = expires;
+                }else if(overwrite){
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:
+                                    [expires doubleValue]];
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+                    
+                    NSString *string = [dateFormatter stringFromDate:date];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",string];
                 }
+                if([expires isEqualToString:@"0"])
+                    cell.detailTextLabel.text = @"";
                 cell.textLabel.text = @"Expires";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"Calendar.png"];
@@ -208,6 +249,7 @@
     }
     switch (indexPath.section)
     {
+        
         case 1:
         {
             FoursquareLocationPickerViewController *locationPicker = [[FoursquareLocationPickerViewController alloc] initWithNibName:nil bundle:nil];
@@ -247,8 +289,9 @@
                                              dateStyle:kCFDateFormatterMediumStyle
                                              timeStyle:NSDateFormatterNoStyle];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    expiryCell.detailTextLabel.text = expires;
     NSLog(@"Expires: %@", expires);
-    expiryCell.textLabel.text = expires;
+    //expiryCell.textLabel.text = expires;
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
@@ -348,12 +391,16 @@
         autocompleteTableView.hidden = YES;
         return;
     }
+    description = dcell.descriptionText.text;
     [self store:tagsField.text];
     tag = tagsField.text;
     cancel = NO;
     NSLog(@"Delegate: %@", _delegate);
     NSLog(@"description:%@ tags:%@ expires:%@ lat:%@ lon:%@", description, tag, [NSString stringWithFormat:@"%.0f", [date timeIntervalSince1970]], lat, lon);
-    [_delegate save:description tags:tag expires:expires];
+    if(!overwrite)
+        [_delegate save:description tags:tag expires:expires];
+    else
+        [_delegate back];
     NSLog(@"Save data");
     [self.navigationController popViewControllerAnimated: YES];
 }
@@ -391,7 +438,21 @@
     // Open the plist from the filesystem.
     NSMutableArray *plist = [NSMutableArray arrayWithContentsOfFile:filePath];
     if (plist == nil) plist = [NSMutableArray array];
-    [plist addObject:nameDictionary];
+    if(!overwrite){
+        [plist addObject:nameDictionary];
+    }else{
+        for (NSDictionary *d in plist){
+            NSLog(@"Type: %@, filename: %@, lat: %@, lon: %@, tags: %@, expires: %@", [d objectForKey:@"Type"],[d objectForKey:@"Name"],[d objectForKey:@"Latitude"],[d objectForKey:@"Longitude"],[d objectForKey:@"Tags"],[d objectForKey:@"Expires"]);
+            NSLog(@"%@", [d objectForKey:@"Type"]);
+        }
+        NSLog(@"lat for 1: %@, lat for 2: %@", lat, [[plist objectAtIndex:ident] objectForKey:@"Latitude"]);
+        [plist replaceObjectAtIndex:ident withObject:nameDictionary];
+        
+        for (NSDictionary *d in plist){
+            NSLog(@"Type: %@, filename: %@, lat: %@, lon: %@, tags: %@, expires: %@", [d objectForKey:@"Type"],[d objectForKey:@"Name"],[d objectForKey:@"Latitude"],[d objectForKey:@"Longitude"],[d objectForKey:@"Tags"],[d objectForKey:@"Expires"]);
+            NSLog(@"%@", [d objectForKey:@"Type"]);
+        }
+    }
     [plist writeToFile:filePath atomically:YES];
 }
 
