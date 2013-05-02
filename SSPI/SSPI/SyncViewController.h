@@ -16,7 +16,7 @@
 - (void)syncd;
 @end
 
-@interface SyncViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NewUploadViewControllerDelegate>{
+@interface SyncViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NewUploadViewControllerDelegate, UIAlertViewDelegate>{
     IBOutlet CustomMediaCell *_cell;
     NSMutableArray *stuff;
 }
