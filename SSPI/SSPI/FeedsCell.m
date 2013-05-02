@@ -31,9 +31,6 @@
 {
     [self.imageView setImage:nil];
     self.textLabel.text = @"";
-    /*[self.contentView setBackgroundColor:[UIColor clearColor]];
-    [self.textLabel setBackgroundColor:[UIColor clearColor]];
-    [self.detailTextLabel setBackgroundColor:[UIColor clearColor]];*/
 }
 
 - (void)setFeeds:(feedSourceManager*) feed

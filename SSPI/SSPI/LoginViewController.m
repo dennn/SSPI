@@ -164,16 +164,17 @@
         [dic setValue:username forKey:@"user"];
         [dic setValue:hashPass forKey:@"pass"];
     
-        self.operation = [self.uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
+        operation = [uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
+        __block NSString* b_username = username;
         [operation addCompletionHandler:^(MKNetworkOperation *blockOperation){
             if (![[blockOperation responseString] isEqual: @"0"])
             {
                 NSLog(@"Login Success!");
                 //for keychain part
-                NSDictionary *dic = [operation responseJSON];
+                NSDictionary *dic = [blockOperation responseJSON];
                 NSString *st= [dic objectForKey:@"id"];
                 NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-                [userdefaults setObject:username forKey:@"username"];
+                [userdefaults setObject:b_username forKey:@"username"];
                 [userdefaults setObject:st forKey:@"id"];
                 [userdefaults synchronize];
                 

@@ -23,7 +23,7 @@
     MKNetworkEngine* engine;
 }
 
-@property (nonatomic,strong) NSMutableArray *username;
+@property (nonatomic,strong) NSMutableDictionary *username;
 @property (nonatomic,strong) MPMoviePlayerController *videoplayer;
 @property (nonatomic,strong) AVAudioPlayer *audioplayer;
 @end

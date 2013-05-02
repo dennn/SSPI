@@ -105,25 +105,29 @@
     [self save];
 }
 
--(BOOL)checkValid:(AFHTTPClient *)Server
+-(void)checkValid:(AFHTTPClient *)Server Block:(void (^)(MKNetworkOperation *op, MKNetworkOperation* error))block;
 {
     NSLog(@"check valid");
-    //NSURL* url = [Server baseURL];
-    //NSString* string = [url absoluteString];
     MKNetworkOperation *op;
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setValue:@"google.co.uk" forKey:@"path"];
-    MKNetworkEngine *eng = [[MKNetworkEngine alloc]initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    op = [eng operationWithPath:@"/coomko/index.php/server/validServer" params:dic httpMethod:@"POST" ssl:nil];
+    NSString *string = [[[Server baseURL] absoluteString] substringToIndex:[[[Server baseURL] absoluteString] length] - 1];
+    [dic setValue:string forKey:@"path"];
+    NSLog(@"%@",[[Server baseURL] absoluteString]);
+    MKNetworkEngine *eng = [[MKNetworkEngine alloc]initWithHostName:string customHeaderFields:nil];
+    op = [eng operationWithPath:@"coomko/index.php/server/validServer" params:dic httpMethod:@"POST" ssl:nil];
     [op addCompletionHandler:^(MKNetworkOperation *blockOperation){
-        NSString* response = [blockOperation responseJSON];
-        NSLog(@"%@",response);
+        if(block)
+        {
+            block(blockOperation,nil);
+        }
     } errorHandler:^(MKNetworkOperation *errorOp, NSError *error) {
-        NSLog(@"%@", [error localizedDescription]);
+        if(block)
+        {
+            block(nil,errorOp);
+        }
     }];
     [eng enqueueOperation:op];
-    NSLog(@"check valid2");
-    return YES;
+    NSLog(@"%@", [op responseJSON]);
 }
 
 -(void) save
@@ -145,13 +149,11 @@
     [userdefaults setObject:inactivestrings forKey:@"inactive"];
     NSString* active = [[activeServer baseURL] absoluteString];
     [userdefaults setObject:active forKey:@"active"];
-    NSLog(@"saved:%@",[userdefaults objectForKey:@"active"]);
     [userdefaults synchronize];
 }
 
 -(void)load
 {
-    NSLog(@"Load");
     NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *inactivestrings = [userdefaults objectForKey:@"inactive"];
     if ([userdefaults objectForKey:@"active"] != nil) {

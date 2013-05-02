@@ -51,9 +51,26 @@
 - (IBAction)Addbutton:(id)sender {
     serverpath = self.txtpath.text;
      NSLog(@"%@",serverpath);
-    AFHTTPClient* test = [[AFHTTPClient alloc]initWithBaseURL:[[NSURL alloc]initWithString:@"test"]];
-    [servermanager checkValid:nil];
-    [servermanager addServerByPathAndAuth:serverpath User:@"test" Pass:@"test"];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    AFHTTPClient* test = [[AFHTTPClient alloc]initWithBaseURL:[[NSURL alloc]initWithString:serverpath]];
+
+    [servermanager checkValid:test Block:^(MKNetworkOperation *op,MKNetworkOperation* error) {
+        NSString* response = @"invalid";
+        if(op)
+        {
+            response = @"valid";
+            
+            [servermanager addServerByPathAndAuth:serverpath User:@"test" Pass:@"test"];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        if (error)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"INVALID SERVER"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
 }
 @end
