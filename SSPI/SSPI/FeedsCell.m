@@ -17,17 +17,14 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (!self) {
-        return nil;
+        self.textLabel.adjustsFontSizeToFitWidth = YES;
+        self.textLabel.textColor = [UIColor blackColor];
+        self.textLabel.font = [UIFont fontWithName: @"HelveticaNeue-Bold" size: 14.0 ];
+        self.detailTextLabel.font = [UIFont fontWithName: @"HelveticaNeue" size: 16.0 ];
+        self.detailTextLabel.textColor = [UIColor blackColor];
+        self.detailTextLabel.numberOfLines = 0;
     }
-    
-    self.textLabel.adjustsFontSizeToFitWidth = YES;
-    self.textLabel.textColor = [UIColor blackColor];
-    self.textLabel.font = [UIFont fontWithName: @"ChalkboardSE-Regular" size: 14.0 ];
-    self.detailTextLabel.font = [UIFont fontWithName: @"ChalkboardSE-Bold" size: 16.0 ];
-    self.detailTextLabel.textColor = [UIColor blackColor];
-    self.detailTextLabel.numberOfLines = 0;
-    //self.selectionStyle = UITableViewCellSelectionStyleGray;
-    return self;
+      return self;
 }
 
 -(void) prepareForReuse

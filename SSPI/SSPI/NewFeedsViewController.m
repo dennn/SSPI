@@ -93,19 +93,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row % 2)
-    {
-        [cell setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:.8]];
-    }
-    else
-    {
-        [cell setBackgroundColor:[UIColor colorWithRed:0.08 green:0.55 blue:0.83 alpha:.5]];
-    }
-    [self.tableView reloadInputViews];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
