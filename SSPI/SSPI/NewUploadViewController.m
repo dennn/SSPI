@@ -290,9 +290,8 @@
                                              dateStyle:kCFDateFormatterMediumStyle
                                              timeStyle:NSDateFormatterNoStyle];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    expiryCell.detailTextLabel.text = expires;
     NSLog(@"Expires: %@", expires);
-    //expiryCell.textLabel.text = expires;
+    expiryCell.textLabel.text = expires;
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
