@@ -166,6 +166,8 @@
 {
   //  UINavigationController *myNavCon = (UINavigationController*)(AppDelegate*)[[UIApplication sharedApplication] delegate]
 //.window.rootViewController;
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+    [ud setValue:@"needauth" forKey:@"loginstatus"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
