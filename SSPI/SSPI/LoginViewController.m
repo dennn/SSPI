@@ -39,15 +39,7 @@
     
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
-    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    if([[userdefaults objectForKey:@"loginstatus"] isEqualToString:@"autologin"])
-    {
-        NSLog(@"debugiing");
-        [self gotoMainView];
-    }
-    else
-    {
-    
+
     UIView *loginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 14)];
     UIImageView *loginImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LoginUser.png"]];
     loginImage.frame = CGRectMake(0, 0, 10, 12);
@@ -74,7 +66,6 @@
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signUpPressed:)];
     createLabel.userInteractionEnabled = YES;
     [createLabel addGestureRecognizer: gesture];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -87,6 +78,15 @@
     username = @"";
     password = @"";
     [self.txtPassword setSecureTextEntry:TRUE];
+    
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    if([[userdefaults objectForKey:@"loginstatus"] isEqualToString:@"autologin"])
+        NSLog(@"debugiing");
+    {
+        self.txtUsername.text = [userdefaults objectForKey:@"username"];
+        self.txtPassword.text = [userdefaults objectForKey:@"password"];
+        [self loginPressed:(id)loginButton];
+    }
 
 }
 

@@ -78,15 +78,11 @@
                         [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
                             NSString *name = [[[b_op responseJSON] objectForKey:@"account"] objectForKey:@"user"];
                             [username setValue:name forKey:[NSString stringWithFormat:@"%d",(int)f.userid]];
-                            NSLog(@"%@",[b_op responseJSON]);
-                            NSLog(@"%@",[username description]);
                             [self refreshControlRequest];
                         } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-                            NSLog(@"%@", [error localizedDescription]);
                         }];
                         [engine enqueueOperation:op];
                     }
-                    
                 }
             }
         }
@@ -174,7 +170,6 @@
     }
     else
     {
-        
         cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded %@",[username objectForKey:[NSString stringWithFormat:@"%d",
                                                                                                      (int)cell._feed.userid]],cell._feed.type];
         cell.detailTextLabel.text = @"play";
