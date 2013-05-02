@@ -81,7 +81,6 @@
     
     NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
     if([[userdefaults objectForKey:@"loginstatus"] isEqualToString:@"autologin"])
-        NSLog(@"debugiing");
     {
         self.txtUsername.text = [userdefaults objectForKey:@"username"];
         self.txtPassword.text = [userdefaults objectForKey:@"password"];
