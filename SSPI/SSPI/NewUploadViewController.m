@@ -16,7 +16,7 @@
 
 @implementation NewUploadViewController
 
-@synthesize pickedImage, datePicker, table, autocompleteTags, tagsField, pastTags, autocompleteTableView;
+@synthesize pickedImage, datePicker, tableView, autocompleteTags, tagsField, pastTags, autocompleteTableView;
 
 
 - (id)initWithStyle:(UITableViewStyle)style type:(NSString *)localtype name:(NSString *)localname{
@@ -310,9 +310,9 @@
     // Print query string
     NSLog(@"Querying string: %@", [tagsField.text stringByReplacingCharactersInRange:range withString:string]);
     NSArray *tagArray = [[tagsField.text stringByReplacingCharactersInRange:range withString:string] componentsSeparatedByString:@" "];
-    NSString *localTag = [tagArray objectAtIndex:tagArray.count-1];
+    NSString *tag = [tagArray objectAtIndex:tagArray.count-1];
     //Put current text in url
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@coomko/index.php/uploads/autoComplete/%@", server, localTag]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@coomko/index.php/uploads/autoComplete/%@", server, tag]]];
     // Connect to server
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         // Connection successful - get data
@@ -329,7 +329,7 @@
             [pastTags addObject:[tagsDict objectForKey:@"name"]];
         }
         NSLog(@"%@", pastTags);
-        [self searchAutocompleteEntriesWithSubstring:[localTag lowercaseString]];
+        [self searchAutocompleteEntriesWithSubstring:[tag lowercaseString]];
         NSLog(@"updating autocomplete table");
     }];
     
