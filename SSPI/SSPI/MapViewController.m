@@ -317,11 +317,7 @@
             pinView.pinColor = MKPinAnnotationColorRed;
             pinView.enabled = YES;
             pinView.canShowCallout = YES;
-            Venue *tempVenue = (Venue *)annotation;
-            if ([tempVenue venuesCount] == 1)
-                pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            else
-                pinView.rightCalloutAccessoryView = nil;
+            pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             pinView.userInteractionEnabled = YES;
         }
         

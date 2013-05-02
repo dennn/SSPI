@@ -92,6 +92,9 @@
             [self.view addSubview:textView];
             break;
         }
+            
+        default:
+            break;
     }
     
     // Do any additional setup after loading the view from its nib.
