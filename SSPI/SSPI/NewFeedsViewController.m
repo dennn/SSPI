@@ -125,7 +125,7 @@
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded a %@",[username objectForKey:[NSString stringWithFormat:@"%d",
                                                                             (int)cell._feed.userid]],cell._feed.type];
         [cell setNeedsLayout];
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {

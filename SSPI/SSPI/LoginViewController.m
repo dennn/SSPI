@@ -38,6 +38,7 @@
 {
     
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
     if([[userdefaults objectForKey:@"loginstatus"] isEqualToString:@"autologin"])
     {
