@@ -46,7 +46,9 @@
             lat = [dict objectForKey:@"Latitude"];
             lon = [dict objectForKey:@"Longitude"];
             location = [dict objectForKey:@"Location"];
-            NSLog(@"overwrite - tags: %@, desc: %@, location: %@", [dict objectForKey:@"Tags"], description, location);
+            date = [NSDate dateWithTimeIntervalSince1970:
+                    [expires doubleValue]];
+            NSLog(@"overwrite - tags: %@, desc: %@, location: %@, expires: %@", [dict objectForKey:@"Tags"], description, location, expires);
             cancel = YES;
         }
     }
@@ -300,6 +302,7 @@
 }
 
 
+/* AUTO-COMPLETE */
 /* AUTO-COMPLETE */
 
 #pragma mark UITextFieldDelegate methods
