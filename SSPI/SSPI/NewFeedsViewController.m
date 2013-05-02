@@ -125,10 +125,11 @@
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded a %@",[username objectForKey:[NSString stringWithFormat:@"%d",
-                                                                            (int)cell._feed.userid]],cell._feed.type];
         [cell setNeedsLayout];
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded a %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL
                        placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
@@ -136,11 +137,16 @@
     }
     else if([cell._feed.type isEqualToString:@"text"])
     {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", cell._feed.text];
     }
     else if([cell._feed.type isEqualToString:@"video"])
     {
         
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded a %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         NSURL *videoURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [[SDImageCache sharedImageCache] queryDiskCacheForKey:[videoURL absoluteString] done:^(UIImage *image,SDImageCacheType cacheType)
         {
@@ -168,6 +174,9 @@
     }
     else
     {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         cell.detailTextLabel.text = @"play";
     }
     
