@@ -144,8 +144,8 @@
 {
     BOOL cancel = NO;
     for (NSDictionary *d in stuff){
-        NSLog(@"Looping location: %@", [d  objectForKey:@"location"]);
-        if([d  objectForKey:@"location"] == nil){
+        NSLog(@"Looping location: %@", [d  objectForKey:@"Location"]);
+        if([[d  objectForKey:@"Location"] isEqualToString:@""]){
             UIAlertView *alert = [[UIAlertView alloc] init];
             [alert setTitle:@"You have not picked a location for a piece of data"];
             [alert setMessage:@"Continue?"];
@@ -154,6 +154,7 @@
             [alert addButtonWithTitle:@"No"];
             [alert show];
             cancel = YES;
+            break;
         }
     }
     if(!cancel){

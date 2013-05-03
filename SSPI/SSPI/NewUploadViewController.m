@@ -281,7 +281,7 @@
     [self dismissSemiModalViewController:datePicker];
     expires = @"Never";
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    expiryCell.textLabel.text = expires;
+    expiryCell.detailTextLabel.text = expires;
 }
 
 - (void)datePickerSetDate:(TDDatePickerController *)viewController
@@ -293,7 +293,7 @@
                                              timeStyle:NSDateFormatterNoStyle];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
     NSLog(@"Expires: %@", expires);
-    expiryCell.textLabel.text = expires;
+    expiryCell.detailTextLabel.text = expires;
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
