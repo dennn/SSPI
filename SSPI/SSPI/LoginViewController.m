@@ -36,10 +36,10 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
-    
-    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-    
+    self.navigationController.navigationBarHidden = YES;
+
     UIView *loginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 14)];
     UIImageView *loginImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LoginUser.png"]];
     loginImage.frame = CGRectMake(0, 0, 10, 12);
@@ -70,11 +70,23 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
+    self.uploadEngine = [[UploadEngine alloc] initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
     self.navigationController.navigationBarHidden = YES;
     self.txtUsername.text = @"";
     self.txtPassword.text = @"";
     username = @"";
     password = @"";
+    [self.txtPassword setSecureTextEntry:TRUE];
+    
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    if([[userdefaults objectForKey:@"loginstatus"] isEqualToString:@"autologin"])
+    {
+        self.txtUsername.text = [userdefaults objectForKey:@"username"];
+        self.txtPassword.text = [userdefaults objectForKey:@"password"];
+        [self loginPressed:(id)loginButton];
+    }
+
 }
 
 
@@ -163,25 +175,28 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setValue:username forKey:@"user"];
         [dic setValue:hashPass forKey:@"pass"];
-    
-        self.operation = [self.uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
+        operation = [uploadEngine postDataToServer:dic path:@"coomko/index.php/users/login"];
+        __block NSString* b_username = username;
+        __block NSString* b_password = password;
         [operation addCompletionHandler:^(MKNetworkOperation *blockOperation){
             if (![[blockOperation responseString] isEqual: @"0"])
             {
                 NSLog(@"Login Success!");
                 //for keychain part
-                NSDictionary *dic = [operation responseJSON];
+                NSDictionary *dic = [blockOperation responseJSON];
                 NSString *st= [dic objectForKey:@"id"];
                 NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-                [userdefaults setObject:username forKey:@"username"];
+                [userdefaults setObject:b_username forKey:@"username"];
                 [userdefaults setObject:st forKey:@"id"];
+                [userdefaults setObject:b_password forKey:@"password"];
+                [userdefaults setObject:@"autologin" forKey:@"loginstatus"];
                 [userdefaults synchronize];
                 
                 [self gotoMainView];
             }
             else
             {
-                NSLog(@"%@",[self.operation responseString]);
+                NSLog(@"%@",[operation responseString]);
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                                 message:@"Login Failed"
                                                                delegate:nil
@@ -198,7 +213,7 @@
                                                           otherButtonTitles:nil];
             [alert show];
         }];
-        [self.uploadEngine enqueueOperation:self.operation];
+        [uploadEngine enqueueOperation:operation];
     }
 }
 
@@ -233,7 +248,7 @@
     
     self.ViewController.centerPanel = navController;
     self.ViewController.leftPanel = sideController;
-
+    
     [self.navigationController pushViewController:self.ViewController animated:YES];
 }
 

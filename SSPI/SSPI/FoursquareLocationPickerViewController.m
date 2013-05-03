@@ -55,7 +55,7 @@
     
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 376, 320, 44)];
     UIBarButtonItem *space =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Create New" style:UIBarButtonItemStyleBordered target:self action:@selector(createNewVenue)];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"New Pin" style:UIBarButtonItemStyleBordered target:self action:@selector(createNewVenue)];
     NSArray *toolbarItems = [NSArray arrayWithObjects:space, barButton, space, nil];
     [toolbar setItems:toolbarItems];
     

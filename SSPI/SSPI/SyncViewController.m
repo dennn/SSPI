@@ -132,7 +132,8 @@
     }
     NSArray* a = [NSArray arrayWithContentsOfFile:plistPath];
     stuff = [a mutableCopy];
-    
+    [(UITableView*)self.view reloadData];
+
 }
 
 -(void)save:(NSString *)description tags:(NSString *)tags expires:(NSString *)expires{
@@ -141,13 +142,46 @@
 
 - (void)sync
 {
-    UploadEngine * ue = [[UploadEngine alloc] init];
-    [ue syncPressed:self];
-    //[self.navigationController popViewControllerAnimated: YES];
-    stuff = nil;
-    //add code here for when you hit delete
-    [(UITableView*)self.view reloadData];
-    [_delegate syncd];
+    BOOL cancel = NO;
+    for (NSDictionary *d in stuff){
+        NSLog(@"Looping location: %@", [d  objectForKey:@"Location"]);
+        if([[d  objectForKey:@"Location"] isEqualToString:@""]){
+            UIAlertView *alert = [[UIAlertView alloc] init];
+            [alert setTitle:@"You have not picked a location for a piece of data"];
+            [alert setMessage:@"Continue?"];
+            [alert setDelegate:self];
+            [alert addButtonWithTitle:@"Yes"];
+            [alert addButtonWithTitle:@"No"];
+            [alert show];
+            cancel = YES;
+            break;
+        }
+    }
+    if(!cancel){
+        UploadEngine * ue = [[UploadEngine alloc] init];
+        [ue syncPressed:self];
+        //[self.navigationController popViewControllerAnimated: YES];
+        stuff = nil;
+        //add code here for when you hit delete
+        [(UITableView*)self.view reloadData];
+        [_delegate syncd];
+    }
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 0)
+	{
+        UploadEngine * ue = [[UploadEngine alloc] init];
+        [ue syncPressed:self];
+        //[self.navigationController popViewControllerAnimated: YES];
+        stuff = nil;
+        //add code here for when you hit delete
+        [(UITableView*)self.view reloadData];
+        [_delegate syncd];
+    }
+
 }
 
 @end

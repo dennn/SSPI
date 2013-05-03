@@ -50,7 +50,7 @@
     self.title = @"News Feed";
     [super viewDidLoad];
     
-    username = [[NSMutableArray alloc] init];
+    username = [[NSMutableDictionary alloc] init];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshControlRequest) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl: refreshControl];
@@ -64,23 +64,25 @@
                 _feeds = posts;
                 for (int i =0; i<[_feeds count]; i++) {
                     feedSourceManager *f = [_feeds objectAtIndex:i];
+                    NSLog(@"%d",(int)f.userid);
                     NSString* userid = [NSString stringWithFormat:@"coomko/index.php/uploads/getUsername/%d", (int)f.userid];
-                    engine = [[MKNetworkEngine alloc]initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
-                    MKNetworkOperation *op = [engine operationWithPath:userid
-                                                                params:nil
-                                                            httpMethod:@"POST"
-                                                                   ssl:NO];
-                    __block MKNetworkOperation*b_op = op;
-                    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-                        NSString *name = [[[b_op responseJSON] objectForKey:@"account"] objectForKey:@"user"];
-                        [username addObject:name];
-                        
-                        [self refreshControlRequest];
-                    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-                        NSLog(@"%@", [error localizedDescription]);
-                    }];
-                    [engine enqueueOperation:op];
-                    
+                    NSString* d_username;
+                    d_username = [username objectForKey:[NSString stringWithFormat:@"%d",(int)f.userid]];
+                    if (d_username == nil) {
+                        engine = [[MKNetworkEngine alloc]initWithHostName:@"thenicestthing.co.uk" customHeaderFields:nil];
+                        MKNetworkOperation *op = [engine operationWithPath:userid
+                                                                    params:nil
+                                                                httpMethod:@"POST"
+                                                                       ssl:NO];
+                        __block MKNetworkOperation*b_op = op;
+                        [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+                            NSString *name = [[[b_op responseJSON] objectForKey:@"account"] objectForKey:@"user"];
+                            [username setValue:name forKey:[NSString stringWithFormat:@"%d",(int)f.userid]];
+                            [self refreshControlRequest];
+                        } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+                        }];
+                        [engine enqueueOperation:op];
+                    }
                 }
             }
         }
@@ -119,11 +121,11 @@
     }
     // Configure the cell...
     cell._feed = [_feeds objectAtIndex:indexPath.row];
-    if ([username count] > indexPath.row) {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded new %@",[username objectAtIndex:indexPath.row],cell._feed.type];
         [cell setNeedsLayout];
-    }
     if ([cell._feed.type isEqualToString: @"photo"]|| [cell._feed.type isEqualToString:@"image"]) {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded a %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL
                        placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
@@ -131,11 +133,16 @@
     }
     else if([cell._feed.type isEqualToString:@"text"])
     {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", cell._feed.text];
     }
     else if([cell._feed.type isEqualToString:@"video"])
     {
         
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded a %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         NSURL *videoURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [[SDImageCache sharedImageCache] queryDiskCacheForKey:[videoURL absoluteString] done:^(UIImage *image,SDImageCacheType cacheType)
         {
@@ -163,6 +170,8 @@
     }
     else
     {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ uploaded %@",[username objectForKey:[NSString stringWithFormat:@"%d",
+                                                                                                     (int)cell._feed.userid]],cell._feed.type];
         cell.detailTextLabel.text = @"play";
     }
     

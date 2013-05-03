@@ -40,7 +40,8 @@
 - (AFHTTPClient* )getActiveServer;
 - (void)updateActiveServer:(AFHTTPClient* )newActives;
 
-- (BOOL)checkValid:(AFHTTPClient* )Server;
+-(void)checkValid:(AFHTTPClient *)Server Block:(void (^)(MKNetworkOperation *op,MKNetworkOperation* error))block;
+
 
 - (void)save;
 - (void)load;

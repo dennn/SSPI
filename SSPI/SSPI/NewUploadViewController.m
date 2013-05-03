@@ -281,7 +281,7 @@
     [self dismissSemiModalViewController:datePicker];
     expires = @"Never";
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    expiryCell.textLabel.text = expires;
+    expiryCell.detailTextLabel.text = expires;
 }
 
 - (void)datePickerSetDate:(TDDatePickerController *)viewController
@@ -293,7 +293,7 @@
                                              timeStyle:NSDateFormatterNoStyle];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
     NSLog(@"Expires: %@", expires);
-    expiryCell.textLabel.text = expires;
+    expiryCell.detailTextLabel.text = expires;
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
@@ -375,8 +375,8 @@
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
     isEditingTags = !isEditingTags;
-    const int movementDistance = 190; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
+    const int movementDistance = 190; 
+    const float movementDuration = 0.3f;
     
     int movement = (up ? -movementDistance : movementDistance);
     
