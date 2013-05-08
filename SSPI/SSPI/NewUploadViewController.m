@@ -206,6 +206,9 @@
                 if([expires isEqualToString:@"0"])
                     cell.detailTextLabel.text = @"";
 
+                if(!overwrite || [cell.detailTextLabel.text isEqualToString:@""]){
+                    cell.detailTextLabel.text = @" ";
+                }
                 cell.textLabel.text = @"Expires";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"Calendar.png"];
