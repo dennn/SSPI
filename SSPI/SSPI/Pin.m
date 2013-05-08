@@ -33,8 +33,7 @@
     }
     
     dataLocation = [NSURL URLWithString:[dictionary valueForKey:@"dataLocation"]];
-    description = [dictionary valueForKey:@"data"];
-    
+    description = [dictionary valueForKey:@"description"];
     
     return self;
 }

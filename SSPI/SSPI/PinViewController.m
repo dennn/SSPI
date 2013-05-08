@@ -29,7 +29,7 @@
     if (self) {
         // Custom initialization
         _currentPin = pin;
-        _pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 325, 320, 120)];
+        _pinTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 260, 320, 160)];
         _pinTableView.delegate = self;
         _pinTableView.dataSource = self;
         [self.view addSubview:_pinTableView];
@@ -44,7 +44,7 @@
     switch (_currentPin.uploadType) {
         case video:
         {
-            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
+            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 260)];
             _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
             [_moviePlayer setControlStyle:MPMovieControlStyleNone];
             [_moviePlayer setRepeatMode:MPMovieRepeatModeOne];
@@ -59,8 +59,8 @@
             
         case image:
         {
-            _webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
-            _webImage.contentMode = UIViewContentModeScaleAspectFit;
+            _webImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 260)];
+            _webImage.contentMode = UIViewContentModeScaleAspectFill;
             _webImage.backgroundColor = [UIColor blackColor];
             [self.view addSubview:_webImage];
             [_webImage setImageWithURL:_currentPin.dataLocation];
@@ -69,7 +69,7 @@
             
         case audio:
         {
-            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
+            UIView *playerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 260)];
             _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_currentPin.dataLocation];
             [_moviePlayer setControlStyle:MPMovieControlStyleNone];
             [_moviePlayer setRepeatMode:MPMovieRepeatModeOne];
@@ -84,7 +84,7 @@
             
         case text:
         {
-            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 325)];
+            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 260)];
             textView.text = _currentPin.description;
             textView.backgroundColor = [UIColor blackColor];
             textView.textColor = [UIColor whiteColor];
@@ -191,7 +191,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -199,22 +199,40 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     switch(indexPath.row) {
         case 0:
-            cell.textLabel.text = @"Uploaded by-";
+            cell.textLabel.text = @"Uploaded by";
             cell.detailTextLabel.text = _currentPin.uploadUser.name;
             break;
             
         case 1:
-            cell.textLabel.text = @"Uploaded on-";
+            cell.textLabel.text = @"Uploaded on";
             cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:_currentPin.uploadDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
             break;
+            
+        case 2:
+            cell.textLabel.text = @"Description";
+            if (_currentPin.description == NULL) {
+                cell.detailTextLabel.text = @"No Description";
+            } else {
+                cell.detailTextLabel.text = _currentPin.description;
+            }
     }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 2) {
+        return 66;
+    }
+    
+    return 44;
 }
 
 - (void)didReceiveMemoryWarning
