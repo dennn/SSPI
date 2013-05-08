@@ -47,6 +47,7 @@
     
     [self.view addSubview:_mapView];
     [self.view addSubview:_venueName];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

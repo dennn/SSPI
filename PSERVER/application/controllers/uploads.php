@@ -28,14 +28,14 @@ class uploads extends CI_Controller {
 		$error = 0;
 		if($this->input->post('type') == 'text')
 		{
-			if($this->input->post('text') != '')
+			if($this->input->post('text') == '')
 				$error = 1;
 			$data['upload_data'] = array('file_name'=>'');
 		}
 		else
 		{
 			$config['upload_path'] = './uploads/';
-			$config['allowed_types'] = 'jpg|png|jpeg|mp3|mp4';
+			$config['allowed_types'] = 'jpg|png|jpeg|caf|mp4';
 			$config['file_name'] = hash ( "sha256" , random_string('alnum', 50) . time());
 			$config['overwrite'] = false;
 			$this->load->library('upload', $config);
@@ -57,17 +57,25 @@ class uploads extends CI_Controller {
 		if($error)
 		{
 			print_r($error);
-			echo '<br />UPLOAD DATA = ';
-			print_r($this->upload->data());
+			//print_r($this->upload->data());
 		}
 		else
 		{
-			$info = array("userid"=>1, "type"=>$this->input->post('type'), "long"=>$this->input->post("long"), "lat"=>$this->input->post('lat'), "date"=>time(),
-							"dataLocation"=>$data['upload_data']['file_name'], "data"=>$this->input->post('text'), "pitch"=>"", "heading"=>"");
+			$info = array("userid"=>$this->input->post('userID'), "type"=>$this->input->post('type'), "long"=>$this->input->post("long"), "lat"=>$this->input->post('lat'), "date"=>time(),
+							"dataLocation"=>$data['upload_data']['file_name'], "data"=>$this->input->post('text'), "pitch"=>"", "heading"=>"", "expires"=>$this->input->post('expires'), "description"=>$this->input->post('description'), "locationname"=>$this->input->post('location'));
 			file_put_contents('data.txt', print_r($data, true));
 			file_put_contents('post.txt', print_r($_POST, true));
 			$this->load->model('uploads_model', 'uploads');
-			$this->uploads->dump_upload($info, explode(' ', $this->input->post("tags")));
+			$tags = $this->input->post("tags");
+			$pattern = '/,( )*/';
+			$replacement = ' ';
+			$tags= preg_replace($pattern, $replacement, $tags);
+			$pattern = '/( )( )+/';
+			$replacement = ' ';
+			$tags = preg_replace($pattern, $replacement, $tags);
+			$tags = strtolower($tags);
+			$tags = explode(" ", $tags);
+			$this->uploads->uploadData($info, $tags);
 			echo 1;
 		}
 		file_put_contents('file.txt', print_r($_FILES, true));
@@ -85,7 +93,7 @@ class uploads extends CI_Controller {
 			echo 0;
 			return;
 		}
-		$results = $this->uploads->get_nearest($long, $lat, 10);
+		$results = $this->uploads->getNearest($long, $lat, 10);
 		echo json_encode($results);
 		return;
 	}
@@ -97,15 +105,27 @@ class uploads extends CI_Controller {
 		$lat = $this->uri->segment(4);
 		$limit = $this->uri->segment(5);
 		$term = $this->uri->segment(6);
+		$type = $this->uri->segment(7);
 		//echo "long = " . $long . ", lat = " . $lat . ", limit = " . $limit . ", term = " . $term ;
 		$this->load->model('uploads_model', 'uploads');
-		if(!$long || !$lat || !$term || !$limit)
+		if(!$limit)
+			$limit = 10;
+		if(!$long || !$lat)
 		{
 			echo 0;
 			return;
 		}
-		$results = $this->uploads->search($long, $lat, $limit, $term);
-		echo json_encode($results);
+		if($type != "image" && $type != "video" && $type != "audio" && $type != "text")
+		{
+			$type = "all";
+		}
+
+		if(!$term)
+			$results = $this->uploads->getNearest($long, $lat, $limit, $type);
+		else
+			$results = $this->uploads->search($long, $lat, $limit, $term, $type);
+
+		echo str_replace("\\/", '/', json_encode($results));
 		return;
 
 	}
@@ -139,6 +159,78 @@ class uploads extends CI_Controller {
 		else
 			echo str_replace("\\/", '/', json_encode($data));
 		return;
+	}
+
+	public function autoComplete($string)
+	{
+		$this->load->model('uploads_model', 'uploads');
+		$suggested = $this->uploads->getSuggestion($string);
+		header('Content-Type:application/json');
+		if(!$suggested)
+			echo 0;
+		else
+			echo json_encode($suggested);
+	}
+
+	public function getVenue($id, $limit=10)
+	{
+		$this->load->model('uploads_model', 'uploads');
+		$venues = $this->uploads->getByVenue($id, $limit);
+		header('Content-Type:application/json');
+		if(!$venues)
+			echo 0;
+		else
+			echo json_encode($venues);
+	}
+
+	public function ryanGet()
+	{
+		$this->load->model('uploads_model', 'uploads');
+		print_r($this->uploads->ryanGet());
+		return 0;
+	}
+
+	public function ryanGetTags()
+	{
+		$this->load->model('uploads_model', 'uploads');
+		print_r($this->uploads->ryanGetTags());
+		return 0;
+	}
+
+	public function getLatest($type = "all")
+	{
+		header('Content-Type:application/json');
+		$this->load->model('uploads_model', 'uploads');
+		echo str_replace("\\/", '/', json_encode($this->uploads->newsFeed($type)));
+	}
+
+	public function getUsername($id=0)
+	{
+		header('Content-Type:application/json');
+		$this->load->model('uploads_model', 'uploads');
+		$r = $this->uploads->getUser($id);
+		$r = array('account'=>$r);
+		echo json_encode($r);
+		return 0;
+	}
+
+	public function wipe()
+	{
+		$this->load->database();
+		if(1==2)
+		{
+			$q = $this->db->query("SELECT table_name 
+	FROM INFORMATION_SCHEMA.tables 
+	WHERE table_schema = 'ryanc001_coomko'");
+			foreach($q->result_array() as $r)
+			{
+				$this->db->query("truncate table " . $r['table_name']);
+				echo 'wiped ' . $r['table_name'] . '<br />';
+			}
+			echo 'all gone';
+		}
+		else
+			echo 'not happening';
 	}
 }
 

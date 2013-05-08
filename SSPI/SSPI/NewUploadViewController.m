@@ -303,7 +303,6 @@
 
 
 /* AUTO-COMPLETE */
-/* AUTO-COMPLETE */
 
 #pragma mark UITextFieldDelegate methods
 
@@ -342,6 +341,7 @@
     
     // Put anything that starts with this substring into the autocompleteUrls array
     // The items in this array is what will show up in the table view
+    NSLog(@"tag: %@", substring);
     [autocompleteTags removeAllObjects];
     for(NSString *curString in pastTags) {
         NSRange substringRange = [curString rangeOfString:substring];

@@ -8,14 +8,33 @@ class uploads_model extends CI_Model
 	}
 	
 
-	public function dump_upload($data, $tags)
+	public function uploadData($data, $tags)
 	{
 		$this->load->database();
-		if($data['type'] == "text")
+		$data['location'] = 0;
+		if(isset($data['locationname']) != false)
 		{
-			$this->db->insert('textUploads', array('textData'=>$data['data']));
-			$data['data'] = $this->db->insert_id();
+			$locationName = $data['locationname'];
+			unset($data['locationname']);
+			$this->db->select('id');
+			$this->db->where(array('name'=>strtolower($locationName)));
+			$q = $this->db->get('locations');
+			if($q->num_rows() != 1)
+			{
+				$this->db->insert('locations', array(	'name'=>strtolower($locationName),
+														'long'=>$data['long'],
+														'lat' =>$data['lat']));
+				$data['location'] = $this->db->insert_id();
+			}
+			else
+			{
+				$r = $q->result_array();
+				$data['location'] = $r[0]['id'];
+			}
 		}
+		if($data['expires'] == 0 || $data['expires'] == 'never')
+			$data['expires'] = 2147483647;
+
 		$this->db->insert('uploads', $data);
 		$insertid = $this->db->insert_id();
 		$this->db->where_in('name', $tags);
@@ -38,17 +57,36 @@ class uploads_model extends CI_Model
 		return;
 	}
 
-	public function get_uploads($results)
+	public function parseResults($results)
 	{
 		$this->load->database();
 		if(!count($results))
-			return;
+			return 0;
 		$final = array();
 		$idArray = array();
-		foreach($results as $r)
+		$venueArray = array();
+		foreach($results as $k=>$r)
 		{
 			$idArray[] = $r['id'];
 			$final[strval($r['id'])] = array();
+			if(array_key_exists('dataLocation', $r))
+				$results[$k]['dataLocation'] = 'http://thenicestthing.co.uk/coomko/uploads/'.$r['dataLocation'];
+			if(array_key_exists('location', $r))
+				$venueArray[] = $r['location'];
+
+		}
+		
+		if(count($venueArray) != 0)
+		{
+			$venueNames = array();
+			$this->db->where_in('id', $venueArray);
+			$this->db->select(array('id', 'name'));
+			$q = $this->db->get('locations');
+			foreach($q->result_array() as $r)
+				$venueNames[strval($r['id'])] = $r['name'];
+			foreach($results as $k=>$r)
+				if(array_key_exists(strval($r['location']), $venueNames))
+					$results[$k]['locationName'] = $venueNames[strval($r['location'])];
 		}
 		$this->db->where_in('upload', $idArray);
 		$this->db->order_by('upload', 'asc');
@@ -82,7 +120,10 @@ class uploads_model extends CI_Model
 				if(isset($tagLinkHold[$l]))
 				{
 					foreach($tagLinkHold[$l] as $k)
-						$final[$l]['tags'][] = $tagInfo[$k];
+					{
+						if(isset($tagInfo[$k]))
+							$final[$l]['tags'][] = $tagInfo[$k];
+					}
 				}
 		}
 		$finalN = array();
@@ -91,15 +132,19 @@ class uploads_model extends CI_Model
 		return array("pins"=>$finalN);
 	}
 
-	public function get_nearest($lng, $lat, $limit)
+	public function getNearest($lng, $lat, $limit, $type)
 	{
 		$this->load->database();
-		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` ORDER BY distance ASC LIMIT '.$limit;
+		$time = time();
+		$extra = "";
+		if($type != "all")
+			$extra = " AND type = '".$type."'";
+		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` WHERE expires > '.$time.' AND archived = 0 '.$extra.' ORDER BY distance ASC LIMIT '.$limit;
 		$q = $this->db->query($sql);
-		return $this->get_uploads($q->result_array());
+		return $this->parseResults($q->result_array());
 	}
 
-	function search($lng, $lat, $limit, $term)
+	function search($lng, $lat, $limit, $term, $type)
 	{
 		$this->load->database();
 		$limit*=6371;
@@ -110,7 +155,7 @@ class uploads_model extends CI_Model
 		foreach($tags->result_array() as $r)
 			$idArray[] = $r['id'];
 		if(!count($idArray))
-			return;
+			return 0;
 		$this->db->where_in('tag', $idArray);
 		$this->db->select('upload');
 		$this->db->distinct();
@@ -118,9 +163,14 @@ class uploads_model extends CI_Model
 		$idArray = array();
 		foreach($tagLink->result_array() as $r)
 			$idArray[] = $r['upload'];
-		$sql = 'SELECT `id`, `long`, `lat`, `type`, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` WHERE id IN ('. implode(',', $idArray) . ') HAVING distance<=\''.$limit.'\'  ORDER BY distance ASC LIMIT '.$limit;
+		$time = time();
+		$extra = "";
+		if($type != "all")
+			$extra = " AND type = '".$type."'";
+
+		$sql = 'SELECT *, (6371 * acos(cos(radians(' . $lat . ')) * cos(radians(`lat`)) * cos(radians(`long`) - radians(' . $lng . ')) + sin(radians(' . $lat . ')) * sin(radians(`lat`)))) AS distance FROM `uploads` WHERE id IN ('. implode(',', $idArray) . ') AND archived = 0 '.$extra.' AND expires > '. $time .' HAVING distance<=\''.$limit.'\'  ORDER BY distance ASC LIMIT '.$limit;
 		$q = $this->db->query($sql);
-		return $this->get_uploads($q->result_array());
+		return $this->parseResults($q->result_array());
 	}
 
 	function getPinById($id)
@@ -137,11 +187,96 @@ class uploads_model extends CI_Model
                'lastAccessed' => time()
             );
 
-			$this->db->where('id', $id);
-			$this->db->update('uploads', $data); 
+			$this->db->where(array('id'=> $id, 'expires >'=>time()));
+			$this->db->update('uploads', $data);
+			if($d[0]['location'] != 0)
+			{
+				$this->db->where('id', $d[0]['location']);
+				$this->db->select('name');
+				$q = $this->db->get('locations');
+				$q = $q->result_array();
+				$d[0]['locationName'] = $q[0]['name'];
+			}
+			else
+				$d[0]['locationName'] = 'null';
 			$d[0]['dataLocation'] = 'http://thenicestthing.co.uk/coomko/uploads/'.$d[0]['dataLocation'];
 			return $d[0];
 		}
+	}
+
+	function getSuggestion($string)
+	{
+		$this->load->database();
+		//$this->db->like('name', $string);
+		$q = $this->db->query("SELECT * FROM `tags` WHERE lower(name) LIKE '%$string%' LIMIT 3");
+		//$this->db->limit(3);
+		//$q = $this->db->get('tags');
+		if(!$q->num_rows())
+			return 0;
+		else
+			return $q->result_array();
+	}
+
+	function getByVenue($id, $limit)
+	{
+		$this->load->database();
+		$this->db->where(array("location"=>$id));
+		$this->db->limit($limit);
+		$q = $this->db->get('uploads');
+		if($q->num_rows() != 1)
+			return 0;
+		return $q->result_array();
+	}
+
+	function ryanGet()
+	{
+		$this->load->database();
+		$this->db->order_by('id', 'desc');
+		$this->db->limit(10);
+		$q = $this->db->get('uploads');
+		$q = $this->parseResults($q->result_array());
+		return $q;
+	}
+
+	function ryanGetTags()
+	{
+		$this->load->database();
+		$this->db->order_by('name', 'asc');
+		$q = $this->db->get('tags');
+		$q = $q->result_array();
+		return $q;
+	}
+
+	function newsFeed($type)
+	{
+		$this->load->database();
+		$this->db->order_by('id', 'desc');
+		if($type == "image")
+			$this->db->where('type', 'image');
+		else if($type == "text")
+			$this->db->where('type', 'text');
+		else if($type == "audio")
+			$this->db->where('type', 'audio');
+		else if($type == "video")
+			$this->db->where('type', 'video');
+		$this->db->limit('10');
+		$this->db->where('expires >', time());
+		$q = $this->db->get('uploads');
+		return $this->parseResults($q->result_array());
+	}
+
+	function getUser($id)
+	{
+		$this->load->database();
+		$this->db->where('id',$id);
+		$this->db->select(array('id', 'user'));
+		$q = $this->db->get('users');
+		if($q->num_rows() == 1)
+		{
+			$r = $q->result_array();
+			return $r[0];
+		}
+		return 0;
 	}
 
 
