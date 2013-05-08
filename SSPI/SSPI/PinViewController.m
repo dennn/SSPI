@@ -216,7 +216,7 @@
             
         case 2:
             cell.textLabel.text = @"Description";
-            if (_currentPin.description == NULL) {
+            if ([_currentPin.description isEqualToString:@""]) {
                 cell.detailTextLabel.text = @"No Description";
             } else {
                 cell.detailTextLabel.text = _currentPin.description;

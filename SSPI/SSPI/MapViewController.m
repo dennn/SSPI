@@ -340,7 +340,6 @@
     }
     
     [search resignFirstResponder];
-
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
@@ -481,7 +480,7 @@
         for (id <MKAnnotation> annotation in _currentMapView.annotations) {
             if (![annotation isKindOfClass:[MKUserLocation class]]) {
                 MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
-                rectToShow = MKMapRectUnion(rectToShow, MKMapRectMake(point.x, point.y, 800, 800));
+                rectToShow = MKMapRectUnion(rectToShow, MKMapRectMake(point.x-400, point.y-400, 800, 800));
             }
         }
         
@@ -504,7 +503,7 @@
 
     if (_zoomLevel != mapView.region.span.longitudeDelta)
     {
-        if (search.text == NULL)
+        if ([search.text isEqualToString:@""])
             [self searchForString:@""];
         _zoomLevel = mapView.region.span.longitudeDelta - 10.0;
     }
