@@ -31,6 +31,8 @@
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
+    [TestFlight setOptions:@{TFOptionReinstallCrashHandlers:@YES}];
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"6df6c829-85c0-4eb7-b992-8cbef54a54d0"];
 
     return YES;

@@ -1405,7 +1405,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
+				PROVISIONING_PROFILE = "D6AF19DE-7E0F-456A-840E-A2E9E37B2DC1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1433,7 +1433,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
+				PROVISIONING_PROFILE = "D6AF19DE-7E0F-456A-840E-A2E9E37B2DC1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1442,7 +1442,7 @@
 		B7860955166A75A3005117A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Denis Ogun (228S3H58G7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1456,7 +1456,7 @@
 					"\"$(SRCROOT)/SSPI\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1464,7 +1464,7 @@
 		B7860956166A75A3005117A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Denis Ogun (228S3H58G7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1478,7 +1478,7 @@
 					"\"$(SRCROOT)/SSPI\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -21,15 +21,14 @@
 @interface MapViewController ()
 {
     BOOL searching;
-    BOOL searched;
     BOOL shouldMoveToCurrentLocation;
+    BOOL showingSearch;
     UploadType currentFilter;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *currentMapView;
 @property (nonatomic, strong) NSMutableDictionary *venues;
 @property (nonatomic, assign) CLLocationDegrees zoomLevel;
-@property (nonatomic, assign) BOOL searchBarShown;
 @property (nonatomic, assign) BOOL changedMapRegion;
 @property (nonatomic, strong) UIButton *userHeadingButton;
 
@@ -45,7 +44,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Pinit", @"Pinit");
+        self.title = @"pinit";
         self.tabBarItem.image = [UIImage imageNamed:@"map"];
     }
     return self;
@@ -55,16 +54,14 @@
 {
     [super viewDidLoad];    
     //Add the search button to toggle the search bar
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleSearch)];
-    _searchBarShown = FALSE;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showSearch)];
     _changedMapRegion = FALSE;
     searching = FALSE;
-    searched = FALSE;
     
     search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, -60, 320, 44)];
     search.delegate = self;
     search.tintColor = [UIColor colorWithRed:30.0f/255.0f green:33.0f/255.0f blue:36.0f/255.0f alpha:1.0f];
-    search.showsCancelButton = TRUE;
+    search.text = @"";
 
     [self.view addSubview:search];
     
@@ -172,6 +169,13 @@
     [self.view addSubview:toolbar];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![search.text isEqualToString:@""]) {
+        [self showSearch2];
+    } 
+}
+
 - (void)valueChanged:(id)sender
 {
     UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
@@ -207,41 +211,78 @@
     [self searchForString:@""];
 }
 
-- (void)toggleSearch
+- (void)hideSearch
 {
-    if (_searchBarShown)
-    {
+    if (showingSearch == TRUE) {
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         search.frame = CGRectMake(0, -60, search.frame.size.width, search.frame.size.height);
         [UIView commitAnimations];
-        _searchBarShown = FALSE;
         [search resignFirstResponder];
+        showingSearch = FALSE;
+        search.text = @"";
+        [self searchForString:search.text];
     } else {
+        [self showSearch];
+    }
+}
+
+- (void)showSearch
+{
+    if (showingSearch == FALSE) {
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         search.frame = CGRectMake(0, 0, search.frame.size.width, search.frame.size.height);
         [UIView commitAnimations];
-        _searchBarShown = TRUE;
+        if ([search.text isEqualToString:@""]) {
+            [search becomeFirstResponder];
+        }
+        showingSearch = TRUE;
+    } else {
+        [self hideSearch];
+    }
+}
+
+- (void)showSearch2
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    search.frame = CGRectMake(0, 0, search.frame.size.width, search.frame.size.height);
+    [UIView commitAnimations];
+    if ([search.text isEqualToString:@""]) {
         [search becomeFirstResponder];
     }
+    showingSearch = TRUE;
+}
+
+- (void)hideSearch2
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    search.frame = CGRectMake(0, -60, search.frame.size.width, search.frame.size.height);
+    [UIView commitAnimations];
+    [search resignFirstResponder];
+    showingSearch = FALSE;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     //Grab the text from the search bar and send off a query
-    [self searchForString:searchBar.text];
+    if (![searchBar.text isEqualToString:@""]) {
+        [self searchForString:searchBar.text];
+    }
     [searchBar resignFirstResponder];
-    searched = TRUE;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
     searchBar.text = @"";
-    [self toggleSearch];
+    [self hideSearch];
 }
 
 - (void)searchForString:(NSString *)string
@@ -294,10 +335,12 @@
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
         return;
     
-    if (_searchBarShown) {
-        [search resignFirstResponder];
-        [self toggleSearch];
+    if ([search.text isEqualToString:@""]) {
+        [self hideSearch2];
     }
+    
+    [search resignFirstResponder];
+
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
@@ -368,10 +411,10 @@
 {
     if (searching)
     {
-    // Remove all pins from map view
-    id userLocation = [_currentMapView userLocation];
-    NSMutableArray *pinsToRemove = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
-    if ( userLocation != nil ) {
+        // Remove all pins from map view
+        id userLocation = [_currentMapView userLocation];
+        NSMutableArray *pinsToRemove = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
+        if ( userLocation != nil ) {
         [pinsToRemove removeObject:userLocation]; // avoid removing user location off the map
     }
     
@@ -438,16 +481,11 @@
         for (id <MKAnnotation> annotation in _currentMapView.annotations) {
             if (![annotation isKindOfClass:[MKUserLocation class]]) {
                 MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
-                MKMapRect rectForPoint = MKMapRectMake(point.x, point.y, 0.1, 0.1);
-                if (MKMapRectIsNull(rectToShow)) {
-                    rectToShow = rectForPoint;
-                } else {
-                    rectToShow = MKMapRectUnion(rectToShow, rectForPoint);
-                }
+                rectToShow = MKMapRectUnion(rectToShow, MKMapRectMake(point.x, point.y, 800, 800));
             }
         }
-
-        [_currentMapView setVisibleMapRect:rectToShow edgePadding:UIEdgeInsetsMake(54, 0, 0, 0) animated:YES];
+        
+        [_currentMapView setRegion:MKCoordinateRegionForMapRect(rectToShow) animated:YES];
         _changedMapRegion = FALSE;
     }
     
