@@ -45,7 +45,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Map", @"Map");
+        self.title = NSLocalizedString(@"Pinit", @"Pinit");
         self.tabBarItem.image = [UIImage imageNamed:@"map"];
     }
     return self;
