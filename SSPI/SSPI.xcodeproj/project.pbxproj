@@ -30,6 +30,8 @@
 		B703BD7216767E6C000A46D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91ED167397D600025577 /* Security.framework */; };
 		B703BD7316767E77000A46D8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91EB167397BF00025577 /* CoreData.framework */; };
 		B703BD7416767E7C000A46D8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77E91E9167397B300025577 /* CFNetwork.framework */; };
+		B70B553A173A847C00BAD613 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B70B5539173A847C00BAD613 /* libz.dylib */; };
+		B70B553D173A893400BAD613 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B70B553B173A893400BAD613 /* libTestFlight.a */; };
 		B71268D71726BBE600F668E9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71268D61726BBE600F668E9 /* MediaPlayer.framework */; };
 		B7198AE316D1281500740CC2 /* PinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7198AE116D1281500740CC2 /* PinViewController.m */; };
 		B7198AE416D1281500740CC2 /* PinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7198AE216D1281500740CC2 /* PinViewController.xib */; };
@@ -270,6 +272,9 @@
 		18E4A98A16BFDFE6003C2852 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18E4A98B16BFDFE6003C2852 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		18EA02AD16C2A3BA00B29C0F /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		B70B5539173A847C00BAD613 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		B70B553B173A893400BAD613 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		B70B553C173A893400BAD613 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		B71268D61726BBE600F668E9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		B7198AE016D1281500740CC2 /* PinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinViewController.h; sourceTree = "<group>"; };
 		B7198AE116D1281500740CC2 /* PinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinViewController.m; sourceTree = "<group>"; };
@@ -517,6 +522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70B553A173A847C00BAD613 /* libz.dylib in Frameworks */,
 				CCC3AF39172DC6F8005F55EF /* AudioToolbox.framework in Frameworks */,
 				CCC3AF37172DC6ED005F55EF /* CoreAudio.framework in Frameworks */,
 				B7A01DB016BDB67F0065FFC8 /* AVFoundation.framework in Frameworks */,
@@ -535,12 +541,22 @@
 				B7860929166A75A3005117A2 /* Foundation.framework in Frameworks */,
 				B786092B166A75A3005117A2 /* CoreGraphics.framework in Frameworks */,
 				0C643A51172AC2AD0028459D /* SDWebImage.framework in Frameworks */,
+				B70B553D173A893400BAD613 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B70B5532173A836A00BAD613 /* Testflight */ = {
+			isa = PBXGroup;
+			children = (
+				B70B553B173A893400BAD613 /* libTestFlight.a */,
+				B70B553C173A893400BAD613 /* TestFlight.h */,
+			);
+			name = Testflight;
+			sourceTree = "<group>";
+		};
 		B7254DDA16DA880E005B4913 /* AwesomeMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -694,6 +710,7 @@
 		B7860917166A75A3005117A2 = {
 			isa = PBXGroup;
 			children = (
+				B70B5539173A847C00BAD613 /* libz.dylib */,
 				CCC3AF38172DC6F8005F55EF /* AudioToolbox.framework */,
 				CCC3AF36172DC6ED005F55EF /* CoreAudio.framework */,
 				0C908833172C71410040E9CC /* CoreMedia.framework */,
@@ -791,6 +808,7 @@
 		B7860959166A7870005117A2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B70B5532173A836A00BAD613 /* Testflight */,
 				B728442617268E28007D5F37 /* SORelativeDateTransformer */,
 				B7EEBAE4171D77B900057D71 /* UIImage+Resize */,
 				B785E55C1701160B0022235F /* SSTextView */,
@@ -1387,7 +1405,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "B19C1B5B-ED47-4E67-A9A4-EC72CEF22730";
+				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1415,7 +1433,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "B19C1B5B-ED47-4E67-A9A4-EC72CEF22730";
+				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1424,7 +1442,8 @@
 		B7860955166A75A3005117A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Denis Ogun (228S3H58G7)";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SSPI\"",
@@ -1432,8 +1451,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SSPI/SSPI-Prefix.pch";
 				INFOPLIST_FILE = "SSPI/SSPI-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSPI\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1441,7 +1464,8 @@
 		B7860956166A75A3005117A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Denis Ogun (228S3H58G7)";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SSPI\"",
@@ -1449,8 +1473,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SSPI/SSPI-Prefix.pch";
 				INFOPLIST_FILE = "SSPI/SSPI-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSPI\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9DFE629F-1AAC-4DF6-8280-D9B62D0EBBD1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

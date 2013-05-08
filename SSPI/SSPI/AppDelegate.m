@@ -11,6 +11,7 @@
 #import "JASidePanelController.h"
 #import "SideViewController.h"
 #import "LoginViewController.h"
+#import "TestFlight.h"
 
 @implementation AppDelegate
 
@@ -28,8 +29,10 @@
    
     navController.navigationBarHidden = YES;
     self.window.rootViewController = navController;
-    [self.window makeKeyAndVisible]; 
+    [self.window makeKeyAndVisible];
     
+    [TestFlight takeOff:@"6df6c829-85c0-4eb7-b992-8cbef54a54d0"];
+
     return YES;
 }
 
