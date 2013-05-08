@@ -187,8 +187,12 @@
                 
             case 3:
             {
+                NSLog(@"parsing expires");
+                cell.detailTextLabel.text = @" ";
+
                 if (expires && !overwrite)
                 {
+                    
                     cell.detailTextLabel.text = expires;
                 }else if(overwrite){
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:
@@ -201,6 +205,10 @@
                 }
                 if([expires isEqualToString:@"0"])
                     cell.detailTextLabel.text = @"";
+
+                if(!overwrite || [cell.detailTextLabel.text isEqualToString:@""]){
+                    cell.detailTextLabel.text = @" ";
+                }
                 cell.textLabel.text = @"Expires";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"Calendar.png"];
@@ -294,6 +302,9 @@
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
     NSLog(@"Expires: %@", expires);
     expiryCell.detailTextLabel.text = expires;
+    NSArray *array = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathWithIndex:3], nil];
+    [self.tableView reloadRowsAtIndexPaths:array withRowAnimation:nil];
+    expiryCell.detailTextLabel.hidden = NO;
 }
 
 - (void)datePickerCancel:(TDDatePickerController *)viewController
