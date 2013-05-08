@@ -303,7 +303,6 @@
 
 
 /* AUTO-COMPLETE */
-/* AUTO-COMPLETE */
 
 #pragma mark UITextFieldDelegate methods
 
