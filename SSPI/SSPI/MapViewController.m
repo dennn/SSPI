@@ -462,8 +462,11 @@
             {
                 if ([venueIn.venueID isEqualToString:venueOut.venueID])
                 {
-                    [pinsToRemove removeObject:venueIn];
-                //    [pinsToShow removeObject:venueOut];
+                    if (([venueIn pinsCount] == venueOut.pinsCount) && (venueIn.venuesCount == venueOut.venuesCount))
+                    {
+                        [pinsToRemove removeObject:venueIn];
+                        [pinsToShow removeObject:venueOut];
+                    } 
                 }
             }
         }
