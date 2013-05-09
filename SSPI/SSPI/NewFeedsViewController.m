@@ -64,7 +64,6 @@
                 _feeds = posts;
                 for (int i =0; i<[_feeds count]; i++) {
                     feedSourceManager *f = [_feeds objectAtIndex:i];
-                    NSLog(@"%d",(int)f.userid);
                     NSString* userid = [NSString stringWithFormat:@"coomko/index.php/uploads/getUsername/%d", (int)f.userid];
                     NSString* d_username;
                     d_username = [username objectForKey:[NSString stringWithFormat:@"%d",(int)f.userid]];
@@ -128,9 +127,8 @@
                                                                                                      (int)cell._feed.userid]],cell._feed.type];
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL
-                       placeholderImage:[UIImage imageNamed:@"icon-photo.png"]];
+                       placeholderImage:[UIImage imageNamed:@"loading.png"]];
         cell.detailTextLabel.text = [NSString stringWithFormat: @""];
-        [cell setNeedsLayout];
     }
     else if([cell._feed.type isEqualToString:@"text"])
     {
