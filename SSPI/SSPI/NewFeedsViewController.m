@@ -191,7 +191,7 @@
         UIImageView *detailView = [[UIImageView alloc] init];
         [detailView setBackgroundColor:[UIColor blackColor]];
         [detailView setImageWithURL:imageURL
-                       placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
+                       placeholderImage:[UIImage imageNamed:@"icon-photo.png"]];
         detailViewController.view = detailView;
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
