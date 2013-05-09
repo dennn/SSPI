@@ -414,81 +414,83 @@
         id userLocation = [_currentMapView userLocation];
         NSMutableArray *pinsToRemove = [[NSMutableArray alloc] initWithArray:[_currentMapView annotations]];
         if ( userLocation != nil ) {
-        [pinsToRemove removeObject:userLocation]; // avoid removing user location off the map
-    }
+            [pinsToRemove removeObject:userLocation]; // avoid removing user location off the map
+        }
     
-    // Cluster pins that are too close to each other
-    float latDelta = _currentMapView.region.span.latitudeDelta/9.0;
-    float longDelta = _currentMapView.region.span.longitudeDelta/11.0;
-    NSMutableArray *venuesArray = [NSMutableArray new];
-    for (NSString *key in pinLocations) {
-        Venue *venue = (Venue *)[pinLocations objectForKey:key];
-        [venue cleanChildren];
-        [venuesArray addObject:venue];
-    }
+        // Cluster pins that are too close to each other
+        float latDelta = _currentMapView.region.span.latitudeDelta/9.0;
+        float longDelta = _currentMapView.region.span.longitudeDelta/11.0;
+        NSMutableArray *venuesArray = [NSMutableArray new];
+        for (NSString *key in pinLocations) {
+            Venue *venue = (Venue *)[pinLocations objectForKey:key];
+            [venue cleanChildren];
+            [venuesArray addObject:venue];
+        }
+     
     
-    NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
+        NSMutableArray *pinsToShow = [[NSMutableArray alloc] init];
         
-    for (int i = 0; i < [pinLocations count]; i++)
-    {
-        Venue *venueToCheck = [venuesArray objectAtIndex:i];
-        CLLocationDegrees latitude = venueToCheck.coordinate.latitude;
-        CLLocationDegrees longitude = venueToCheck.coordinate.longitude;
-            
-        bool found = FALSE;
-        for (Venue *tempAnnotation in pinsToShow) {
-            if(fabs(tempAnnotation.coordinate.latitude - latitude) < latDelta &&
-               fabs(tempAnnotation.coordinate.longitude - longitude) < longDelta)
-            {
-                [_currentMapView removeAnnotation:venueToCheck];
-                found = TRUE;
-                [tempAnnotation addChildVenue:venueToCheck];
-                break;
-            }
-        }
-        if (!found) {
-            [pinsToShow addObject:venueToCheck];
-        }
-    }
-    
-    NSArray *tempPinsToShow = [pinsToShow copy];
-    NSArray *tempPinsToRemove = [pinsToRemove copy];
-    
-    for (Venue *venueOut in tempPinsToShow)
-    {
-        for (Venue *venueIn in tempPinsToRemove)
+        for (int i = 0; i < [pinLocations count]; i++)
         {
-            if ([venueIn.venueID isEqualToString:venueOut.venueID])
-            {
-                [pinsToRemove removeObject:venueIn];
-                [pinsToShow removeObject:venueOut];
+            Venue *venueToCheck = [venuesArray objectAtIndex:i];
+            CLLocationDegrees latitude = venueToCheck.coordinate.latitude;
+            CLLocationDegrees longitude = venueToCheck.coordinate.longitude;
+            
+            bool found = FALSE;
+            for (Venue *tempAnnotation in pinsToShow) {
+                if(fabs(tempAnnotation.coordinate.latitude - latitude) < latDelta &&
+                fabs(tempAnnotation.coordinate.longitude - longitude) < longDelta)
+                {
+                    if (venueToCheck != tempAnnotation) {
+                        found = TRUE;
+                        [tempAnnotation addChildVenue:venueToCheck];
+                        break;
+                    }
+                }
             }
-        }
-    }
-    
-    [_currentMapView removeAnnotations:pinsToRemove];
-    [_currentMapView addAnnotations:pinsToShow];
-
-    pinsToRemove = nil;
-    pinsToShow = nil;
-
-
-    // Move the map to show the pins that have been found
-    if (_changedMapRegion) {
-        MKMapRect rectToShow = MKMapRectNull;
-
-        for (id <MKAnnotation> annotation in _currentMapView.annotations) {
-            if (![annotation isKindOfClass:[MKUserLocation class]]) {
-                MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
-                rectToShow = MKMapRectUnion(rectToShow, MKMapRectMake(point.x-400, point.y-400, 800, 800));
+            if (!found) {
+                [pinsToShow addObject:venueToCheck];
             }
         }
         
-        [_currentMapView setRegion:MKCoordinateRegionForMapRect(rectToShow) animated:YES];
-        _changedMapRegion = FALSE;
-    }
+        NSArray *tempPinsToShow = [pinsToShow copy];
+        NSArray *tempPinsToRemove = [pinsToRemove copy];
     
-    searching = FALSE;
+        for (Venue *venueOut in tempPinsToShow)
+        {
+            for (Venue *venueIn in tempPinsToRemove)
+            {
+                if ([venueIn.venueID isEqualToString:venueOut.venueID])
+                {
+                    [pinsToRemove removeObject:venueIn];
+                //    [pinsToShow removeObject:venueOut];
+                }
+            }
+        }
+    
+        [_currentMapView removeAnnotations:pinsToRemove];
+        [_currentMapView addAnnotations:pinsToShow];
+
+        pinsToRemove = nil;
+        pinsToShow = nil;
+
+
+        // Move the map to show the pins that have been found
+        if (_changedMapRegion) {
+            MKMapRect rectToShow = MKMapRectNull;
+
+            for (id <MKAnnotation> annotation in _currentMapView.annotations) {
+                if (![annotation isKindOfClass:[MKUserLocation class]]) {
+                    MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
+                    rectToShow = MKMapRectUnion(rectToShow, MKMapRectMake(point.x-400, point.y-400, 800, 800));
+                }
+            }
+        
+            [_currentMapView setRegion:MKCoordinateRegionForMapRect(rectToShow) animated:YES];
+            _changedMapRegion = FALSE;
+        }
+    
+        searching = FALSE;
     }
 }
 

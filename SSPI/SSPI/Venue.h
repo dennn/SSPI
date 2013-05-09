@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *venueID;
 @property (nonatomic, strong) NSMutableArray *pins;
 @property (nonatomic, strong) NSMutableArray *venues;
+@property (nonatomic, assign) BOOL removed;
 
 - (id)initWithVenueID:(NSString *)venue;
 
