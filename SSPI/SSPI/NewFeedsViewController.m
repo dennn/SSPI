@@ -128,8 +128,9 @@
                                                                                                      (int)cell._feed.userid]],cell._feed.type];
         NSURL *imageURL = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@",cell._feed.dataLocation]];
         [cell.imageView setImageWithURL:imageURL
-                       placeholderImage:[UIImage imageNamed:@"User-icon.png"]];
+                       placeholderImage:[UIImage imageNamed:@"icon-photo.png"]];
         cell.detailTextLabel.text = [NSString stringWithFormat: @""];
+        [cell setNeedsLayout];
     }
     else if([cell._feed.type isEqualToString:@"text"])
     {
